@@ -720,6 +720,63 @@
             margin-top: 3px;
         }
 
+        /* ─── COURSES ─── */
+        .courses-heading {
+            font-size: .7rem;
+            font-weight: 700;
+            letter-spacing: 1.8px;
+            text-transform: uppercase;
+            color: var(--accent);
+            margin: 36px 0 14px;
+            padding-top: 28px;
+            border-top: 1px solid rgba(255,255,255,.1);
+        }
+
+        .course-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 14px;
+        }
+
+        .course-card {
+            background: rgba(255,255,255,.06);
+            border: 1px solid rgba(255,255,255,.1);
+            border-radius: var(--radius);
+            padding: 16px 18px;
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            transition: background var(--transition);
+        }
+
+        .course-card:hover { background: rgba(255,255,255,.1); }
+
+        .course-platform {
+            display: inline-block;
+            font-size: .65rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: .8px;
+            color: var(--navy);
+            background: var(--accent);
+            padding: 2px 8px;
+            border-radius: 4px;
+            margin-bottom: 6px;
+        }
+
+        .course-name {
+            font-size: .88rem;
+            font-weight: 600;
+            color: var(--white);
+            line-height: 1.35;
+        }
+
+        .course-date {
+            font-size: .73rem;
+            color: rgba(255,255,255,.4);
+            margin-top: 3px;
+        }
+
         /* ─── BLOG ─── */
         #blog {
             background: var(--light);
@@ -1674,6 +1731,56 @@
                         <div class="cert-issuer">Salesforce · Apr 2023</div>
                     </div>
                 </div>
+            </div>
+
+            <div class="courses-heading">Courses &amp; Training</div>
+            <div class="course-grid">
+
+                <div class="course-card">
+                    <div class="cert-icon">💻</div>
+                    <div>
+                        <div class="course-platform">Udemy</div>
+                        <div class="course-name">Mastering Salesforce Commerce Cloud &mdash; The Complete Bootcamp</div>
+                        <div class="course-date">Jun 2023</div>
+                    </div>
+                </div>
+
+                <div class="course-card">
+                    <div class="cert-icon">🤖</div>
+                    <div>
+                        <div class="course-platform">Udemy</div>
+                        <div class="course-name">ChatGPT for Salesforce Admins &amp; Developers</div>
+                        <div class="course-date">Jun 2023</div>
+                    </div>
+                </div>
+
+                <div class="course-card">
+                    <div class="cert-icon">⭐</div>
+                    <div>
+                        <div class="course-platform">Udemy</div>
+                        <div class="course-name">Salesforce 101: Introduction to Salesforce</div>
+                        <div class="course-date">Mar 2023</div>
+                    </div>
+                </div>
+
+                <div class="course-card">
+                    <div class="cert-icon">🎓</div>
+                    <div>
+                        <div class="course-platform">Packt</div>
+                        <div class="course-name">ChatGPT for Salesforce Development</div>
+                        <div class="course-date">Mar 2025</div>
+                    </div>
+                </div>
+
+                <div class="course-card">
+                    <div class="cert-icon">💬</div>
+                    <div>
+                        <div class="course-platform">Anthropic</div>
+                        <div class="course-name">Claude Code in Action</div>
+                        <div class="course-date">Apr 2026</div>
+                    </div>
+                </div>
+
             </div>
         </div>
     </section>
