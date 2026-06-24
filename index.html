@@ -947,6 +947,89 @@
             transform: none;
         }
 
+        /* ─── PROJECT FILTERS ─── */
+        .filter-bar {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-bottom: 36px;
+        }
+
+        .filter-btn {
+            padding: 7px 18px;
+            border-radius: 20px;
+            border: 1.5px solid var(--border);
+            background: var(--white);
+            color: var(--muted);
+            font-size: .82rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .filter-btn:hover,
+        .filter-btn.active {
+            background: var(--navy);
+            color: var(--white);
+            border-color: var(--navy);
+        }
+
+        .project-card[hidden] {
+            display: none;
+        }
+
+        /* ─── EDUCATION ─── */
+        #education {
+            background: var(--light);
+        }
+
+        .edu-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 20px;
+        }
+
+        .edu-card {
+            background: var(--white);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 22px 24px;
+            box-shadow: var(--shadow);
+            display: flex;
+            align-items: flex-start;
+            gap: 16px;
+            transition: transform var(--transition), box-shadow var(--transition);
+        }
+
+        .edu-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 32px rgba(15, 32, 68, .13);
+        }
+
+        .edu-icon {
+            font-size: 2rem;
+            flex-shrink: 0;
+        }
+
+        .edu-card h4 {
+            font-size: 1rem;
+            font-weight: 700;
+            color: var(--navy);
+            margin-bottom: 4px;
+        }
+
+        .edu-card .edu-degree {
+            font-size: .88rem;
+            color: var(--blue);
+            font-weight: 500;
+            margin-bottom: 4px;
+        }
+
+        .edu-card .edu-date {
+            font-size: .78rem;
+            color: var(--muted);
+        }
+
         /* ─── RESPONSIVE ─── */
         @media (max-width: 768px) {
             nav {
@@ -1011,6 +1094,7 @@
             <li><a href="#experience">Experience</a></li>
             <li><a href="#projects">Projects</a></li>
             <li><a href="#certifications">Certs</a></li>
+            <li><a href="#education">Education</a></li>
             <li><a href="#blog">Blog</a></li>
             <li><a href="#contact" class="nav-cta">Contact</a></li>
         </ul>
@@ -1025,6 +1109,7 @@
         <a href="#experience" class="mobile-link">Experience</a>
         <a href="#projects" class="mobile-link">Projects</a>
         <a href="#certifications" class="mobile-link">Certifications</a>
+        <a href="#education" class="mobile-link">Education</a>
         <a href="#blog" class="mobile-link">Blog</a>
         <a href="#contact" class="mobile-link">Contact</a>
     </div>
@@ -1139,7 +1224,7 @@
             <p class="section-label fade-in">Technical Skills</p>
             <h2 class="section-title fade-in">What I Work With</h2>
             <p class="section-desc fade-in">A broad toolkit built over 15 years — deep in Salesforce, strong in Java and
-                mobile, comfortable across the full stack.</p>
+                mobile, expanding into Data Cloud &amp; AI.</p>
 
             <div class="skills-grid">
                 <div class="skill-group fade-in">
@@ -1155,7 +1240,20 @@
                         <span class="tag">Salesforce DX</span>
                         <span class="tag">SOQL / SOSL</span>
                         <span class="tag">Flow Builder</span>
+                        <span class="tag">Batch / Queueable</span>
+                        <span class="tag">Platform Events</span>
+                        <span class="tag">Triggers</span>
+                        <span class="tag">Health Cloud</span>
+                    </div>
+                </div>
+                <div class="skill-group fade-in">
+                    <div class="skill-group-name">AI &amp; Data Cloud</div>
+                    <div class="skill-tags">
                         <span class="tag">Data Cloud</span>
+                        <span class="tag">Agentforce</span>
+                        <span class="tag">Einstein AI</span>
+                        <span class="tag">Prompt Builder</span>
+                        <span class="tag">AI / LLM</span>
                     </div>
                 </div>
                 <div class="skill-group fade-in">
@@ -1169,6 +1267,8 @@
                         <span class="tag">Middleware</span>
                         <span class="tag">Data Migration</span>
                         <span class="tag">MuleSoft</span>
+                        <span class="tag">Oracle OIC</span>
+                        <span class="tag">Change Data Capture</span>
                     </div>
                 </div>
                 <div class="skill-group fade-in">
@@ -1176,6 +1276,7 @@
                     <div class="skill-tags">
                         <span class="tag">Java</span>
                         <span class="tag">Spring Boot</span>
+                        <span class="tag">Hibernate</span>
                         <span class="tag">Python</span>
                         <span class="tag">JavaScript / TypeScript</span>
                         <span class="tag">iOS (Swift)</span>
@@ -1189,12 +1290,24 @@
                     <div class="skill-tags">
                         <span class="tag">Solution Architecture</span>
                         <span class="tag">System Design</span>
+                        <span class="tag">Sharing Model</span>
                         <span class="tag">Git / GitHub</span>
                         <span class="tag">CI/CD</span>
                         <span class="tag">Agile / Scrum</span>
                         <span class="tag">Kanban</span>
                         <span class="tag">Jira</span>
                         <span class="tag">Code Review</span>
+                        <span class="tag">SDLC</span>
+                        <span class="tag">Mentoring</span>
+                    </div>
+                </div>
+                <div class="skill-group fade-in">
+                    <div class="skill-group-name">Languages &amp; Location</div>
+                    <div class="skill-tags">
+                        <span class="tag">English — Professional</span>
+                        <span class="tag">Arabic — Native</span>
+                        <span class="tag">📍 Cairo, Egypt</span>
+                        <span class="tag">🌐 Open to Remote</span>
                     </div>
                 </div>
             </div>
@@ -1517,13 +1630,21 @@
     <section id="projects">
         <div class="container">
             <p class="section-label fade-in">Portfolio</p>
-            <h2 class="section-title fade-in">Selected Projects</h2>
-            <p class="section-desc fade-in">A selection of enterprise-grade Salesforce implementations and technology
-                solutions delivered across industries.</p>
+            <h2 class="section-title fade-in">All Projects</h2>
+            <p class="section-desc fade-in">Every major project from 15+ years of engineering — Salesforce CRM, mobile
+                apps, Java backends, and tools.</p>
 
-            <div class="projects-grid">
+            <div class="filter-bar fade-in">
+                <button class="filter-btn active" data-filter="all">All</button>
+                <button class="filter-btn" data-filter="salesforce">Salesforce CRM</button>
+                <button class="filter-btn" data-filter="mobile">Mobile Apps</button>
+                <button class="filter-btn" data-filter="java">Java &amp; Backend</button>
+                <button class="filter-btn" data-filter="tools">Tools &amp; AI</button>
+            </div>
 
-                <div class="project-card fade-in">
+            <div class="projects-grid" id="projectsGrid">
+
+                <div class="project-card fade-in" data-category="salesforce">
                     <div class="project-industry">Heavy Equipment · Multi-Country</div>
                     <div class="project-name">Mantrac Caterpillar CRM</div>
                     <div class="project-desc">
@@ -1546,13 +1667,14 @@
                     </div>
                 </div>
 
-                <div class="project-card fade-in">
+                <div class="project-card fade-in" data-category="salesforce">
                     <div class="project-industry">Automotive · Multi-Country</div>
                     <div class="project-name">Stellantis Salesforce CRM</div>
                     <div class="project-desc">
                         Salesforce Run Manager for Stellantis, one of the world's largest automotive groups.
                         Delivered and maintained CRM operations across France, Germany, UK, Italy, and Spain
-                        while leading the Capgemini technical team.
+                        while leading the Capgemini technical support and development team. Ensured platform
+                        stability, continuous delivery, and best-practice governance across 5 national orgs.
                     </div>
                     <div class="project-tags">
                         <span class="project-tag">Sales Cloud</span>
@@ -1560,78 +1682,84 @@
                         <span class="project-tag">Apex</span>
                         <span class="project-tag">LWC</span>
                         <span class="project-tag">Multi-org</span>
+                        <span class="project-tag">Salesforce DX</span>
                     </div>
                 </div>
 
-                <div class="project-card fade-in">
+                <div class="project-card fade-in" data-category="salesforce mobile">
                     <div class="project-industry">Non-profit · Social Services</div>
                     <div class="project-name">Coptic Orphans App &amp; CRM</div>
                     <div class="project-desc">
                         Built a mobile app and Salesforce CRM platform for Coptic Orphans, a leading
-                        non-profit supporting orphaned children. Enabled field workers to manage cases,
-                        sponsors, and services from any device.
+                        non-profit supporting orphaned children across Egypt. Enabled field workers to
+                        manage child cases, sponsors, and services from any device with offline capability.
                     </div>
                     <div class="project-tags">
                         <span class="project-tag">iOS</span>
                         <span class="project-tag">Android</span>
                         <span class="project-tag">Salesforce CRM</span>
                         <span class="project-tag">Non-profit Cloud</span>
+                        <span class="project-tag">REST API</span>
                     </div>
                 </div>
 
-                <div class="project-card fade-in">
+                <div class="project-card fade-in" data-category="salesforce">
                     <div class="project-industry">Real Estate</div>
                     <div class="project-name">Wadi Degla Developments CRM</div>
                     <div class="project-desc">
                         End-to-end Salesforce CRM for one of Egypt's largest real estate developers.
-                        Streamlined sales pipeline, marketing automation, and customer service operations
-                        across multiple property developments.
+                        Streamlined sales pipeline, marketing automation, and customer service operations.
+                        Built custom Apex triggers, Flow automations, Visualforce/LWC pages, and
+                        third-party integrations.
                     </div>
                     <div class="project-tags">
                         <span class="project-tag">Sales Cloud</span>
                         <span class="project-tag">Flow Builder</span>
                         <span class="project-tag">Apex</span>
+                        <span class="project-tag">LWC</span>
                         <span class="project-tag">Integrations</span>
                     </div>
                 </div>
 
-                <div class="project-card fade-in">
+                <div class="project-card fade-in" data-category="salesforce mobile">
                     <div class="project-industry">Retail · Home Goods</div>
                     <div class="project-name">Mahgoub App &amp; Salesforce CRM</div>
                     <div class="project-desc">
                         Sales representative mobile app and Salesforce CRM for Mahgoub, a major
                         Egyptian retail brand. Empowered field reps with real-time order placement,
-                        inventory visibility, and customer management.
+                        inventory visibility, and customer management — all synced to the CRM.
                     </div>
                     <div class="project-tags">
-                        <span class="project-tag">Mobile App</span>
+                        <span class="project-tag">iOS</span>
+                        <span class="project-tag">Android</span>
                         <span class="project-tag">Sales Cloud</span>
                         <span class="project-tag">REST API</span>
                     </div>
                 </div>
 
-                <div class="project-card fade-in">
+                <div class="project-card fade-in" data-category="salesforce">
                     <div class="project-industry">Logistics · Courier</div>
                     <div class="project-name">Egyptexpress Salesforce CRM</div>
                     <div class="project-desc">
                         Full Salesforce CRM implementation for Egyptexpress, a courier and logistics
-                        company. Automated shipment tracking, customer communications, and operations
-                        management workflows.
+                        company. Automated shipment tracking, customer communications, SLA management,
+                        and operations workflows with custom Apex and Flow.
                     </div>
                     <div class="project-tags">
                         <span class="project-tag">Service Cloud</span>
                         <span class="project-tag">Flows</span>
                         <span class="project-tag">Apex</span>
+                        <span class="project-tag">Data Migration</span>
                     </div>
                 </div>
 
-                <div class="project-card fade-in">
+                <div class="project-card fade-in" data-category="salesforce">
                     <div class="project-industry">Pet Services · Veterinary</div>
                     <div class="project-name">Vetwork Salesforce CRM</div>
                     <div class="project-desc">
                         Salesforce CRM for Vetwork, an innovative pet services and veterinary
                         booking platform. Managed vet appointments, customer records, and
-                        service delivery tracking.
+                        service delivery tracking via Experience Cloud and LWC.
                     </div>
                     <div class="project-tags">
                         <span class="project-tag">Sales Cloud</span>
@@ -1640,29 +1768,98 @@
                     </div>
                 </div>
 
-                <div class="project-card fade-in">
+                <div class="project-card fade-in" data-category="salesforce">
                     <div class="project-industry">Pharmaceutical · Healthcare</div>
                     <div class="project-name">IQVIA Pharma CRM</div>
                     <div class="project-desc">
                         Led agile delivery of Salesforce implementations for the pharmaceutical
-                        industry at IQVIA. Designed architecture presentations for Sales, Service,
-                        and Experience Cloud solutions for global pharma clients.
+                        industry at IQVIA. Conducted requirements workshops, presented solution
+                        architecture to C-level stakeholders, and implemented Sales, Service, and
+                        Experience Cloud solutions for global pharma clients.
                     </div>
                     <div class="project-tags">
                         <span class="project-tag">Sales Cloud</span>
                         <span class="project-tag">Service Cloud</span>
                         <span class="project-tag">Experience Cloud</span>
+                        <span class="project-tag">Health Cloud</span>
                         <span class="project-tag">Agile</span>
                     </div>
                 </div>
 
-                <div class="project-card fade-in">
+                <div class="project-card fade-in" data-category="salesforce">
+                    <div class="project-industry">Finance · Banking</div>
+                    <div class="project-name">Financial Services CRM (CloudzLab)</div>
+                    <div class="project-desc">
+                        Custom Salesforce CRM for a financial services client — automated loan
+                        application workflows, customer onboarding, compliance tracking, and
+                        reporting dashboards. Integrated with external banking APIs via REST.
+                    </div>
+                    <div class="project-tags">
+                        <span class="project-tag">Sales Cloud</span>
+                        <span class="project-tag">Apex</span>
+                        <span class="project-tag">REST API</span>
+                        <span class="project-tag">Custom Objects</span>
+                        <span class="project-tag">Reports &amp; Dashboards</span>
+                    </div>
+                </div>
+
+                <div class="project-card fade-in" data-category="mobile">
+                    <div class="project-industry">Mobile · Consumer Apps</div>
+                    <div class="project-name">CloudzLab Mobile Suite</div>
+                    <div class="project-desc">
+                        Led iOS and Android mobile development across 10+ client projects at CloudzLab
+                        (2018–2021). Built cloud-integrated native apps for e-commerce, services, and
+                        field operations — with seamless Salesforce backend sync via REST APIs.
+                    </div>
+                    <div class="project-tags">
+                        <span class="project-tag">iOS (Swift)</span>
+                        <span class="project-tag">Android</span>
+                        <span class="project-tag">REST API</span>
+                        <span class="project-tag">Cloud Integration</span>
+                    </div>
+                </div>
+
+                <div class="project-card fade-in" data-category="java">
+                    <div class="project-industry">Enterprise Software · Java</div>
+                    <div class="project-name">Upland Software Java Platform</div>
+                    <div class="project-desc">
+                        Designed and built scalable, high-performance Java backend applications using
+                        Spring Boot and Hibernate for RMGS / Upland Software (2016–2018). Delivered
+                        complex business logic modules, REST APIs, and led iOS/Android architecture for
+                        enterprise client solutions.
+                    </div>
+                    <div class="project-tags">
+                        <span class="project-tag">Java</span>
+                        <span class="project-tag">Spring Boot</span>
+                        <span class="project-tag">Hibernate</span>
+                        <span class="project-tag">REST API</span>
+                        <span class="project-tag">iOS / Android</span>
+                    </div>
+                </div>
+
+                <div class="project-card fade-in" data-category="mobile">
+                    <div class="project-industry">Mobile · Startups</div>
+                    <div class="project-name">Entrepreware Mobile Applications</div>
+                    <div class="project-desc">
+                        Led a development team building iOS and Android mobile applications for startup
+                        clients at Entrepreware (2014–2016). Managed full project lifecycles from
+                        discovery through delivery, driving innovation and engineering quality.
+                    </div>
+                    <div class="project-tags">
+                        <span class="project-tag">iOS</span>
+                        <span class="project-tag">Android</span>
+                        <span class="project-tag">Team Lead</span>
+                        <span class="project-tag">SDLC</span>
+                    </div>
+                </div>
+
+                <div class="project-card fade-in" data-category="tools">
                     <div class="project-industry">Developer Tools · AI</div>
                     <div class="project-name">WorkLink — AI Job Search Assistant</div>
                     <div class="project-desc">
                         Personal AI-powered job search and application automation tool built in Python.
                         Automates job discovery, scoring, cover letter generation, and application tracking
-                        across multiple job platforms.
+                        across multiple job platforms using LLMs and MCP servers.
                     </div>
                     <div class="project-tags">
                         <span class="project-tag">Python</span>
@@ -1860,6 +2057,69 @@
         </div>
     </section>
 
+    <!-- ─── EDUCATION ─── -->
+    <section id="education">
+        <div class="container">
+            <p class="section-label fade-in">Background</p>
+            <h2 class="section-title fade-in">Education &amp; Continuous Learning</h2>
+            <p class="section-desc fade-in">A Computer Science foundation, 14+ years of practical engineering, and a
+                commitment to never stop learning.</p>
+
+            <div class="edu-grid">
+                <div class="edu-card fade-in">
+                    <div class="edu-icon">🎓</div>
+                    <div>
+                        <h4>Helwan University Cairo</h4>
+                        <div class="edu-degree">B.Sc. Computer Science</div>
+                        <div class="edu-date">2006 – 2010 · Cairo, Egypt</div>
+                    </div>
+                </div>
+                <div class="edu-card fade-in">
+                    <div class="edu-icon">⭐</div>
+                    <div>
+                        <h4>Trailhead by Salesforce</h4>
+                        <div class="edu-degree">Five-Star Ranger</div>
+                        <div class="edu-date">Jun 2017 – Present · 100+ Badges</div>
+                    </div>
+                </div>
+                <div class="edu-card fade-in">
+                    <div class="edu-icon">🏛️</div>
+                    <div>
+                        <h4>Salesforce — 13× Certified</h4>
+                        <div class="edu-degree">Application Architect · Data Architect · Sharing &amp; Visibility
+                            Architect · and 10 more</div>
+                        <div class="edu-date">2019 – 2024 · All active</div>
+                    </div>
+                </div>
+                <div class="edu-card fade-in">
+                    <div class="edu-icon">🤖</div>
+                    <div>
+                        <h4>AI &amp; Developer Courses</h4>
+                        <div class="edu-degree">Claude Code in Action · ChatGPT for Salesforce Dev · Commerce Cloud
+                            Bootcamp</div>
+                        <div class="edu-date">Anthropic · Packt · Udemy · 2023–2026</div>
+                    </div>
+                </div>
+                <div class="edu-card fade-in">
+                    <div class="edu-icon">🌐</div>
+                    <div>
+                        <h4>Languages</h4>
+                        <div class="edu-degree">English — Professional Working Proficiency</div>
+                        <div class="edu-date">Arabic — Native</div>
+                    </div>
+                </div>
+                <div class="edu-card fade-in">
+                    <div class="edu-icon">📍</div>
+                    <div>
+                        <h4>Availability</h4>
+                        <div class="edu-degree">Based in Cairo, Egypt</div>
+                        <div class="edu-date">Open to remote, hybrid &amp; worldwide roles</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <!-- ─── CONTACT ─── -->
     <section id="contact">
         <div class="container">
@@ -1937,6 +2197,23 @@
         });
         document.querySelectorAll('.mobile-link').forEach(link => {
             link.addEventListener('click', () => mobileMenu.classList.remove('open'));
+        });
+
+        // Project filter tabs
+        document.querySelectorAll('.filter-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                const filter = btn.dataset.filter;
+                document.querySelectorAll('.project-card').forEach(card => {
+                    const cats = (card.dataset.category || '').split(' ');
+                    if (filter === 'all' || cats.includes(filter)) {
+                        card.removeAttribute('hidden');
+                    } else {
+                        card.setAttribute('hidden', '');
+                    }
+                });
+            });
         });
 
         // Scroll-triggered animations
