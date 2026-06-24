@@ -1,0 +1,1698 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Michael George — Salesforce Architect & Developer</title>
+    <meta name="description"
+        content="13× Salesforce Certified Principal Developer & Architect with 15+ years of software development experience." />
+    <meta property="og:title" content="Michael George — Salesforce Architect & Developer" />
+    <meta property="og:description"
+        content="13× Salesforce Certified Principal Developer & Architect. Apex, LWC, OmniStudio, integrations, and more." />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://mycoola.github.io" />
+    <link rel="canonical" href="https://mycoola.github.io" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet" />
+
+    <style>
+        /* ─── RESET & TOKENS ─── */
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        :root {
+            --navy: #0f2044;
+            --navy2: #1a3560;
+            --blue: #2a5298;
+            --accent: #7ec8e3;
+            --accent2: #3fa8cc;
+            --text: #1a1a2e;
+            --muted: #5a6a8a;
+            --light: #f4f7fb;
+            --border: #dde4f0;
+            --white: #ffffff;
+            --radius: 10px;
+            --shadow: 0 4px 24px rgba(15, 32, 68, .09);
+            --transition: .25s ease;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Inter', 'Segoe UI', Arial, sans-serif;
+            font-size: 16px;
+            line-height: 1.65;
+            color: var(--text);
+            background: var(--white);
+        }
+
+        a {
+            color: var(--blue);
+            text-decoration: none;
+        }
+
+        a:hover {
+            color: var(--accent2);
+        }
+
+        img {
+            display: block;
+            max-width: 100%;
+        }
+
+        /* ─── NAV ─── */
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 100;
+            background: rgba(255, 255, 255, .92);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--border);
+            padding: 0 32px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            height: 60px;
+        }
+
+        .nav-brand {
+            font-weight: 700;
+            font-size: 1.05rem;
+            color: var(--navy);
+            letter-spacing: -.3px;
+        }
+
+        .nav-brand span {
+            color: var(--accent2);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 28px;
+            list-style: none;
+        }
+
+        .nav-links a {
+            font-size: .88rem;
+            font-weight: 500;
+            color: var(--muted);
+            transition: color var(--transition);
+        }
+
+        .nav-links a:hover {
+            color: var(--navy);
+        }
+
+        .nav-cta {
+            background: var(--navy);
+            color: var(--white) !important;
+            padding: 7px 18px;
+            border-radius: 6px;
+            font-size: .85rem !important;
+            font-weight: 600 !important;
+            transition: background var(--transition) !important;
+        }
+
+        .nav-cta:hover {
+            background: var(--blue) !important;
+            color: var(--white) !important;
+        }
+
+        /* Hamburger */
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            cursor: pointer;
+            background: none;
+            border: none;
+            padding: 4px;
+        }
+
+        .hamburger span {
+            display: block;
+            width: 22px;
+            height: 2px;
+            background: var(--navy);
+            border-radius: 2px;
+            transition: var(--transition);
+        }
+
+        /* Mobile menu */
+        .mobile-menu {
+            display: none;
+            position: fixed;
+            top: 60px;
+            left: 0;
+            right: 0;
+            z-index: 99;
+            background: var(--white);
+            border-bottom: 1px solid var(--border);
+            padding: 20px 32px;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .mobile-menu.open {
+            display: flex;
+        }
+
+        .mobile-menu a {
+            font-size: 1rem;
+            font-weight: 500;
+            color: var(--text);
+        }
+
+        /* ─── HERO ─── */
+        #hero {
+            min-height: 100vh;
+            padding: 120px 32px 80px;
+            display: flex;
+            align-items: center;
+            background: linear-gradient(135deg, var(--navy) 0%, var(--navy2) 60%, #1e4a8c 100%);
+            position: relative;
+            overflow: hidden;
+        }
+
+        #hero::before {
+            content: '';
+            position: absolute;
+            top: -120px;
+            right: -120px;
+            width: 500px;
+            height: 500px;
+            background: radial-gradient(circle, rgba(126, 200, 227, .15) 0%, transparent 70%);
+            border-radius: 50%;
+        }
+
+        #hero::after {
+            content: '';
+            position: absolute;
+            bottom: -80px;
+            left: -80px;
+            width: 350px;
+            height: 350px;
+            background: radial-gradient(circle, rgba(126, 200, 227, .08) 0%, transparent 70%);
+            border-radius: 50%;
+        }
+
+        .hero-inner {
+            max-width: 800px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero-badge {
+            display: inline-block;
+            background: rgba(126, 200, 227, .18);
+            border: 1px solid rgba(126, 200, 227, .35);
+            color: var(--accent);
+            font-size: .8rem;
+            font-weight: 600;
+            letter-spacing: .8px;
+            text-transform: uppercase;
+            padding: 5px 14px;
+            border-radius: 20px;
+            margin-bottom: 24px;
+        }
+
+        .hero-name {
+            font-size: clamp(2.4rem, 6vw, 4rem);
+            font-weight: 700;
+            color: var(--white);
+            line-height: 1.1;
+            letter-spacing: -.5px;
+            margin-bottom: 14px;
+        }
+
+        .hero-name span {
+            color: var(--accent);
+        }
+
+        .hero-title {
+            font-size: clamp(1rem, 2.5vw, 1.3rem);
+            color: rgba(255, 255, 255, .7);
+            font-weight: 400;
+            margin-bottom: 22px;
+        }
+
+        .hero-tagline {
+            font-size: 1.05rem;
+            color: rgba(255, 255, 255, .55);
+            max-width: 560px;
+            margin-bottom: 40px;
+            line-height: 1.7;
+        }
+
+        .hero-actions {
+            display: flex;
+            gap: 14px;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 12px 26px;
+            border-radius: 8px;
+            font-size: .95rem;
+            font-weight: 600;
+            cursor: pointer;
+            border: none;
+            transition: transform .2s ease, box-shadow .2s ease, background .2s ease;
+            text-decoration: none;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+        }
+
+        .btn-primary {
+            background: var(--accent);
+            color: var(--navy);
+        }
+
+        .btn-primary:hover {
+            background: #9dd5ea;
+            color: var(--navy);
+            box-shadow: 0 8px 24px rgba(126, 200, 227, .4);
+        }
+
+        .btn-outline {
+            background: transparent;
+            color: var(--white);
+            border: 1.5px solid rgba(255, 255, 255, .35);
+        }
+
+        .btn-outline:hover {
+            border-color: var(--accent);
+            color: var(--accent);
+        }
+
+        .hero-stats {
+            display: flex;
+            gap: 36px;
+            flex-wrap: wrap;
+            margin-top: 52px;
+            padding-top: 36px;
+            border-top: 1px solid rgba(255, 255, 255, .12);
+        }
+
+        .stat-number {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--accent);
+            line-height: 1;
+        }
+
+        .stat-label {
+            font-size: .8rem;
+            color: rgba(255, 255, 255, .5);
+            margin-top: 4px;
+            text-transform: uppercase;
+            letter-spacing: .5px;
+        }
+
+        /* ─── SECTIONS ─── */
+        section {
+            padding: 80px 32px;
+        }
+
+        .container {
+            max-width: 960px;
+            margin: 0 auto;
+        }
+
+        .section-label {
+            font-size: .75rem;
+            font-weight: 700;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: var(--accent2);
+            margin-bottom: 10px;
+        }
+
+        .section-title {
+            font-size: clamp(1.6rem, 4vw, 2.2rem);
+            font-weight: 700;
+            color: var(--navy);
+            margin-bottom: 14px;
+            line-height: 1.2;
+        }
+
+        .section-desc {
+            font-size: 1rem;
+            color: var(--muted);
+            max-width: 580px;
+            margin-bottom: 50px;
+            line-height: 1.7;
+        }
+
+        /* ─── ABOUT ─── */
+        #about {
+            background: var(--light);
+        }
+
+        .about-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: start;
+        }
+
+        .about-text p {
+            font-size: 1rem;
+            color: #3a4a6a;
+            line-height: 1.8;
+            margin-bottom: 16px;
+        }
+
+        .about-highlights {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .highlight-card {
+            background: var(--white);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 18px 20px;
+            display: flex;
+            align-items: flex-start;
+            gap: 14px;
+            box-shadow: var(--shadow);
+            transition: transform var(--transition), box-shadow var(--transition);
+        }
+
+        .highlight-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 32px rgba(15, 32, 68, .13);
+        }
+
+        .highlight-icon {
+            font-size: 1.5rem;
+            flex-shrink: 0;
+            width: 42px;
+            height: 42px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--light);
+            border-radius: 8px;
+        }
+
+        .highlight-card h4 {
+            font-size: .95rem;
+            font-weight: 600;
+            color: var(--navy);
+            margin-bottom: 3px;
+        }
+
+        .highlight-card p {
+            font-size: .85rem;
+            color: var(--muted);
+            line-height: 1.5;
+        }
+
+        /* ─── SKILLS ─── */
+        #skills {
+            background: var(--white);
+        }
+
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 28px;
+        }
+
+        .skill-group {
+            background: var(--light);
+            border-radius: var(--radius);
+            border: 1px solid var(--border);
+            padding: 22px;
+        }
+
+        .skill-group-name {
+            font-size: .75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1.2px;
+            color: var(--blue);
+            margin-bottom: 14px;
+        }
+
+        .skill-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 7px;
+        }
+
+        .tag {
+            display: inline-block;
+            background: var(--white);
+            border: 1px solid var(--border);
+            color: var(--text);
+            font-size: .8rem;
+            font-weight: 500;
+            padding: 4px 11px;
+            border-radius: 20px;
+            transition: var(--transition);
+        }
+
+        .tag:hover {
+            background: var(--navy);
+            color: var(--white);
+            border-color: var(--navy);
+        }
+
+        /* ─── EXPERIENCE ─── */
+        #experience {
+            background: var(--light);
+        }
+
+        .timeline {
+            position: relative;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 15px;
+            top: 6px;
+            bottom: 0;
+            width: 2px;
+            background: var(--border);
+        }
+
+        .tl-item {
+            position: relative;
+            padding-left: 52px;
+            margin-bottom: 40px;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity .5s ease, transform .5s ease;
+        }
+
+        .tl-item.visible {
+            opacity: 1;
+            transform: none;
+        }
+
+        .tl-dot {
+            position: absolute;
+            left: 7px;
+            top: 6px;
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            background: var(--white);
+            border: 2px solid var(--accent2);
+            z-index: 1;
+        }
+
+        .tl-dot.current {
+            background: var(--accent2);
+        }
+
+        .tl-card {
+            background: var(--white);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 22px 24px;
+            box-shadow: var(--shadow);
+        }
+
+        .tl-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            gap: 12px;
+            flex-wrap: wrap;
+            margin-bottom: 8px;
+        }
+
+        .tl-role {
+            font-size: 1rem;
+            font-weight: 700;
+            color: var(--navy);
+        }
+
+        .tl-company {
+            font-size: .9rem;
+            font-weight: 600;
+            color: var(--blue);
+            margin-top: 2px;
+        }
+
+        .tl-meta {
+            text-align: right;
+            flex-shrink: 0;
+        }
+
+        .tl-date {
+            font-size: .8rem;
+            color: var(--muted);
+            font-weight: 500;
+        }
+
+        .tl-location {
+            font-size: .75rem;
+            color: #9aabbf;
+            margin-top: 2px;
+        }
+
+        .tl-bullets {
+            margin-top: 10px;
+            padding-left: 18px;
+        }
+
+        .tl-bullets li {
+            font-size: .9rem;
+            color: #3a4a6a;
+            margin-bottom: 5px;
+            line-height: 1.6;
+        }
+
+        /* ─── PROJECTS ─── */
+        #projects {
+            background: var(--white);
+        }
+
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
+            gap: 22px;
+        }
+
+        .project-card {
+            background: var(--white);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 24px;
+            box-shadow: var(--shadow);
+            display: flex;
+            flex-direction: column;
+            transition: transform var(--transition), box-shadow var(--transition);
+            opacity: 0;
+            transform: translateY(20px);
+            animation: none;
+        }
+
+        .project-card.visible {
+            opacity: 1;
+            transform: none;
+        }
+
+        .project-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 40px rgba(15, 32, 68, .14);
+        }
+
+        .project-industry {
+            font-size: .7rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--accent2);
+            margin-bottom: 10px;
+        }
+
+        .project-name {
+            font-size: 1.05rem;
+            font-weight: 700;
+            color: var(--navy);
+            margin-bottom: 8px;
+        }
+
+        .project-desc {
+            font-size: .88rem;
+            color: var(--muted);
+            line-height: 1.6;
+            flex: 1;
+        }
+
+        .project-tags {
+            margin-top: 14px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+        }
+
+        .project-tag {
+            font-size: .72rem;
+            font-weight: 600;
+            padding: 3px 9px;
+            border-radius: 20px;
+            background: var(--light);
+            color: var(--blue);
+            border: 1px solid var(--border);
+        }
+
+        /* ─── CERTIFICATIONS ─── */
+        #certifications {
+            background: var(--navy);
+        }
+
+        #certifications .section-label {
+            color: var(--accent);
+        }
+
+        #certifications .section-title {
+            color: var(--white);
+        }
+
+        #certifications .section-desc {
+            color: rgba(255, 255, 255, .55);
+        }
+
+        .cert-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+            gap: 14px;
+        }
+
+        .cert-card {
+            background: rgba(255, 255, 255, .06);
+            border: 1px solid rgba(255, 255, 255, .1);
+            border-radius: var(--radius);
+            padding: 16px 18px;
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            transition: background var(--transition);
+        }
+
+        .cert-card:hover {
+            background: rgba(255, 255, 255, .1);
+        }
+
+        .cert-icon {
+            font-size: 1.4rem;
+            flex-shrink: 0;
+        }
+
+        .cert-name {
+            font-size: .9rem;
+            font-weight: 600;
+            color: var(--white);
+            line-height: 1.3;
+        }
+
+        .cert-issuer {
+            font-size: .75rem;
+            color: rgba(255, 255, 255, .45);
+            margin-top: 3px;
+        }
+
+        /* ─── BLOG ─── */
+        #blog {
+            background: var(--light);
+        }
+
+        .blog-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 22px;
+        }
+
+        .blog-card {
+            background: var(--white);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 24px;
+            box-shadow: var(--shadow);
+            display: flex;
+            flex-direction: column;
+            transition: transform var(--transition), box-shadow var(--transition);
+        }
+
+        .blog-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 36px rgba(15, 32, 68, .13);
+        }
+
+        .blog-date {
+            font-size: .75rem;
+            color: var(--muted);
+            font-weight: 500;
+            margin-bottom: 10px;
+        }
+
+        .blog-title {
+            font-size: 1rem;
+            font-weight: 700;
+            color: var(--navy);
+            margin-bottom: 8px;
+            line-height: 1.4;
+        }
+
+        .blog-excerpt {
+            font-size: .88rem;
+            color: var(--muted);
+            line-height: 1.6;
+            flex: 1;
+        }
+
+        .blog-read-more {
+            margin-top: 16px;
+            font-size: .85rem;
+            font-weight: 600;
+            color: var(--blue);
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .blog-read-more:hover {
+            color: var(--accent2);
+        }
+
+        .blog-empty {
+            text-align: center;
+            padding: 40px;
+            color: var(--muted);
+            font-size: .95rem;
+            background: var(--white);
+            border: 1px dashed var(--border);
+            border-radius: var(--radius);
+        }
+
+        /* ─── CONTACT ─── */
+        #contact {
+            background: var(--white);
+        }
+
+        .contact-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: start;
+        }
+
+        .contact-info {
+            display: flex;
+            flex-direction: column;
+            gap: 18px;
+        }
+
+        .contact-link {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            padding: 16px 20px;
+            background: var(--light);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            transition: transform var(--transition), box-shadow var(--transition);
+        }
+
+        .contact-link:hover {
+            transform: translateX(4px);
+            box-shadow: var(--shadow);
+        }
+
+        .contact-link-icon {
+            font-size: 1.3rem;
+        }
+
+        .contact-link-label {
+            font-size: .8rem;
+            color: var(--muted);
+        }
+
+        .contact-link-value {
+            font-size: .95rem;
+            font-weight: 600;
+            color: var(--navy);
+        }
+
+        .contact-resume {
+            background: var(--light);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 32px;
+            text-align: center;
+        }
+
+        .contact-resume h3 {
+            font-size: 1.2rem;
+            color: var(--navy);
+            margin-bottom: 10px;
+        }
+
+        .contact-resume p {
+            font-size: .9rem;
+            color: var(--muted);
+            margin-bottom: 24px;
+            line-height: 1.6;
+        }
+
+        /* ─── FOOTER ─── */
+        footer {
+            background: var(--navy);
+            color: rgba(255, 255, 255, .45);
+            text-align: center;
+            padding: 24px 32px;
+            font-size: .82rem;
+        }
+
+        footer a {
+            color: var(--accent);
+        }
+
+        /* ─── SCROLL ANIMATION ─── */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(24px);
+            transition: opacity .6s ease, transform .6s ease;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: none;
+        }
+
+        /* ─── RESPONSIVE ─── */
+        @media (max-width: 768px) {
+            nav {
+                padding: 0 20px;
+            }
+
+            .nav-links {
+                display: none;
+            }
+
+            .hamburger {
+                display: flex;
+            }
+
+            section {
+                padding: 60px 20px;
+            }
+
+            #hero {
+                padding: 100px 20px 60px;
+            }
+
+            .about-grid,
+            .contact-grid {
+                grid-template-columns: 1fr;
+                gap: 32px;
+            }
+
+            .hero-stats {
+                gap: 24px;
+            }
+
+            .stat-number {
+                font-size: 1.6rem;
+            }
+
+            .tl-item {
+                padding-left: 40px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero-actions {
+                flex-direction: column;
+            }
+
+            .btn {
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- ─── NAV ─── -->
+    <nav>
+        <div class="nav-brand">Michael <span>George</span></div>
+        <ul class="nav-links">
+            <li><a href="#about">About</a></li>
+            <li><a href="#skills">Skills</a></li>
+            <li><a href="#experience">Experience</a></li>
+            <li><a href="#projects">Projects</a></li>
+            <li><a href="#certifications">Certs</a></li>
+            <li><a href="#blog">Blog</a></li>
+            <li><a href="#contact" class="nav-cta">Contact</a></li>
+        </ul>
+        <button class="hamburger" id="hamburger" aria-label="Toggle menu">
+            <span></span><span></span><span></span>
+        </button>
+    </nav>
+
+    <div class="mobile-menu" id="mobileMenu">
+        <a href="#about" class="mobile-link">About</a>
+        <a href="#skills" class="mobile-link">Skills</a>
+        <a href="#experience" class="mobile-link">Experience</a>
+        <a href="#projects" class="mobile-link">Projects</a>
+        <a href="#certifications" class="mobile-link">Certifications</a>
+        <a href="#blog" class="mobile-link">Blog</a>
+        <a href="#contact" class="mobile-link">Contact</a>
+    </div>
+
+    <!-- ─── HERO ─── -->
+    <section id="hero">
+        <div class="hero-inner">
+            <div class="hero-badge">Available for Opportunities</div>
+            <h1 class="hero-name">
+                Michael <span>George</span>
+            </h1>
+            <p class="hero-title">13× Salesforce Certified Principal Developer &amp; Architect</p>
+            <p class="hero-tagline">
+                I design and build enterprise Salesforce solutions — from complex integrations and OmniStudio
+                experiences to Apex frameworks and LWC components — across healthcare, automotive, retail, and more.
+            </p>
+            <div class="hero-actions">
+                <a href="#projects" class="btn btn-primary">See My Work</a>
+                <a href="#contact" class="btn btn-outline">Get in Touch</a>
+                <a href="assets/michael-george-resume.pdf" download class="btn btn-outline">Download CV</a>
+            </div>
+            <div class="hero-stats">
+                <div>
+                    <div class="stat-number">15+</div>
+                    <div class="stat-label">Years Experience</div>
+                </div>
+                <div>
+                    <div class="stat-number">7+</div>
+                    <div class="stat-label">Years in Salesforce</div>
+                </div>
+                <div>
+                    <div class="stat-number">13×</div>
+                    <div class="stat-label">SF Certifications</div>
+                </div>
+                <div>
+                    <div class="stat-number">20+</div>
+                    <div class="stat-label">Projects Delivered</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ─── ABOUT ─── -->
+    <section id="about">
+        <div class="container">
+            <p class="section-label">About Me</p>
+            <h2 class="section-title">Builder. Architect. Problem Solver.</h2>
+            <div class="about-grid">
+                <div class="about-text">
+                    <p>
+                        I'm a highly accomplished Salesforce Consultant and technology leader based in Cairo, Egypt,
+                        with over <strong>15 years of software development experience</strong>, including 7+ dedicated
+                        years on the Salesforce platform.
+                    </p>
+                    <p>
+                        My career spans Sales Cloud, Service Cloud, Experience Cloud, and OmniStudio — with deep
+                        expertise in Apex, Lightning Web Components, system integrations, and solution architecture.
+                        I've led teams, mentored developers, and delivered enterprise-grade solutions for clients
+                        across healthcare, real estate, automotive, logistics, retail, and non-profit sectors.
+                    </p>
+                    <p>
+                        Before Salesforce, I built iOS &amp; Android mobile apps and scalable Java/Spring Boot backends.
+                        That full-stack foundation gives me a unique perspective when designing Salesforce architectures
+                        and third-party integrations.
+                    </p>
+                    <p style="margin-top: 8px;">
+                        <strong>📍 Cairo, Egypt</strong> &nbsp;|&nbsp;
+                        <strong>🌐 English (Professional) · Arabic (Native)</strong>
+                    </p>
+                </div>
+                <div class="about-highlights">
+                    <div class="highlight-card">
+                        <div class="highlight-icon">🏛️</div>
+                        <div>
+                            <h4>Solution Architecture</h4>
+                            <p>Designing scalable Salesforce architectures that align with business strategy and
+                                technical best practices.</p>
+                        </div>
+                    </div>
+                    <div class="highlight-card">
+                        <div class="highlight-icon">🔗</div>
+                        <div>
+                            <h4>Complex Integrations</h4>
+                            <p>REST/SOAP APIs, OAuth flows, middleware, and third-party system connectivity across
+                                industries.</p>
+                        </div>
+                    </div>
+                    <div class="highlight-card">
+                        <div class="highlight-icon">👥</div>
+                        <div>
+                            <h4>Team Leadership</h4>
+                            <p>Leading and mentoring development teams, conducting code reviews, and driving agile
+                                delivery.</p>
+                        </div>
+                    </div>
+                    <div class="highlight-card">
+                        <div class="highlight-icon">🎓</div>
+                        <div>
+                            <h4>Trailhead Ranger</h4>
+                            <p>Five-Star Ranger on Salesforce Trailhead — continuous learner with a deep Salesforce
+                                knowledge base.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ─── SKILLS ─── -->
+    <section id="skills">
+        <div class="container">
+            <p class="section-label fade-in">Technical Skills</p>
+            <h2 class="section-title fade-in">What I Work With</h2>
+            <p class="section-desc fade-in">A broad toolkit built over 15 years — deep in Salesforce, strong in Java and
+                mobile, comfortable across the full stack.</p>
+
+            <div class="skills-grid">
+                <div class="skill-group fade-in">
+                    <div class="skill-group-name">Salesforce Platform</div>
+                    <div class="skill-tags">
+                        <span class="tag">Sales Cloud</span>
+                        <span class="tag">Service Cloud</span>
+                        <span class="tag">Experience Cloud</span>
+                        <span class="tag">OmniStudio</span>
+                        <span class="tag">Apex</span>
+                        <span class="tag">LWC</span>
+                        <span class="tag">Visualforce</span>
+                        <span class="tag">Salesforce DX</span>
+                        <span class="tag">SOQL / SOSL</span>
+                        <span class="tag">Flow Builder</span>
+                        <span class="tag">Data Cloud</span>
+                    </div>
+                </div>
+                <div class="skill-group fade-in">
+                    <div class="skill-group-name">Integration &amp; APIs</div>
+                    <div class="skill-tags">
+                        <span class="tag">REST API</span>
+                        <span class="tag">SOAP</span>
+                        <span class="tag">OAuth 2.0</span>
+                        <span class="tag">Named Credentials</span>
+                        <span class="tag">External Services</span>
+                        <span class="tag">Middleware</span>
+                        <span class="tag">Data Migration</span>
+                        <span class="tag">MuleSoft</span>
+                    </div>
+                </div>
+                <div class="skill-group fade-in">
+                    <div class="skill-group-name">Development</div>
+                    <div class="skill-tags">
+                        <span class="tag">Java</span>
+                        <span class="tag">Spring Boot</span>
+                        <span class="tag">Python</span>
+                        <span class="tag">JavaScript / TypeScript</span>
+                        <span class="tag">iOS (Swift)</span>
+                        <span class="tag">Android</span>
+                        <span class="tag">React</span>
+                        <span class="tag">Node.js</span>
+                    </div>
+                </div>
+                <div class="skill-group fade-in">
+                    <div class="skill-group-name">Architecture &amp; DevOps</div>
+                    <div class="skill-tags">
+                        <span class="tag">Solution Architecture</span>
+                        <span class="tag">System Design</span>
+                        <span class="tag">Git / GitHub</span>
+                        <span class="tag">CI/CD</span>
+                        <span class="tag">Agile / Scrum</span>
+                        <span class="tag">Kanban</span>
+                        <span class="tag">Jira</span>
+                        <span class="tag">Code Review</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ─── EXPERIENCE ─── -->
+    <section id="experience">
+        <div class="container">
+            <p class="section-label">Career</p>
+            <h2 class="section-title">Work Experience</h2>
+            <p class="section-desc">Over 15 years building software — from mobile apps and Java backends to enterprise
+                Salesforce implementations.</p>
+
+            <div class="timeline">
+
+                <div class="tl-item">
+                    <div class="tl-dot current"></div>
+                    <div class="tl-card">
+                        <div class="tl-header">
+                            <div>
+                                <div class="tl-role">Salesforce Principal Developer</div>
+                                <div class="tl-company">Integrant, Inc.</div>
+                            </div>
+                            <div class="tl-meta">
+                                <div class="tl-date">Sep 2025 – Present</div>
+                                <div class="tl-location">Cairo, Egypt · Hybrid</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="tl-item">
+                    <div class="tl-dot"></div>
+                    <div class="tl-card">
+                        <div class="tl-header">
+                            <div>
+                                <div class="tl-role">Salesforce Technical Manager &amp; Lead Solutions Consultant</div>
+                                <div class="tl-company">Capgemini</div>
+                            </div>
+                            <div class="tl-meta">
+                                <div class="tl-date">Nov 2022 – Aug 2025</div>
+                                <div class="tl-location">New Cairo, Egypt · Hybrid</div>
+                            </div>
+                        </div>
+                        <ul class="tl-bullets">
+                            <li>Led strategic technical guidance across a skilled team, ensuring prompt issue resolution
+                                and high service standards for enterprise client engagements.</li>
+                            <li>Consulted with stakeholders to design, architect, and implement Salesforce solutions
+                                across Sales Cloud, Service Cloud, and Experience Cloud.</li>
+                            <li>Spearheaded complex integration efforts, enforced best coding practices, conducted code
+                                reviews, and managed deployments.</li>
+                            <li>Mentored junior developers and drove process improvements that significantly enhanced
+                                first-call resolution rates.</li>
+                            <li><em>Key project: Stellantis CRM — Salesforce Run Manager across France, Germany, UK,
+                                    Italy, and Spain.</em></li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="tl-item">
+                    <div class="tl-dot"></div>
+                    <div class="tl-card">
+                        <div class="tl-header">
+                            <div>
+                                <div class="tl-role">Senior Salesforce Developer</div>
+                                <div class="tl-company">Wadi Degla Developments</div>
+                            </div>
+                            <div class="tl-meta">
+                                <div class="tl-date">Jun 2022 – Nov 2022</div>
+                                <div class="tl-location">Cairo, Egypt</div>
+                            </div>
+                        </div>
+                        <ul class="tl-bullets">
+                            <li>Designed and developed a customized Salesforce CRM to streamline real estate sales,
+                                marketing, and customer service processes.</li>
+                            <li>Led system integrations and automated workflows using Apex and Flow; mentored junior
+                                developers.</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="tl-item">
+                    <div class="tl-dot"></div>
+                    <div class="tl-card">
+                        <div class="tl-header">
+                            <div>
+                                <div class="tl-role">Senior Salesforce Developer (Application Dev Spec II)</div>
+                                <div class="tl-company">IQVIA</div>
+                            </div>
+                            <div class="tl-meta">
+                                <div class="tl-date">Nov 2021 – Jun 2022</div>
+                                <div class="tl-location">New Cairo, Egypt</div>
+                            </div>
+                        </div>
+                        <ul class="tl-bullets">
+                            <li>Led agile delivery for pharmaceutical industry Salesforce implementations, conducting
+                                requirements workshops and mapping client needs to platform capabilities.</li>
+                            <li>Developed and presented solution architecture to business and IT leadership.</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="tl-item">
+                    <div class="tl-dot"></div>
+                    <div class="tl-card">
+                        <div class="tl-header">
+                            <div>
+                                <div class="tl-role">Salesforce Developer &amp; Senior Mobile Developer</div>
+                                <div class="tl-company">CloudzLab</div>
+                            </div>
+                            <div class="tl-meta">
+                                <div class="tl-date">Jul 2018 – Nov 2021</div>
+                                <div class="tl-location">Cairo, Egypt</div>
+                            </div>
+                        </div>
+                        <ul class="tl-bullets">
+                            <li>Designed and implemented tailored Salesforce CRM solutions across real estate, finance,
+                                healthcare, logistics, and non-profit industries.</li>
+                            <li>Led development of high-performance iOS &amp; Android mobile applications with cloud
+                                integration.</li>
+                            <li>Integrated Salesforce with external systems via REST/SOAP APIs.</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="tl-item">
+                    <div class="tl-dot"></div>
+                    <div class="tl-card">
+                        <div class="tl-header">
+                            <div>
+                                <div class="tl-role">Senior Java Developer &amp; Senior Mobile Developer</div>
+                                <div class="tl-company">RMGS / FlairsTech / Upland Software</div>
+                            </div>
+                            <div class="tl-meta">
+                                <div class="tl-date">Sep 2016 – Jun 2018</div>
+                                <div class="tl-location">Egypt</div>
+                            </div>
+                        </div>
+                        <ul class="tl-bullets">
+                            <li>Designed scalable Java applications using Spring Boot and Hibernate.</li>
+                            <li>Led mobile app architecture for iOS and Android; mentored junior developers and
+                                conducted code reviews.</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="tl-item">
+                    <div class="tl-dot"></div>
+                    <div class="tl-card">
+                        <div class="tl-header">
+                            <div>
+                                <div class="tl-role">Development Team Lead &amp; Mobile Developer</div>
+                                <div class="tl-company">Entrepreware</div>
+                            </div>
+                            <div class="tl-meta">
+                                <div class="tl-date">Dec 2014 – Aug 2016</div>
+                                <div class="tl-location">Cairo, Egypt</div>
+                            </div>
+                        </div>
+                        <ul class="tl-bullets">
+                            <li>Led a development team through full project lifecycles — planning, execution, and
+                                delivery — while designing scalable solutions.</li>
+                        </ul>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- ─── PROJECTS ─── -->
+    <section id="projects">
+        <div class="container">
+            <p class="section-label fade-in">Portfolio</p>
+            <h2 class="section-title fade-in">Selected Projects</h2>
+            <p class="section-desc fade-in">A selection of enterprise-grade Salesforce implementations and technology
+                solutions delivered across industries.</p>
+
+            <div class="projects-grid">
+
+                <div class="project-card fade-in">
+                    <div class="project-industry">Automotive · Multi-Country</div>
+                    <div class="project-name">Stellantis Salesforce CRM</div>
+                    <div class="project-desc">
+                        Salesforce Run Manager for Stellantis, one of the world's largest automotive groups.
+                        Delivered and maintained CRM operations across France, Germany, UK, Italy, and Spain
+                        while leading the Capgemini technical team.
+                    </div>
+                    <div class="project-tags">
+                        <span class="project-tag">Sales Cloud</span>
+                        <span class="project-tag">Service Cloud</span>
+                        <span class="project-tag">Apex</span>
+                        <span class="project-tag">LWC</span>
+                        <span class="project-tag">Multi-org</span>
+                    </div>
+                </div>
+
+                <div class="project-card fade-in">
+                    <div class="project-industry">Non-profit · Social Services</div>
+                    <div class="project-name">Coptic Orphans App &amp; CRM</div>
+                    <div class="project-desc">
+                        Built a mobile app and Salesforce CRM platform for Coptic Orphans, a leading
+                        non-profit supporting orphaned children. Enabled field workers to manage cases,
+                        sponsors, and services from any device.
+                    </div>
+                    <div class="project-tags">
+                        <span class="project-tag">iOS</span>
+                        <span class="project-tag">Android</span>
+                        <span class="project-tag">Salesforce CRM</span>
+                        <span class="project-tag">Non-profit Cloud</span>
+                    </div>
+                </div>
+
+                <div class="project-card fade-in">
+                    <div class="project-industry">Real Estate</div>
+                    <div class="project-name">Wadi Degla Developments CRM</div>
+                    <div class="project-desc">
+                        End-to-end Salesforce CRM for one of Egypt's largest real estate developers.
+                        Streamlined sales pipeline, marketing automation, and customer service operations
+                        across multiple property developments.
+                    </div>
+                    <div class="project-tags">
+                        <span class="project-tag">Sales Cloud</span>
+                        <span class="project-tag">Flow Builder</span>
+                        <span class="project-tag">Apex</span>
+                        <span class="project-tag">Integrations</span>
+                    </div>
+                </div>
+
+                <div class="project-card fade-in">
+                    <div class="project-industry">Retail · Home Goods</div>
+                    <div class="project-name">Mahgoub App &amp; Salesforce CRM</div>
+                    <div class="project-desc">
+                        Sales representative mobile app and Salesforce CRM for Mahgoub, a major
+                        Egyptian retail brand. Empowered field reps with real-time order placement,
+                        inventory visibility, and customer management.
+                    </div>
+                    <div class="project-tags">
+                        <span class="project-tag">Mobile App</span>
+                        <span class="project-tag">Sales Cloud</span>
+                        <span class="project-tag">REST API</span>
+                    </div>
+                </div>
+
+                <div class="project-card fade-in">
+                    <div class="project-industry">Logistics · Courier</div>
+                    <div class="project-name">Egyptexpress Salesforce CRM</div>
+                    <div class="project-desc">
+                        Full Salesforce CRM implementation for Egyptexpress, a courier and logistics
+                        company. Automated shipment tracking, customer communications, and operations
+                        management workflows.
+                    </div>
+                    <div class="project-tags">
+                        <span class="project-tag">Service Cloud</span>
+                        <span class="project-tag">Flows</span>
+                        <span class="project-tag">Apex</span>
+                    </div>
+                </div>
+
+                <div class="project-card fade-in">
+                    <div class="project-industry">Pet Services · Veterinary</div>
+                    <div class="project-name">Vetwork Salesforce CRM</div>
+                    <div class="project-desc">
+                        Salesforce CRM for Vetwork, an innovative pet services and veterinary
+                        booking platform. Managed vet appointments, customer records, and
+                        service delivery tracking.
+                    </div>
+                    <div class="project-tags">
+                        <span class="project-tag">Sales Cloud</span>
+                        <span class="project-tag">Experience Cloud</span>
+                        <span class="project-tag">LWC</span>
+                    </div>
+                </div>
+
+                <div class="project-card fade-in">
+                    <div class="project-industry">Pharmaceutical · Healthcare</div>
+                    <div class="project-name">IQVIA Pharma CRM</div>
+                    <div class="project-desc">
+                        Led agile delivery of Salesforce implementations for the pharmaceutical
+                        industry at IQVIA. Designed architecture presentations for Sales, Service,
+                        and Experience Cloud solutions for global pharma clients.
+                    </div>
+                    <div class="project-tags">
+                        <span class="project-tag">Sales Cloud</span>
+                        <span class="project-tag">Service Cloud</span>
+                        <span class="project-tag">Experience Cloud</span>
+                        <span class="project-tag">Agile</span>
+                    </div>
+                </div>
+
+                <div class="project-card fade-in">
+                    <div class="project-industry">Developer Tools · AI</div>
+                    <div class="project-name">WorkLink — AI Job Search Assistant</div>
+                    <div class="project-desc">
+                        Personal AI-powered job search and application automation tool built in Python.
+                        Automates job discovery, scoring, cover letter generation, and application tracking
+                        across multiple job platforms.
+                    </div>
+                    <div class="project-tags">
+                        <span class="project-tag">Python</span>
+                        <span class="project-tag">AI / LLM</span>
+                        <span class="project-tag">Automation</span>
+                        <span class="project-tag">MCP Server</span>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- ─── CERTIFICATIONS ─── -->
+    <section id="certifications">
+        <div class="container">
+            <p class="section-label">Credentials</p>
+            <h2 class="section-title">13× Salesforce Certified</h2>
+            <p class="section-desc">Every certification earned through hands-on experience and continuous learning — no
+                shortcuts.</p>
+
+            <div class="cert-grid">
+                <div class="cert-card">
+                    <div class="cert-icon">🏛️</div>
+                    <div>
+                        <div class="cert-name">Application Architect</div>
+                        <div class="cert-issuer">Salesforce · Dec 2024</div>
+                    </div>
+                </div>
+                <div class="cert-card">
+                    <div class="cert-icon">🔐</div>
+                    <div>
+                        <div class="cert-name">Sharing &amp; Visibility Architect</div>
+                        <div class="cert-issuer">Salesforce · Dec 2024</div>
+                    </div>
+                </div>
+                <div class="cert-card">
+                    <div class="cert-icon">🗄️</div>
+                    <div>
+                        <div class="cert-name">Data Architect</div>
+                        <div class="cert-issuer">Salesforce · Jun 2024</div>
+                    </div>
+                </div>
+                <div class="cert-card">
+                    <div class="cert-icon">🎧</div>
+                    <div>
+                        <div class="cert-name">Service Cloud Consultant</div>
+                        <div class="cert-issuer">Salesforce · Dec 2024</div>
+                    </div>
+                </div>
+                <div class="cert-card">
+                    <div class="cert-icon">🌐</div>
+                    <div>
+                        <div class="cert-name">Experience Cloud Consultant</div>
+                        <div class="cert-issuer">Salesforce · Nov 2023</div>
+                    </div>
+                </div>
+                <div class="cert-card">
+                    <div class="cert-icon">💼</div>
+                    <div>
+                        <div class="cert-name">Sales Cloud Consultant</div>
+                        <div class="cert-issuer">Salesforce · Jan 2020</div>
+                    </div>
+                </div>
+                <div class="cert-card">
+                    <div class="cert-icon">⚙️</div>
+                    <div>
+                        <div class="cert-name">OmniStudio Developer</div>
+                        <div class="cert-issuer">Salesforce · Jan 2023</div>
+                    </div>
+                </div>
+                <div class="cert-card">
+                    <div class="cert-icon">🧩</div>
+                    <div>
+                        <div class="cert-name">OmniStudio Consultant</div>
+                        <div class="cert-issuer">Salesforce · Jan 2023</div>
+                    </div>
+                </div>
+                <div class="cert-card">
+                    <div class="cert-icon">📜</div>
+                    <div>
+                        <div class="cert-name">JavaScript Developer I</div>
+                        <div class="cert-issuer">Salesforce · Mar 2023</div>
+                    </div>
+                </div>
+                <div class="cert-card">
+                    <div class="cert-icon">💻</div>
+                    <div>
+                        <div class="cert-name">Platform Developer I</div>
+                        <div class="cert-issuer">Salesforce · Dec 2019</div>
+                    </div>
+                </div>
+                <div class="cert-card">
+                    <div class="cert-icon">🏗️</div>
+                    <div>
+                        <div class="cert-name">Platform App Builder</div>
+                        <div class="cert-issuer">Salesforce · Aug 2019</div>
+                    </div>
+                </div>
+                <div class="cert-card">
+                    <div class="cert-icon">🛠️</div>
+                    <div>
+                        <div class="cert-name">Administrator</div>
+                        <div class="cert-issuer">Salesforce · Jun 2019</div>
+                    </div>
+                </div>
+                <div class="cert-card">
+                    <div class="cert-icon">🎖️</div>
+                    <div>
+                        <div class="cert-name">Associate</div>
+                        <div class="cert-issuer">Salesforce · Apr 2023</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ─── BLOG ─── -->
+    <section id="blog">
+        <div class="container">
+            <p class="section-label fade-in">Writing</p>
+            <h2 class="section-title fade-in">Articles &amp; Insights</h2>
+            <p class="section-desc fade-in">Thoughts on Salesforce architecture, development patterns, and lessons
+                learned from the field.</p>
+
+            <div class="blog-grid" id="blogGrid">
+
+                <!-- ══ EXAMPLE — uncomment and duplicate to add articles ══
+        <div class="blog-card">
+          <div class="blog-date">June 2026</div>
+          <div class="blog-title">How I Automated My Job Search with Python and AI</div>
+          <div class="blog-excerpt">
+            I built a Python tool that searches LinkedIn and Indeed, scores jobs against my profile,
+            writes cover letters, and tracks applications — all automatically. Here's how.
+          </div>
+          <a href="blog/ai-job-search.html" class="blog-read-more">Read more →</a>
+        </div>
+        ══ END EXAMPLE ══ -->
+
+                <div class="blog-empty" id="blogEmpty">
+                    ✍️ Articles coming soon — check back!
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- ─── CONTACT ─── -->
+    <section id="contact">
+        <div class="container">
+            <p class="section-label fade-in">Get In Touch</p>
+            <h2 class="section-title fade-in">Let's Work Together</h2>
+            <p class="section-desc fade-in">Open to Salesforce consulting, architecture reviews, leadership roles, and
+                interesting projects.</p>
+
+            <div class="contact-grid">
+                <div class="contact-info">
+                    <a href="mailto:dev.michael.girgis@gmail.com" class="contact-link">
+                        <div class="contact-link-icon">✉️</div>
+                        <div>
+                            <div class="contact-link-label">Email</div>
+                            <div class="contact-link-value">dev.michael.girgis@gmail.com</div>
+                        </div>
+                    </a>
+                    <a href="https://linkedin.com/in/mycoola" target="_blank" rel="noopener" class="contact-link">
+                        <div class="contact-link-icon">🔗</div>
+                        <div>
+                            <div class="contact-link-label">LinkedIn</div>
+                            <div class="contact-link-value">linkedin.com/in/mycoola</div>
+                        </div>
+                    </a>
+                    <a href="tel:+201008630464" class="contact-link">
+                        <div class="contact-link-icon">📞</div>
+                        <div>
+                            <div class="contact-link-label">Phone / WhatsApp</div>
+                            <div class="contact-link-value">+20 100 863 0464</div>
+                        </div>
+                    </a>
+                    <a href="https://www.salesforce.com/trailblazer/mycoola" target="_blank" rel="noopener"
+                        class="contact-link">
+                        <div class="contact-link-icon">⭐</div>
+                        <div>
+                            <div class="contact-link-label">Trailhead</div>
+                            <div class="contact-link-value">Five-Star Ranger Profile</div>
+                        </div>
+                    </a>
+                </div>
+
+                <div class="contact-resume">
+                    <h3>Want the full picture?</h3>
+                    <p>
+                        Download my CV for a complete overview of my experience, skills, and certifications.
+                        Available in PDF format — ready to share with your team.
+                    </p>
+                    <a href="assets/michael-george-resume.pdf" download class="btn btn-primary"
+                        style="display:inline-flex; margin: 0 auto;">
+                        📄 Download CV (PDF)
+                    </a>
+                    <p style="margin-top: 20px; font-size: .8rem; color: var(--muted);">
+                        Based in Cairo, Egypt · Open to remote &amp; hybrid roles worldwide
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ─── FOOTER ─── -->
+    <footer>
+        <p>
+            &copy; 2026 Michael George &mdash; Built with plain HTML &amp; hosted free on
+            <a href="https://pages.github.com" target="_blank" rel="noopener">GitHub Pages</a>
+        </p>
+    </footer>
+
+    <!-- ─── SCRIPTS ─── -->
+    <script>
+        // Mobile nav toggle
+        const hamburger = document.getElementById('hamburger');
+        const mobileMenu = document.getElementById('mobileMenu');
+        hamburger.addEventListener('click', () => {
+            mobileMenu.classList.toggle('open');
+        });
+        document.querySelectorAll('.mobile-link').forEach(link => {
+            link.addEventListener('click', () => mobileMenu.classList.remove('open'));
+        });
+
+        // Scroll-triggered animations
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(el => {
+                if (el.isIntersecting) {
+                    el.target.classList.add('visible');
+                }
+            });
+        }, { threshold: 0.12 });
+
+        document.querySelectorAll('.fade-in, .tl-item, .project-card').forEach(el => {
+            observer.observe(el);
+        });
+
+        // Stagger project cards
+        document.querySelectorAll('.project-card').forEach((card, i) => {
+            card.style.transitionDelay = `${i * 0.07}s`;
+            card.style.transition = `opacity .5s ease ${i * 0.07}s, transform .5s ease ${i * 0.07}s, box-shadow .25s ease`;
+        });
+
+        // Active nav link on scroll
+        const sections = document.querySelectorAll('section[id]');
+        const navLinks = document.querySelectorAll('.nav-links a:not(.nav-cta)');
+        window.addEventListener('scroll', () => {
+            let current = '';
+            sections.forEach(s => {
+                if (window.scrollY >= s.offsetTop - 80) current = s.id;
+            });
+            navLinks.forEach(a => {
+                a.style.color = a.getAttribute('href') === `#${current}` ? 'var(--navy)' : '';
+            });
+        });
+    </script>
+
+</body>
+
+</html>

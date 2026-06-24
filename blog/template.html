@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Article Title — Michael George</title>
+    <meta name="description" content="Short description of this article." />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet" />
+
+    <style>
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        :root {
+            --navy: #0f2044;
+            --blue: #2a5298;
+            --accent: #7ec8e3;
+            --text: #1a1a2e;
+            --muted: #5a6a8a;
+            --light: #f4f7fb;
+            --border: #dde4f0;
+            --white: #ffffff;
+        }
+
+        body {
+            font-family: 'Inter', Arial, sans-serif;
+            background: var(--white);
+            color: var(--text);
+        }
+
+        nav {
+            background: var(--navy);
+            padding: 16px 32px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .nav-brand {
+            color: var(--white);
+            font-weight: 700;
+            font-size: 1rem;
+            text-decoration: none;
+        }
+
+        .nav-brand span {
+            color: var(--accent);
+        }
+
+        .back-link {
+            color: rgba(255, 255, 255, .6);
+            font-size: .85rem;
+            text-decoration: none;
+        }
+
+        .back-link:hover {
+            color: var(--accent);
+        }
+
+        .article-hero {
+            background: linear-gradient(135deg, var(--navy), #1a3560);
+            padding: 60px 32px 50px;
+            text-align: center;
+        }
+
+        .article-tag {
+            display: inline-block;
+            background: rgba(126, 200, 227, .2);
+            border: 1px solid rgba(126, 200, 227, .35);
+            color: var(--accent);
+            font-size: .75rem;
+            font-weight: 700;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            padding: 4px 12px;
+            border-radius: 20px;
+            margin-bottom: 18px;
+        }
+
+        .article-title {
+            font-size: clamp(1.6rem, 4vw, 2.4rem);
+            font-weight: 700;
+            color: var(--white);
+            max-width: 720px;
+            margin: 0 auto 16px;
+            line-height: 1.2;
+        }
+
+        .article-meta {
+            color: rgba(255, 255, 255, .5);
+            font-size: .85rem;
+        }
+
+        .article-body {
+            max-width: 720px;
+            margin: 0 auto;
+            padding: 52px 32px 80px;
+        }
+
+        .article-body h2 {
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: var(--navy);
+            margin: 36px 0 12px;
+        }
+
+        .article-body h3 {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--blue);
+            margin: 24px 0 8px;
+        }
+
+        .article-body p {
+            font-size: 1.02rem;
+            line-height: 1.8;
+            color: #3a4a6a;
+            margin-bottom: 18px;
+        }
+
+        .article-body ul,
+        .article-body ol {
+            padding-left: 24px;
+            margin-bottom: 18px;
+        }
+
+        .article-body li {
+            font-size: 1rem;
+            line-height: 1.7;
+            color: #3a4a6a;
+            margin-bottom: 6px;
+        }
+
+        .article-body code {
+            background: var(--light);
+            border: 1px solid var(--border);
+            padding: 2px 7px;
+            border-radius: 4px;
+            font-size: .88rem;
+            font-family: 'Courier New', monospace;
+        }
+
+        .article-body pre {
+            background: var(--navy);
+            color: #c8dff2;
+            padding: 20px 24px;
+            border-radius: 10px;
+            overflow-x: auto;
+            margin: 20px 0;
+        }
+
+        .article-body pre code {
+            background: none;
+            border: none;
+            padding: 0;
+            font-size: .88rem;
+            color: inherit;
+        }
+
+        .article-body blockquote {
+            border-left: 3px solid var(--accent);
+            padding-left: 18px;
+            color: var(--muted);
+            font-style: italic;
+            margin: 24px 0;
+        }
+
+        .article-body strong {
+            color: var(--navy);
+        }
+
+        .article-body a {
+            color: var(--blue);
+        }
+
+        .article-body a:hover {
+            color: var(--accent);
+        }
+
+        .article-footer {
+            max-width: 720px;
+            margin: 0 auto;
+            padding: 0 32px 60px;
+            border-top: 1px solid var(--border);
+            padding-top: 36px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 16px;
+        }
+
+        .author-card {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+        }
+
+        .author-info h4 {
+            font-size: .95rem;
+            font-weight: 700;
+            color: var(--navy);
+        }
+
+        .author-info p {
+            font-size: .8rem;
+            color: var(--muted);
+        }
+
+        .back-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 9px 20px;
+            background: var(--navy);
+            color: var(--white);
+            border-radius: 8px;
+            font-size: .85rem;
+            font-weight: 600;
+            text-decoration: none;
+            transition: background .2s;
+        }
+
+        .back-btn:hover {
+            background: var(--blue);
+            color: var(--white);
+        }
+
+        footer {
+            background: var(--light);
+            border-top: 1px solid var(--border);
+            text-align: center;
+            padding: 20px;
+            font-size: .8rem;
+            color: var(--muted);
+        }
+    </style>
+</head>
+
+<body>
+
+    <nav>
+        <a href="../index.html" class="nav-brand">Michael <span>George</span></a>
+        <a href="../index.html#blog" class="back-link">← Back to Portfolio</a>
+    </nav>
+
+    <div class="article-hero">
+        <div class="article-tag">Salesforce</div><!-- e.g. Salesforce · Architecture · Python -->
+        <h1 class="article-title">Your Article Title Goes Here</h1>
+        <div class="article-meta">Michael George &nbsp;·&nbsp; June 2026 &nbsp;·&nbsp; 5 min read</div>
+    </div>
+
+    <article class="article-body">
+
+        <p>
+            Start your article here. This is the intro paragraph — make it engaging so the reader
+            wants to keep going.
+        </p>
+
+        <h2>Section Heading</h2>
+
+        <p>
+            Write your content here. You can use <strong>bold text</strong>, <a href="#">links</a>,
+            and <code>inline code</code>.
+        </p>
+
+        <pre><code>// Code blocks look like this
+public class MyApexClass {
+    public static void doSomething() {
+        System.debug('Hello, World!');
+    }
+}</code></pre>
+
+        <h2>Another Section</h2>
+
+        <ul>
+            <li>Bullet point one</li>
+            <li>Bullet point two</li>
+            <li>Bullet point three</li>
+        </ul>
+
+        <blockquote>
+            A memorable quote or key takeaway from your article.
+        </blockquote>
+
+        <p>Closing thoughts go here.</p>
+
+    </article>
+
+    <div class="article-footer">
+        <div class="author-card">
+            <div class="author-info">
+                <h4>Michael George</h4>
+                <p>13× Salesforce Certified · Principal Developer &amp; Architect</p>
+            </div>
+        </div>
+        <a href="../index.html" class="back-btn">← Back to Portfolio</a>
+    </div>
+
+    <footer>
+        &copy; 2026 Michael George
+    </footer>
+
+</body>
+
+</html>
