@@ -702,9 +702,17 @@
             background: rgba(255, 255, 255, .1);
         }
 
-        .cert-icon {
-            font-size: 1.4rem;
+        .cert-badge-img {
+            width: 60px;
+            height: 60px;
+            object-fit: contain;
             flex-shrink: 0;
+            border-radius: 6px;
+        }
+
+        a.cert-card {
+            text-decoration: none;
+            color: inherit;
         }
 
         .cert-name {
@@ -1130,6 +1138,8 @@
                 <a href="#projects" class="btn btn-primary">See My Work</a>
                 <a href="#contact" class="btn btn-outline">Get in Touch</a>
                 <a href="assets/michael-george-resume.pdf" download class="btn btn-outline">Download CV</a>
+                <a href="https://linkedin.com/in/mycoola" target="_blank" rel="noopener"
+                    class="btn btn-outline">LinkedIn ↗</a>
             </div>
             <div class="hero-stats">
                 <div>
@@ -1338,13 +1348,46 @@
                             </div>
                         </div>
                         <ul class="tl-bullets">
-                            <li>Developing and maintaining Salesforce Service Cloud CRM for Mantrac, Egypt's exclusive
-                                Caterpillar dealer, supporting operations across 10+ countries in Africa and the Middle
-                                East.</li>
-                            <li>Designed and delivered full bidirectional CAT Interact integration — syncing Salesforce
-                                Cases with Caterpillar's external service request platform using asynchronous Apex
-                                (Queueable + Batch), Named Credentials, and custom status mapping via Custom Metadata.
+                            <li>Developed and enhanced <strong>ChartSwap</strong>, a Salesforce Experience Cloud
+                                medical-records-request platform, delivering complex multi-step request wizard workflows
+                                for 5+ provider integration types (CIOX, RR, Sharecare, Updox) serving patients, law
+                                firms, and healthcare providers.</li>
+                            <li>Implemented a dual-rail payment architecture (standard cart + AutoPay threshold) —
+                                building PaymentOrchestrator, PaymentAmountResolver, and a modern
+                                Payment_Transaction__c ledger with Payflow payment gateway integration.</li>
+                            <li>Engineered the <strong>Pattern Data</strong> modernization release hub — packaging 10
+                                Apex/Visualforce features with scoped deployment manifests, automated rollback packages,
+                                and runbooks for phased production delivery.</li>
+                            <li>Delivered Salesforce development across multiple healthcare-tech clients including
+                                <strong>Datavant</strong> and <strong>Waystar</strong>.
                             </li>
+                            <li>Maintained 80–100% Apex test coverage across all delivered code; all production
+                                deployments executed with zero test failures.</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="tl-item">
+                    <div class="tl-dot"></div>
+                    <div class="tl-card">
+                        <div class="tl-header">
+                            <div>
+                                <div class="tl-role">Salesforce Principal Developer</div>
+                                <div class="tl-company">Freelance / Independent Contractor</div>
+                            </div>
+                            <div class="tl-meta">
+                                <div class="tl-date">Sep 2025 – Present</div>
+                                <div class="tl-location">Cairo, Egypt · Remote</div>
+                            </div>
+                        </div>
+                        <ul class="tl-bullets">
+                            <li>Developing and maintaining Salesforce Service Cloud CRM for <strong>Mantrac</strong>,
+                                Egypt's exclusive Caterpillar dealer, supporting operations across 10+ countries in
+                                Africa and the Middle East.</li>
+                            <li>Designed and delivered full bidirectional <strong>CAT Interact</strong> integration —
+                                syncing Salesforce Cases with Caterpillar's external service request platform using
+                                asynchronous Apex (Queueable + Batch), Named Credentials, and custom status mapping via
+                                Custom Metadata.</li>
                             <li>Architected and fixed a multi-territory commission management system for 3 salesman
                                 types (PSSR, ASC, PCA) across Egypt, Ghana, Nigeria, Kenya, Uganda, Tanzania, and more —
                                 integrating with Oracle OIC/ManPRO API for real-time invoice and commission data.</li>
@@ -1882,97 +1925,137 @@
                 earned through hands-on experience and continuous learning.</p>
 
             <div class="cert-grid">
-                <div class="cert-card">
-                    <div class="cert-icon">🏛️</div>
+                <a class="cert-card" href="https://trailhead.salesforce.com/en/credentials/applicationarchitect"
+                    target="_blank" rel="noopener">
+                    <img class="cert-badge-img"
+                        src="https://developer.salesforce.com/resources2/certification-site/images/Certifications-logo/Application-Architect.png"
+                        alt="Application Architect" loading="lazy">
                     <div>
                         <div class="cert-name">Application Architect</div>
                         <div class="cert-issuer">Salesforce · Dec 2024</div>
                     </div>
-                </div>
-                <div class="cert-card">
-                    <div class="cert-icon">🔐</div>
+                </a>
+                <a class="cert-card"
+                    href="https://trailhead.salesforce.com/en/credentials/sharingandvisibilityarchitect" target="_blank"
+                    rel="noopener">
+                    <img class="cert-badge-img"
+                        src="https://developer.salesforce.com/resources2/certification-site/images/Certifications-logo/Sharing%20and%20Visibility%20Architect.png"
+                        alt="Sharing &amp; Visibility Architect" loading="lazy">
                     <div>
                         <div class="cert-name">Sharing &amp; Visibility Architect</div>
                         <div class="cert-issuer">Salesforce · Dec 2024</div>
                     </div>
-                </div>
-                <div class="cert-card">
-                    <div class="cert-icon">🗄️</div>
+                </a>
+                <a class="cert-card" href="https://trailhead.salesforce.com/en/credentials/dataarchitect"
+                    target="_blank" rel="noopener">
+                    <img class="cert-badge-img"
+                        src="https://developer.salesforce.com/resources2/certification-site/images/Certifications-logo/Data%20Architect.png"
+                        alt="Data Architect" loading="lazy">
                     <div>
                         <div class="cert-name">Data Architect</div>
                         <div class="cert-issuer">Salesforce · Jun 2024</div>
                     </div>
-                </div>
-                <div class="cert-card">
-                    <div class="cert-icon">🎧</div>
+                </a>
+                <a class="cert-card" href="https://trailhead.salesforce.com/en/credentials/servicecloudconsultant"
+                    target="_blank" rel="noopener">
+                    <img class="cert-badge-img"
+                        src="https://developer.salesforce.com/resources2/certification-site/images/Certifications-logo/Service-Cloud-Consultant.png"
+                        alt="Service Cloud Consultant" loading="lazy">
                     <div>
                         <div class="cert-name">Service Cloud Consultant</div>
                         <div class="cert-issuer">Salesforce · Dec 2024</div>
                     </div>
-                </div>
-                <div class="cert-card">
-                    <div class="cert-icon">🌐</div>
+                </a>
+                <a class="cert-card" href="https://trailhead.salesforce.com/en/credentials/experiencecloudconsultant"
+                    target="_blank" rel="noopener">
+                    <img class="cert-badge-img"
+                        src="https://developer.salesforce.com/resources2/certification-site/images/Certifications-logo/Experience-Cloud-Consultant.png"
+                        alt="Experience Cloud Consultant" loading="lazy">
                     <div>
                         <div class="cert-name">Experience Cloud Consultant</div>
                         <div class="cert-issuer">Salesforce · Nov 2023</div>
                     </div>
-                </div>
-                <div class="cert-card">
-                    <div class="cert-icon">💼</div>
+                </a>
+                <a class="cert-card" href="https://trailhead.salesforce.com/en/credentials/salescloudconsultant"
+                    target="_blank" rel="noopener">
+                    <img class="cert-badge-img"
+                        src="https://developer.salesforce.com/resources2/certification-site/images/Certifications-logo/Sales-Cloud-Consultant.png"
+                        alt="Sales Cloud Consultant" loading="lazy">
                     <div>
                         <div class="cert-name">Sales Cloud Consultant</div>
                         <div class="cert-issuer">Salesforce · Jan 2020</div>
                     </div>
-                </div>
-                <div class="cert-card">
-                    <div class="cert-icon">⚙️</div>
+                </a>
+                <a class="cert-card" href="https://trailhead.salesforce.com/en/credentials/omnistudiodeveloper"
+                    target="_blank" rel="noopener">
+                    <img class="cert-badge-img"
+                        src="https://developer.salesforce.com/resources2/certification-site/images/Certifications-logo/OmniStudio-Developer.png"
+                        alt="OmniStudio Developer" loading="lazy">
                     <div>
                         <div class="cert-name">OmniStudio Developer</div>
                         <div class="cert-issuer">Salesforce · Jan 2023</div>
                     </div>
-                </div>
-                <div class="cert-card">
-                    <div class="cert-icon">🧩</div>
+                </a>
+                <a class="cert-card" href="https://trailhead.salesforce.com/en/credentials/omnistudioconsultant"
+                    target="_blank" rel="noopener">
+                    <img class="cert-badge-img"
+                        src="https://developer.salesforce.com/resources2/certification-site/images/Certifications-logo/OmniStudio-Consultant.png"
+                        alt="OmniStudio Consultant" loading="lazy">
                     <div>
                         <div class="cert-name">OmniStudio Consultant</div>
                         <div class="cert-issuer">Salesforce · Jan 2023</div>
                     </div>
-                </div>
-                <div class="cert-card">
-                    <div class="cert-icon">📜</div>
+                </a>
+                <a class="cert-card" href="https://trailhead.salesforce.com/en/credentials/javascriptdeveloperi"
+                    target="_blank" rel="noopener">
+                    <img class="cert-badge-img"
+                        src="https://developer.salesforce.com/resources2/certification-site/images/Certifications-logo/JavaScript-Developer-I.png"
+                        alt="JavaScript Developer I" loading="lazy">
                     <div>
                         <div class="cert-name">JavaScript Developer I</div>
                         <div class="cert-issuer">Salesforce · Mar 2023</div>
                     </div>
-                </div>
-                <div class="cert-card">
-                    <div class="cert-icon">💻</div>
+                </a>
+                <a class="cert-card" href="https://trailhead.salesforce.com/en/credentials/platformdeveloperi"
+                    target="_blank" rel="noopener">
+                    <img class="cert-badge-img"
+                        src="https://developer.salesforce.com/resources2/certification-site/images/Certifications-logo/Platform-Developer-I.png"
+                        alt="Platform Developer I" loading="lazy">
                     <div>
                         <div class="cert-name">Platform Developer I</div>
                         <div class="cert-issuer">Salesforce · Dec 2019</div>
                     </div>
-                </div>
-                <div class="cert-card">
-                    <div class="cert-icon">🏗️</div>
+                </a>
+                <a class="cert-card" href="https://trailhead.salesforce.com/en/credentials/platformappbuilder"
+                    target="_blank" rel="noopener">
+                    <img class="cert-badge-img"
+                        src="https://developer.salesforce.com/resources2/certification-site/images/Certifications-logo/Platform-App-Builder.png"
+                        alt="Platform App Builder" loading="lazy">
                     <div>
                         <div class="cert-name">Platform App Builder</div>
                         <div class="cert-issuer">Salesforce · Aug 2019</div>
                     </div>
-                </div>
-                <div class="cert-card">
-                    <div class="cert-icon">🛠️</div>
+                </a>
+                <a class="cert-card" href="https://trailhead.salesforce.com/en/credentials/administrator"
+                    target="_blank" rel="noopener">
+                    <img class="cert-badge-img"
+                        src="https://developer.salesforce.com/resources2/certification-site/images/Certifications-logo/Administrator.png"
+                        alt="Administrator" loading="lazy">
                     <div>
                         <div class="cert-name">Administrator</div>
                         <div class="cert-issuer">Salesforce · Jun 2019</div>
                     </div>
-                </div>
-                <div class="cert-card">
-                    <div class="cert-icon">🎖️</div>
+                </a>
+                <a class="cert-card" href="https://trailhead.salesforce.com/en/credentials/associate" target="_blank"
+                    rel="noopener">
+                    <img class="cert-badge-img"
+                        src="https://developer.salesforce.com/resources2/certification-site/images/Certifications-logo/Associate.png"
+                        alt="Associate" loading="lazy">
                     <div>
                         <div class="cert-name">Associate</div>
                         <div class="cert-issuer">Salesforce · Apr 2023</div>
                     </div>
-                </div>
+                </a>
             </div>
 
             <div class="courses-heading">Courses &amp; Training</div>
