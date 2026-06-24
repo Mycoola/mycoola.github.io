@@ -729,7 +729,7 @@
             color: var(--accent);
             margin: 36px 0 14px;
             padding-top: 28px;
-            border-top: 1px solid rgba(255,255,255,.1);
+            border-top: 1px solid rgba(255, 255, 255, .1);
         }
 
         .course-grid {
@@ -739,8 +739,8 @@
         }
 
         .course-card {
-            background: rgba(255,255,255,.06);
-            border: 1px solid rgba(255,255,255,.1);
+            background: rgba(255, 255, 255, .06);
+            border: 1px solid rgba(255, 255, 255, .1);
             border-radius: var(--radius);
             padding: 16px 18px;
             display: flex;
@@ -749,7 +749,9 @@
             transition: background var(--transition);
         }
 
-        .course-card:hover { background: rgba(255,255,255,.1); }
+        .course-card:hover {
+            background: rgba(255, 255, 255, .1);
+        }
 
         .course-platform {
             display: inline-block;
@@ -773,7 +775,7 @@
 
         .course-date {
             font-size: .73rem;
-            color: rgba(255,255,255,.4);
+            color: rgba(255, 255, 255, .4);
             margin-top: 3px;
         }
 
@@ -1222,6 +1224,26 @@
                                 <div class="tl-location">Cairo, Egypt · Hybrid</div>
                             </div>
                         </div>
+                        <ul class="tl-bullets">
+                            <li>Developing and maintaining Salesforce Service Cloud CRM for Mantrac, Egypt's exclusive
+                                Caterpillar dealer, supporting operations across 10+ countries in Africa and the Middle
+                                East.</li>
+                            <li>Designed and delivered full bidirectional CAT Interact integration — syncing Salesforce
+                                Cases with Caterpillar's external service request platform using asynchronous Apex
+                                (Queueable + Batch), Named Credentials, and custom status mapping via Custom Metadata.
+                            </li>
+                            <li>Architected and fixed a multi-territory commission management system for 3 salesman
+                                types (PSSR, ASC, PCA) across Egypt, Ghana, Nigeria, Kenya, Uganda, Tanzania, and more —
+                                integrating with Oracle OIC/ManPRO API for real-time invoice and commission data.</li>
+                            <li>Resolved critical Equipment Onboarding lifecycle bugs (owner assignment, email flows,
+                                exit permit status), executing Apex data-fix batches that corrected 300+ EO records
+                                across four territories.</li>
+                            <li>Enhanced CPQ/B2B Commerce promo code engine to support fixed-amount USD discounts
+                                alongside percentage discounts, including mutual-exclusivity enforcement and SysAdmin
+                                visibility controls.</li>
+                            <li>Maintained 80–100% Apex test coverage across all new classes; all production deployments
+                                executed with zero test failures.</li>
+                        </ul>
                     </div>
                 </div>
 
@@ -1500,6 +1522,29 @@
                 solutions delivered across industries.</p>
 
             <div class="projects-grid">
+
+                <div class="project-card fade-in">
+                    <div class="project-industry">Heavy Equipment · Multi-Country</div>
+                    <div class="project-name">Mantrac Caterpillar CRM</div>
+                    <div class="project-desc">
+                        End-to-end Salesforce Service Cloud CRM for Mantrac, Egypt's exclusive Caterpillar dealer.
+                        Delivered a full CAT Interact bidirectional integration, a multi-territory commission
+                        management system spanning 10 countries (Africa &amp; Middle East), Equipment Onboarding
+                        lifecycle automation, and CPQ/B2B Commerce enhancements. Work involved complex async Apex
+                        patterns, Oracle OIC/ManPRO API integration, and production deployments with zero test
+                        failures across 100+ unit tests.
+                    </div>
+                    <div class="project-tags">
+                        <span class="project-tag">Service Cloud</span>
+                        <span class="project-tag">Apex / Batch / Queueable</span>
+                        <span class="project-tag">REST Integration</span>
+                        <span class="project-tag">Flows</span>
+                        <span class="project-tag">Visualforce</span>
+                        <span class="project-tag">Oracle OIC</span>
+                        <span class="project-tag">CPQ / B2B Commerce</span>
+                        <span class="project-tag">Custom Metadata</span>
+                    </div>
+                </div>
 
                 <div class="project-card fade-in">
                     <div class="project-industry">Automotive · Multi-Country</div>
