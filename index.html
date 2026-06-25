@@ -797,6 +797,143 @@
             margin-top: 3px;
         }
 
+        /* ─── TRAILBLAZER ─── */
+        #trailblazer {
+            background: var(--light);
+        }
+
+        .tb-hero {
+            display: flex;
+            align-items: center;
+            gap: 32px;
+            background: linear-gradient(135deg, #0f2044 0%, #1a3560 60%, #2a5298 100%);
+            border-radius: 16px;
+            padding: 36px 40px;
+            margin-bottom: 40px;
+            flex-wrap: wrap;
+        }
+
+        .tb-ranger-badge {
+            width: 110px;
+            height: 110px;
+            flex-shrink: 0;
+        }
+
+        .tb-hero-text h3 {
+            font-size: 1.6rem;
+            font-weight: 700;
+            color: #fff;
+            margin-bottom: 4px;
+        }
+
+        .tb-hero-text p {
+            font-size: .95rem;
+            color: rgba(255,255,255,.7);
+            margin-bottom: 18px;
+        }
+
+        .tb-stats {
+            display: flex;
+            gap: 28px;
+            flex-wrap: wrap;
+        }
+
+        .tb-stat {
+            text-align: center;
+        }
+
+        .tb-stat-number {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--accent);
+            line-height: 1;
+        }
+
+        .tb-stat-label {
+            font-size: .72rem;
+            text-transform: uppercase;
+            letter-spacing: .8px;
+            color: rgba(255,255,255,.55);
+            margin-top: 2px;
+        }
+
+        .tb-verify-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            font-size: .8rem;
+            font-weight: 600;
+            color: var(--accent);
+            text-decoration: none;
+            border: 1px solid rgba(126,200,227,.35);
+            border-radius: 20px;
+            padding: 5px 14px;
+            margin-top: 16px;
+            transition: background var(--transition);
+        }
+
+        .tb-verify-link:hover {
+            background: rgba(126,200,227,.12);
+        }
+
+        .tb-tags {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin-bottom: 40px;
+        }
+
+        .tb-tag {
+            padding: 5px 14px;
+            border-radius: 20px;
+            font-size: .78rem;
+            font-weight: 700;
+            background: #1a3560;
+            color: var(--accent);
+            border: 1px solid rgba(126,200,227,.25);
+        }
+
+        .sb-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 12px;
+        }
+
+        .sb-card {
+            background: var(--white);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 14px 16px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            box-shadow: var(--shadow);
+            transition: transform var(--transition), box-shadow var(--transition);
+        }
+
+        .sb-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 28px rgba(15,32,68,.13);
+        }
+
+        .sb-icon {
+            font-size: 1.5rem;
+            flex-shrink: 0;
+        }
+
+        .sb-name {
+            font-size: .85rem;
+            font-weight: 600;
+            color: var(--text);
+            line-height: 1.3;
+        }
+
+        .sb-date {
+            font-size: .72rem;
+            color: var(--muted);
+            margin-top: 2px;
+        }
+
         /* ─── BLOG ─── */
         #blog {
             background: var(--light);
@@ -1111,6 +1248,7 @@
             <li><a href="#skills">Skills</a></li>
             <li><a href="#experience">Experience</a></li>
             <li><a href="#projects">Projects</a></li>
+            <li><a href="#trailblazer">Trailhead</a></li>
             <li><a href="#certifications">Certs</a></li>
             <li><a href="#education">Education</a></li>
             <li><a href="#blog">Blog</a></li>
@@ -1126,6 +1264,7 @@
         <a href="#skills" class="mobile-link">Skills</a>
         <a href="#experience" class="mobile-link">Experience</a>
         <a href="#projects" class="mobile-link">Projects</a>
+        <a href="#trailblazer" class="mobile-link">Trailhead</a>
         <a href="#certifications" class="mobile-link">Certifications</a>
         <a href="#education" class="mobile-link">Education</a>
         <a href="#blog" class="mobile-link">Blog</a>
@@ -1940,6 +2079,72 @@
         </div>
     </section>
 
+    <!-- ─── TRAILBLAZER ─── -->
+    <section id="trailblazer">
+        <div class="container">
+            <p class="section-label fade-in">Trailhead</p>
+            <h2 class="section-title fade-in">Five Star Ranger &amp; 20 Superbadges</h2>
+            <p class="section-desc fade-in">580 badges, 349,250 points, 89 trails — and counting.</p>
+
+            <div class="tb-hero fade-in">
+                <img class="tb-ranger-badge" src="https://res.cloudinary.com/hy4kyit2a/f_auto,fl_lossy,q_70/learn/modules/trailhead_trailblazer_ranks/cee65e3aaaa5c6b8cfaacd17e6e62e43_badge.png" alt="Five Star Ranger" onerror="this.src='https://developer.salesforce.com/resource/images/astro/Astro_5StarRanger.png'">
+                <div class="tb-hero-text">
+                    <h3>Five Star Ranger</h3>
+                    <p>salesforce.com/trailblazer/mycoola</p>
+                    <div class="tb-stats">
+                        <div class="tb-stat">
+                            <div class="tb-stat-number">580</div>
+                            <div class="tb-stat-label">Badges</div>
+                        </div>
+                        <div class="tb-stat">
+                            <div class="tb-stat-number">349,250</div>
+                            <div class="tb-stat-label">Points</div>
+                        </div>
+                        <div class="tb-stat">
+                            <div class="tb-stat-number">89</div>
+                            <div class="tb-stat-label">Trails</div>
+                        </div>
+                        <div class="tb-stat">
+                            <div class="tb-stat-number">20</div>
+                            <div class="tb-stat-label">Superbadges</div>
+                        </div>
+                    </div>
+                    <a href="https://www.salesforce.com/trailblazer/mycoola" target="_blank" rel="noopener" class="tb-verify-link">View on Trailhead ↗</a>
+                </div>
+            </div>
+
+            <div class="tb-tags fade-in">
+                <span class="tb-tag">#AwesomeAdmin</span>
+                <span class="tb-tag">#DaringDevelopers</span>
+                <span class="tb-tag">#ConfidentConsultant</span>
+            </div>
+
+            <p class="section-label fade-in" style="margin-bottom:16px">Superbadges</p>
+            <div class="sb-grid fade-in">
+                <div class="sb-card"><span class="sb-icon">🔐</span><div><div class="sb-name">User Authentication Specialist</div><div class="sb-date">Nov 2024</div></div></div>
+                <div class="sb-card"><span class="sb-icon">🔐</span><div><div class="sb-name">User Authentication Troubleshooting</div><div class="sb-date">Oct 2024</div></div></div>
+                <div class="sb-card"><span class="sb-icon">✅</span><div><div class="sb-name">Data Validation</div><div class="sb-date">Apr 2024</div></div></div>
+                <div class="sb-card"><span class="sb-icon">📐</span><div><div class="sb-name">Data Standardisation</div><div class="sb-date">Apr 2024</div></div></div>
+                <div class="sb-card"><span class="sb-icon">🔑</span><div><div class="sb-name">Multi-Factor Auth &amp; Single Sign-On</div><div class="sb-date">Apr 2024</div></div></div>
+                <div class="sb-card"><span class="sb-icon">⚙️</span><div><div class="sb-name">User Authentication Settings</div><div class="sb-date">Apr 2024</div></div></div>
+                <div class="sb-card"><span class="sb-icon">📊</span><div><div class="sb-name">Lightning Experience Reports &amp; Dashboards</div><div class="sb-date">Apr 2024</div></div></div>
+                <div class="sb-card"><span class="sb-icon">🔄</span><div><div class="sb-name">Approval Process Specialist</div><div class="sb-date">May 2023</div></div></div>
+                <div class="sb-card"><span class="sb-icon">🔄</span><div><div class="sb-name">Approval Process Troubleshooting</div><div class="sb-date">May 2023</div></div></div>
+                <div class="sb-card"><span class="sb-icon">🔄</span><div><div class="sb-name">Approval Process Management</div><div class="sb-date">May 2023</div></div></div>
+                <div class="sb-card"><span class="sb-icon">🖥️</span><div><div class="sb-name">Screen Flow Specialist</div><div class="sb-date">Mar 2023</div></div></div>
+                <div class="sb-card"><span class="sb-icon">🖥️</span><div><div class="sb-name">Screen Flow Distribution</div><div class="sb-date">Mar 2023</div></div></div>
+                <div class="sb-card"><span class="sb-icon">🖥️</span><div><div class="sb-name">Screen Flow Fundamentals</div><div class="sb-date">Mar 2023</div></div></div>
+                <div class="sb-card"><span class="sb-icon">⚡</span><div><div class="sb-name">Flow Fundamentals</div><div class="sb-date">Mar 2023</div></div></div>
+                <div class="sb-card"><span class="sb-icon">⚡</span><div><div class="sb-name">Flow Administration</div><div class="sb-date">Mar 2023</div></div></div>
+                <div class="sb-card"><span class="sb-icon">🧩</span><div><div class="sb-name">Lightning Web Components Specialist</div><div class="sb-date">Feb 2023</div></div></div>
+                <div class="sb-card"><span class="sb-icon">🏢</span><div><div class="sb-name">Business Administration Specialist</div><div class="sb-date">Jan 2023</div></div></div>
+                <div class="sb-card"><span class="sb-icon">🔗</span><div><div class="sb-name">Data Integration Specialist</div><div class="sb-date">Nov 2022</div></div></div>
+                <div class="sb-card"><span class="sb-icon">💻</span><div><div class="sb-name">Apex Specialist</div><div class="sb-date">Oct 2022</div></div></div>
+                <div class="sb-card"><span class="sb-icon">🛠️</span><div><div class="sb-name">App Customization Specialist</div><div class="sb-date">Nov 2021</div></div></div>
+            </div>
+        </div>
+    </section>
+
     <!-- ─── CERTIFICATIONS ─── -->
     <section id="certifications">
         <div class="container">
@@ -2185,8 +2390,8 @@
                     <div class="edu-icon">⭐</div>
                     <div>
                         <h4>Trailhead by Salesforce</h4>
-                        <div class="edu-degree">Five-Star Ranger</div>
-                        <div class="edu-date">Jun 2017 – Present · 100+ Badges</div>
+                        <div class="edu-degree">Five Star Ranger · 20 Superbadges</div>
+                        <div class="edu-date">580 Badges · 349,250 Points · 89 Trails</div>
                     </div>
                 </div>
                 <div class="edu-card fade-in">
