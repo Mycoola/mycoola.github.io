@@ -1200,6 +1200,150 @@
             color: var(--muted);
         }
 
+        /* ─── MAINTENANCE MODULES ─── */
+        #maintenance {
+            background: linear-gradient(180deg, var(--light) 0%, #e8eef8 100%);
+        }
+
+        .maint-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+            gap: 24px;
+        }
+
+        .maint-card {
+            background: var(--white);
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            padding: 24px;
+            box-shadow: var(--shadow);
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+            transition: transform var(--transition), box-shadow var(--transition);
+        }
+
+        .maint-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 40px rgba(15, 32, 68, .14);
+        }
+
+        .maint-card-header {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+        }
+
+        .maint-cert-badges {
+            display: flex;
+            gap: 5px;
+            flex-shrink: 0;
+        }
+
+        .maint-cert-badge {
+            width: 52px;
+            height: 52px;
+            object-fit: contain;
+            border-radius: 8px;
+        }
+
+        .maint-cert-info {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .maint-cert-name {
+            font-size: .95rem;
+            font-weight: 700;
+            color: var(--navy);
+            line-height: 1.3;
+        }
+
+        .maint-release-tag {
+            display: inline-block;
+            font-size: .67rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: .8px;
+            padding: 3px 10px;
+            border-radius: 20px;
+            margin-top: 5px;
+        }
+
+        .maint-release-tag.summer {
+            background: #fff4e6;
+            color: #c2550b;
+            border: 1px solid #fed7aa;
+        }
+
+        .maint-release-tag.winter {
+            background: #eff6ff;
+            color: #2563eb;
+            border: 1px solid #bfdbfe;
+        }
+
+        .maint-release-tag.spring {
+            background: #f0fdf4;
+            color: #16a34a;
+            border: 1px solid #bbf7d0;
+        }
+
+        .maint-card-intro {
+            font-size: .72rem;
+            font-weight: 700;
+            color: var(--accent2);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            border-top: 1px solid var(--border);
+            padding-top: 12px;
+        }
+
+        .maint-objectives {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            gap: 9px;
+            flex: 1;
+        }
+
+        .maint-objectives li {
+            display: flex;
+            align-items: flex-start;
+            gap: 9px;
+            font-size: .875rem;
+            color: #3a4a6a;
+            line-height: 1.55;
+        }
+
+        .maint-objectives li::before {
+            content: '✓';
+            color: var(--accent2);
+            font-weight: 700;
+            font-size: .85rem;
+            flex-shrink: 0;
+            margin-top: 1px;
+        }
+
+        .maint-trail-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            font-size: .8rem;
+            font-weight: 600;
+            color: var(--blue);
+            text-decoration: none;
+            border-top: 1px solid var(--border);
+            padding-top: 14px;
+            margin-top: auto;
+            transition: color var(--transition);
+        }
+
+        .maint-trail-link:hover {
+            color: var(--accent2);
+        }
+
         /* ─── RESPONSIVE ─── */
         @media (max-width: 768px) {
             nav {
@@ -1264,6 +1408,7 @@
             <li><a href="#experience">Experience</a></li>
             <li><a href="#projects">Projects</a></li>
             <li><a href="#trailblazer">Trailhead</a></li>
+            <li><a href="#maintenance">Updates</a></li>
             <li><a href="#certifications">Certs</a></li>
             <li><a href="#education">Education</a></li>
             <li><a href="#blog">Blog</a></li>
@@ -1280,6 +1425,7 @@
         <a href="#experience" class="mobile-link">Experience</a>
         <a href="#projects" class="mobile-link">Projects</a>
         <a href="#trailblazer" class="mobile-link">Trailhead</a>
+        <a href="#maintenance" class="mobile-link">Release Updates</a>
         <a href="#certifications" class="mobile-link">Certifications</a>
         <a href="#education" class="mobile-link">Education</a>
         <a href="#blog" class="mobile-link">Blog</a>
@@ -1574,8 +1720,8 @@
                             <div>
                                 <div class="tl-role">Salesforce Developer</div>
                                 <div class="tl-company"><a
-                                        href="https://www.linkedin.com/company/wadi-degla-developments/"
-                                        target="_blank" rel="noopener">Wadi Degla Developments</a> · Freelance /
+                                        href="https://www.linkedin.com/company/wadi-degla-developments/" target="_blank"
+                                        rel="noopener">Wadi Degla Developments</a> · Freelance /
                                     Independent Contractor</div>
                             </div>
                             <div class="tl-meta">
@@ -2376,6 +2522,219 @@
                         <div class="sb-date">Nov 2021</div>
                     </div>
                 </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ─── MAINTENANCE MODULES ─── -->
+    <section id="maintenance">
+        <div class="container">
+            <p class="section-label fade-in">Continuing Education</p>
+            <h2 class="section-title fade-in">What I've Learned — Release by Release</h2>
+            <p class="section-desc fade-in">
+                Holding 13 active Salesforce certifications means completing maintenance modules every release cycle.
+                Here's a snapshot of the knowledge I've gained staying current with the latest platform innovations.
+            </p>
+
+            <div class="maint-grid fade-in">
+
+                <!-- OmniStudio Developer · Summer '25 -->
+                <div class="maint-card">
+                    <div class="maint-card-header">
+                        <div class="maint-cert-badges">
+                            <img class="maint-cert-badge"
+                                src="https://developer.salesforce.com/resources2/certification-site/images/Certifications-logo/OmniStudio-Developer.png"
+                                alt="OmniStudio Developer" loading="lazy">
+                        </div>
+                        <div class="maint-cert-info">
+                            <div class="maint-cert-name">OmniStudio Developer</div>
+                            <span class="maint-release-tag summer">☀ Summer '25</span>
+                        </div>
+                    </div>
+                    <p class="maint-card-intro">After completing this module, I can:</p>
+                    <ul class="maint-objectives">
+                        <li>Use the Omnistudio list view to search, filter, and manage component records in the Standard
+                            Designer.</li>
+                        <li>Explain the benefits and capabilities of the Omnistudio Standard Designer.</li>
+                        <li>Describe how Connect APIs improve Apex-to-Omnistudio integration.</li>
+                        <li>Identify where the Lightning Rich Text Editor can be used in Omniscripts and Flexcards.</li>
+                        <li>Enable and use error logging for Integration Procedures.</li>
+                        <li>Configure a Data Mapper Load using external data sources.</li>
+                    </ul>
+                    <a href="https://trailhead.salesforce.com/content/learn/modules/omnistudio-developer-certification-maintenance-summer-25"
+                        class="maint-trail-link" target="_blank" rel="noopener">View on Trailhead →</a>
+                </div>
+
+                <!-- OmniStudio Consultant · Summer '25 -->
+                <div class="maint-card">
+                    <div class="maint-card-header">
+                        <div class="maint-cert-badges">
+                            <img class="maint-cert-badge"
+                                src="https://developer.salesforce.com/resources2/certification-site/images/Certifications-logo/OmniStudio-Consultant.png"
+                                alt="OmniStudio Consultant" loading="lazy">
+                        </div>
+                        <div class="maint-cert-info">
+                            <div class="maint-cert-name">OmniStudio Consultant</div>
+                            <span class="maint-release-tag summer">☀ Summer '25</span>
+                        </div>
+                    </div>
+                    <p class="maint-card-intro">After completing this module, I can:</p>
+                    <ul class="maint-objectives">
+                        <li>Build Omnistudio components faster with the new Standard Designer.</li>
+                        <li>Monitor and manage the health of Flexcards and Omniscripts using Omnistudio Design
+                            Assistant.</li>
+                        <li>Enhance the user experience of Omnistudio apps at runtime with SLDS 2.</li>
+                        <li>Explain the Advanced Apex Class Permission Checker for permission sets.</li>
+                        <li>Localize single-language Omniscripts and Flexcards based on the user's locale.</li>
+                        <li>Migrate all AngularJS-based Omniscripts to the Omniscript LWC framework.</li>
+                        <li>Navigate Omnistudio documentation using the new product names.</li>
+                    </ul>
+                    <a href="https://trailhead.salesforce.com/content/learn/modules/omnistudio-consultant-certification-maintenance-summer-25"
+                        class="maint-trail-link" target="_blank" rel="noopener">View on Trailhead →</a>
+                </div>
+
+                <!-- JavaScript Developer I · Summer '25 -->
+                <div class="maint-card">
+                    <div class="maint-card-header">
+                        <div class="maint-cert-badges">
+                            <img class="maint-cert-badge"
+                                src="https://developer.salesforce.com/resources2/certification-site/images/Certifications-logo/JavaScript-Developer-I.png"
+                                alt="JavaScript Developer I" loading="lazy">
+                        </div>
+                        <div class="maint-cert-info">
+                            <div class="maint-cert-name">JavaScript Developer I</div>
+                            <span class="maint-release-tag summer">☀ Summer '25</span>
+                        </div>
+                    </div>
+                    <p class="maint-card-intro">After completing this module, I can:</p>
+                    <ul class="maint-objectives">
+                        <li>Integrate TypeScript into Lightning web components for stronger type safety.</li>
+                        <li>Set up and use Local Development to preview LWCs in real time without deployment.</li>
+                        <li>Dynamically bind CSS classes in LWCs using array and object syntax.</li>
+                    </ul>
+                    <a href="https://trailhead.salesforce.com/content/learn/modules/javascript-developer-certification-maintenance-summer-25"
+                        class="maint-trail-link" target="_blank" rel="noopener">View on Trailhead →</a>
+                </div>
+
+                <!-- Platform Developer I · Winter '26 -->
+                <div class="maint-card">
+                    <div class="maint-card-header">
+                        <div class="maint-cert-badges">
+                            <img class="maint-cert-badge"
+                                src="https://developer.salesforce.com/resources2/certification-site/images/Certifications-logo/Platform-Developer-I.png"
+                                alt="Platform Developer I" loading="lazy">
+                        </div>
+                        <div class="maint-cert-info">
+                            <div class="maint-cert-name">Platform Developer I</div>
+                            <span class="maint-release-tag winter">❄ Winter '26</span>
+                        </div>
+                    </div>
+                    <p class="maint-card-intro">After completing this module, I can:</p>
+                    <ul class="maint-objectives">
+                        <li>Implement large external service callouts using ContentDocument pointers to avoid Apex heap
+                            limits.</li>
+                        <li>Apply access modifiers correctly to abstract and override methods to prevent compilation
+                            errors.</li>
+                        <li>Configure LWS Trusted Mode to safely run third-party scripts in LWCs.</li>
+                        <li>Query data using the new <code>lightning/graphql</code> module with user-level security.
+                        </li>
+                        <li>Enhance screen flows using LWC local actions for improved interactivity and performance.
+                        </li>
+                    </ul>
+                    <a href="https://trailhead.salesforce.com/content/learn/modules/platform-developer-certification-maintenance-winter-26"
+                        class="maint-trail-link" target="_blank" rel="noopener">View on Trailhead →</a>
+                </div>
+
+                <!-- Platform App Builder · Winter '26 -->
+                <div class="maint-card">
+                    <div class="maint-card-header">
+                        <div class="maint-cert-badges">
+                            <img class="maint-cert-badge"
+                                src="https://developer.salesforce.com/resources2/certification-site/images/Certifications-logo/Platform-App-Builder.png"
+                                alt="Platform App Builder" loading="lazy">
+                        </div>
+                        <div class="maint-cert-info">
+                            <div class="maint-cert-name">Platform App Builder</div>
+                            <span class="maint-release-tag winter">❄ Winter '26</span>
+                        </div>
+                    </div>
+                    <p class="maint-card-intro">After completing this module, I can:</p>
+                    <ul class="maint-objectives">
+                        <li>Configure an Automation Event–Triggered Flow to fire when a file matching criteria is
+                            attached to a record.</li>
+                        <li>Reference newly created records directly from the Create Records element without an extra
+                            Get Records step.</li>
+                        <li>Leverage Einstein Summary to generate AI-powered summaries of sales records and take
+                            follow-up actions.</li>
+                        <li>Preview screen flows with Lightning or Experience Cloud site branding before activation.
+                        </li>
+                        <li>Sort Salesforce list views by multiple columns to better organize and prioritize data.</li>
+                    </ul>
+                    <a href="https://trailhead.salesforce.com/content/learn/modules/platform-app-builder-certification-maintenance-winter-26"
+                        class="maint-trail-link" target="_blank" rel="noopener">View on Trailhead →</a>
+                </div>
+
+                <!-- Salesforce Architect · Winter '26 -->
+                <div class="maint-card">
+                    <div class="maint-card-header">
+                        <div class="maint-cert-badges">
+                            <img class="maint-cert-badge"
+                                src="https://developer.salesforce.com/resources2/certification-site/images/Certifications-logo/Application-Architect.png"
+                                alt="Application Architect" loading="lazy">
+                            <img class="maint-cert-badge"
+                                src="https://developer.salesforce.com/resources2/certification-site/images/Certifications-logo/Sharing%20and%20Visibility%20Architect.png"
+                                alt="Sharing &amp; Visibility Architect" loading="lazy">
+                            <img class="maint-cert-badge"
+                                src="https://developer.salesforce.com/resources2/certification-site/images/Certifications-logo/Data%20Architect.png"
+                                alt="Data Architect" loading="lazy">
+                        </div>
+                        <div class="maint-cert-info">
+                            <div class="maint-cert-name">Salesforce Architect</div>
+                            <span class="maint-release-tag winter">❄ Winter '26</span>
+                        </div>
+                    </div>
+                    <p class="maint-card-intro">After completing this module, I can:</p>
+                    <ul class="maint-objectives">
+                        <li>Execute new Salesforce CLI commands to manage data, interact with APIs, and monitor
+                            deployments.</li>
+                        <li>Apply Salesforce Database Encryption to secure all data at rest across an org.</li>
+                        <li>Identify and classify sensitive data using the native Data Detect tool in Shield.</li>
+                        <li>Configure Salesforce Connect without row restrictions for large-scale external data
+                            integration.</li>
+                        <li>Configure Salesforce Archive policies to reduce storage costs and preserve compliance.</li>
+                    </ul>
+                    <a href="https://trailhead.salesforce.com/content/learn/modules/salesforce-architect-certification-maintenance-winter-26"
+                        class="maint-trail-link" target="_blank" rel="noopener">View on Trailhead →</a>
+                </div>
+
+                <!-- Administrator · Spring '26 -->
+                <div class="maint-card">
+                    <div class="maint-card-header">
+                        <div class="maint-cert-badges">
+                            <img class="maint-cert-badge"
+                                src="https://developer.salesforce.com/resources2/certification-site/images/Certifications-logo/Administrator.png"
+                                alt="Administrator" loading="lazy">
+                        </div>
+                        <div class="maint-cert-info">
+                            <div class="maint-cert-name">Platform Administrator</div>
+                            <span class="maint-release-tag spring">🌿 Spring '26</span>
+                        </div>
+                    </div>
+                    <p class="maint-card-intro">After completing this module, I can:</p>
+                    <ul class="maint-objectives">
+                        <li>Use Setup with Agentforce to complete admin tasks through a conversational AI experience.
+                        </li>
+                        <li>Add the Request Approval component to record pages for native, codeless approval
+                            submissions.</li>
+                        <li>Apply component-level styling overrides to customize screen flows for different audiences.
+                        </li>
+                        <li>Use the Flow Logs tab with Data 360 to centralize flow performance monitoring.</li>
+                        <li>Grant the Delete Salesforce Files permission to expand file management beyond admins.</li>
+                    </ul>
+                    <a href="https://trailhead.salesforce.com/content/learn/modules/platform-administrator-certification-maintenance-spring-26"
+                        class="maint-trail-link" target="_blank" rel="noopener">View on Trailhead →</a>
+                </div>
+
             </div>
         </div>
     </section>
