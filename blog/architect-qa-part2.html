@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Salesforce Architect Interview Q&amp;A — Part 2: Data Architecture &amp; Large Data Volumes</title>
+    <meta name="description"
+        content="25 Salesforce Data Architect interview questions and answers on large data volume design, skew management, and data lifecycle governance." />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet" />
+    <link rel="stylesheet" href="qa-style.css" />
+</head>
+
+<body>
+
+    <nav>
+        <a href="../index.html" class="nav-brand">Michael <span>George</span></a>
+        <a href="../index.html#blog" class="back-link">← Back to Portfolio</a>
+    </nav>
+
+    <div class="article-hero">
+        <div class="article-tag">Salesforce · Architect</div>
+        <h1 class="article-title">Salesforce Architect Interview Q&amp;A — Part 2: Data Architecture &amp; Large
+            Data Volumes</h1>
+        <div class="article-meta">Updated August 2026 &nbsp;·&nbsp; Part 2 of 4 &nbsp;·&nbsp; 25 questions</div>
+    </div>
+
+    <article class="article-body">
+
+        <div class="qa-nav">
+            <strong>Salesforce Architect Interview Series (100 questions)</strong>
+            <a href="architect-qa-part1.html">Part 1: Application Architecture</a>
+            <a href="architect-qa-part2.html">Part 2: Data Architecture &amp; LDV</a>
+            <a href="architect-qa-part3.html">Part 3: Sharing &amp; Visibility</a>
+            <a href="architect-qa-part4.html">Part 4: Integration Architecture</a>
+        </div>
+
+        <p>
+            Aligned to the Salesforce Data Architect certification domain, this part covers large data volume
+            (LDV) design, data quality, and data lifecycle governance.
+        </p>
+
+        <h2>Large Data Volumes (LDV)</h2>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">1.</span>What is considered a "large data volume" object in Salesforce
+                terms?</h3>
+            <p>There's no single fixed threshold, but object performance characteristics typically start
+                needing special LDV design attention once an object approaches tens of millions of records,
+                where standard indexing and query patterns that work fine at smaller scale can degrade
+                sharply.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">2.</span>What is ownership skew and why is it a problem?</h3>
+            <p>Ownership skew occurs when a very large number of records (typically over ~10,000) are owned
+                by a single user. Because sharing recalculation and role-hierarchy-based access checks scale
+                with the number of records a user owns, extreme skew can cause severe performance issues
+                during record updates, ownership changes, or role hierarchy edits.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">3.</span>How do you mitigate ownership skew?</h3>
+            <p>Avoid assigning huge volumes of records to a single "integration user" or generic owner where
+                possible; if unavoidable, place that owner at the top of the role hierarchy (or in a role with
+                no subordinates) to minimize the sharing recalculation impact, and consider Apex-managed
+                sharing instead of role-hierarchy-based access for that specific data set.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">4.</span>What is parent-child (lookup) skew?</h3>
+            <p>When a disproportionately large number of child records reference the same single parent
+                record via a lookup — for example, millions of Cases pointing to one particular Account —
+                which can cause locking contention when many of those child records are updated concurrently.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">5.</span>How do you address lookup skew in a design?</h3>
+            <p>Where feasible, avoid concentrating an extreme number of child records under a single parent;
+                if the business relationship genuinely requires it, minimize concurrent bulk updates to those
+                child records in the same transaction/timeframe, and be aware that a lookup filter or
+                validation rule referencing the skewed parent field can worsen contention.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">6.</span>What is record locking and why does it matter for LDV design?</h3>
+            <p>Salesforce locks a record (and, for Master-Detail children, the related parent) during a DML
+                operation to maintain data consistency. In high-concurrency bulk scenarios, contention for the
+                same locked record/parent can cause <code>UNABLE_TO_LOCK_ROW</code> errors, which is why
+                skew and simultaneous bulk updates to the same records are an LDV design concern.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">7.</span>What is a selective SOQL query, and why does it matter more at
+                LDV scale?</h3>
+            <p>A query that filters using an indexed field and returns a small percentage of the object's
+                total rows. At small scale, a non-selective query might still return quickly; at tens of
+                millions of records, a non-selective query risks a full table scan, timing out or degrading
+                the whole org's shared query resources.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">8.</span>What is a skinny table and how does it help LDV performance?</h3>
+            <p>A Salesforce-managed, narrower copy of a base table containing only frequently-queried fields,
+                created by Salesforce Support on request, that avoids join overhead for common query patterns
+                on very large objects — an option to consider once query optimization within your control has
+                been exhausted.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">9.</span>How do formula fields perform differently at LDV scale?</h3>
+            <p>Formula fields that reference fields on the same record are cheap. Formulas that traverse
+                relationships (especially cross-object formulas referencing another large object) can
+                significantly slow down list views, reports, and bulk operations at scale, since they must be
+                recalculated whenever referenced data changes.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">10.</span>How would you architect a data purge/archival strategy for an
+                object approaching platform storage or performance limits?</h3>
+            <p>Define retention rules by business/compliance need, use Batch Apex or a scheduled data archival
+                tool to move aged records to a lower-cost store (Big Objects, an external data lake, or cold
+                storage) on a recurring schedule, and ensure any reporting/process dependent on that data is
+                redesigned to query the archive when needed.</p>
+        </div>
+
+        <h2>Big Objects &amp; External Data</h2>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">11.</span>What is a Big Object and when would you use one?</h3>
+            <p>A Salesforce object type designed to store and manage massive volumes (billions of records) of
+                data cost-effectively, with different indexing and query behavior than standard objects
+                (async SOQL for queries). Use it for long-term archival or audit-trail data that needs to
+                remain in Salesforce but doesn't need standard object performance characteristics.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">12.</span>What is the difference between a Big Object and an External
+                Object?</h3>
+            <p>A Big Object stores data physically within Salesforce at massive scale. An External Object
+                (via Salesforce Connect) doesn't store data in Salesforce at all — it represents data that
+                remains in an external system and is fetched in real time when queried.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">13.</span>What are the trade-offs of using External Objects instead of
+                replicating data into Salesforce?</h3>
+            <p>External Objects avoid data duplication and storage costs and always reflect the live external
+                system state, but come with real-time performance dependency on that external system's
+                availability/latency and more limited support for certain declarative features (some
+                automation and reporting capabilities are restricted on external data).</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">14.</span>How do you decide between storing historical/audit data as
+                standard object records versus Field History Tracking versus Big Objects?</h3>
+            <p>Field History Tracking is built-in and simplest for basic field-change audit (with retention
+                limits). Standard object records give full flexibility but cost storage and can add to LDV
+                concerns over time. Big Objects are the right choice once audit/history volume becomes too
+                large for standard objects to handle efficiently long-term.</p>
+        </div>
+
+        <h2>Data Quality &amp; Governance</h2>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">15.</span>What is a data quality framework and what should it include?</h3>
+            <p>A defined set of standards covering completeness (required fields), accuracy (validation
+                rules, duplicate management), consistency (standardized picklists rather than free text), and
+                timeliness (data freshness expectations) — with clear ownership for who's accountable for each
+                dimension.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">16.</span>How does Salesforce's native Duplicate Management feature
+                work, and when is it not sufficient?</h3>
+            <p>Duplicate Rules combined with Matching Rules flag or block likely duplicate records at the
+                point of entry based on configurable matching criteria. It's often not sufficient for
+                cross-object or fuzzy matching needs beyond its built-in matching algorithms, where a
+                dedicated data quality tool or custom matching logic may be required.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">17.</span>What is master data management (MDM) and how does it relate to
+                Salesforce architecture?</h3>
+            <p>MDM establishes a single, authoritative version of core business entities (customer, product)
+                across multiple systems. In a Salesforce architecture, this often means designating Salesforce
+                (or an external MDM hub) as the system of record for specific entities and designing
+                integrations so all systems synchronize from that single source rather than each maintaining
+                a separate, potentially conflicting copy.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">18.</span>How do you design a data retention and deletion policy that
+                satisfies both compliance and business needs?</h3>
+            <p>Map data types to their specific legal/regulatory retention requirements (which vary
+                significantly by data type and jurisdiction), automate deletion or anonymization once a
+                record passes its retention period using scheduled Apex or a native retention policy tool, and
+                document the policy so compliance can verify it's actually enforced, not just written down.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">19.</span>What is the "right to be forgotten" (e.g., under GDPR) and how
+                does it affect data architecture?</h3>
+            <p>It requires the ability to permanently delete or anonymize an individual's personal data on
+                request. Architecturally, this means designing data models where all copies/references to
+                that individual's data (including in related objects, integrations, and backups) can actually
+                be located and removed — a scattered, undocumented data model makes this compliance requirement
+                much harder to fulfill.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">20.</span>How do you handle Personally Identifiable Information (PII) in
+                a data architecture?</h3>
+            <p>Minimize collection to only what's needed, use Shield Platform Encryption or similar for
+                sensitive fields at rest, restrict field-level access tightly via FLS, and ensure any
+                integration or reporting export of PII is itself governed by the same protection
+                requirements as the source data.</p>
+        </div>
+
+        <h2>Data Modeling for Scale</h2>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">21.</span>How does indexing work in Salesforce, and which fields are
+                indexed by default?</h3>
+            <p>Standard indexed fields include record Id, Name, OwnerId, CreatedDate, and fields marked
+                External ID or Unique. Custom indexes can be requested via Salesforce Support for other
+                frequently-filtered fields on large objects that aren't naturally indexed.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">22.</span>What is a composite/custom index and when would you request
+                one?</h3>
+            <p>An index spanning two or more fields together, useful when queries commonly filter on a
+                combination of fields rather than a single field. Request one when Query Plan analysis shows a
+                frequently-run, business-critical query isn't selective on any single available index.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">23.</span>How do you design a data model to support efficient reporting
+                at scale?</h3>
+            <p>Avoid overly complex report types spanning many objects, consider pre-aggregating frequently-needed
+                summary data into a dedicated reporting object updated on a schedule, and be mindful that joined
+                reports and cross-filters can become expensive on very large data sets.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">24.</span>What is the impact of deeply nested Master-Detail relationships
+                on performance and design flexibility?</h3>
+            <p>Salesforce supports up to three levels of Master-Detail relationships. Deep nesting increases
+                cascading delete risk and locking scope during updates, and makes the sharing model more rigid
+                since all descendants inherit sharing from the top-level parent — this trade-off should be
+                weighed carefully rather than defaulting to Master-Detail everywhere.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">25.</span>How would you architect a data model to support a business that
+                expects 100x data growth over three years?</h3>
+            <p>Choose Lookup over Master-Detail where flexibility might be needed later, design queries and
+                automation to be selective and bulk-safe from day one rather than retrofitting later, plan an
+                archival strategy proactively rather than reactively, and validate the design against realistic
+                projected volumes using a data volume test in a full sandbox before go-live.</p>
+        </div>
+
+        <blockquote>
+            Continue to <a href="architect-qa-part3.html">Part 3: Sharing &amp; Visibility Architecture</a>
+            for security model design questions aligned to the Sharing &amp; Visibility Architect
+            certification.
+        </blockquote>
+
+    </article>
+
+    <div class="article-footer">
+        <div class="author-card">
+            <div class="author-info">
+                <h4>Salesforce Interview Prep</h4>
+                <p>A free, ad-free reference for Salesforce interview candidates</p>
+            </div>
+        </div>
+        <a href="../index.html" class="back-btn">← Back to Portfolio</a>
+    </div>
+
+    <footer>
+        &copy; 2026 Michael George
+    </footer>
+
+</body>
+
+</html>

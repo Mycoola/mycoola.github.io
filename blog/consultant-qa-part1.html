@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Salesforce Consultant Interview Q&amp;A — Part 1: Discovery &amp; Requirements</title>
+    <meta name="description"
+        content="25 Salesforce Senior Consultant interview questions and answers on discovery workshops, requirements gathering, and stakeholder management." />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet" />
+    <link rel="stylesheet" href="qa-style.css" />
+</head>
+
+<body>
+
+    <nav>
+        <a href="../index.html" class="nav-brand">Michael <span>George</span></a>
+        <a href="../index.html#blog" class="back-link">← Back to Portfolio</a>
+    </nav>
+
+    <div class="article-hero">
+        <div class="article-tag">Salesforce · Consultant</div>
+        <h1 class="article-title">Salesforce Consultant Interview Q&amp;A — Part 1: Discovery &amp; Requirements</h1>
+        <div class="article-meta">Updated August 2026 &nbsp;·&nbsp; Part 1 of 4 &nbsp;·&nbsp; 25 questions</div>
+    </div>
+
+    <article class="article-body">
+
+        <div class="qa-nav">
+            <strong>Salesforce Consultant Interview Series (100 questions)</strong>
+            <a href="consultant-qa-part1.html">Part 1: Discovery &amp; Requirements</a>
+            <a href="consultant-qa-part2.html">Part 2: Data Model &amp; Sharing</a>
+            <a href="consultant-qa-part3.html">Part 3: Automation &amp; Integration</a>
+            <a href="consultant-qa-part4.html">Part 4: Migration &amp; Governance</a>
+        </div>
+
+        <p>
+            A general-purpose reference for Senior Consultant and pre-sales/solution-design interviews. This
+            part covers discovery methodology, requirements gathering, and stakeholder engagement.
+        </p>
+
+        <h2>Discovery &amp; Requirements Gathering</h2>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">1.</span>What is the purpose of a discovery workshop?</h3>
+            <p>To understand the client's current business processes, pain points, and desired outcomes
+                before proposing a solution — mapping "as-is" workflows to identify gaps, inefficiencies, and
+                requirements that will drive the "to-be" design. Skipping discovery is the most common cause
+                of solutions that are technically correct but don't fit the actual business.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">2.</span>How do you elicit requirements from non-technical stakeholders?</h3>
+            <p>Ask about their process and pain points in their own language rather than Salesforce
+                terminology — "walk me through what happens when a deal closes" instead of "how should the
+                Opportunity object work." Use visual process maps and confirm understanding by playing back
+                what you heard before translating it into technical requirements.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">3.</span>What's the difference between a business requirement and a
+                technical requirement?</h3>
+            <p>A business requirement describes an outcome or need in business language ("sales reps need to
+                see a customer's full support history before a renewal call"). A technical requirement
+                translates that into an implementable specification ("display related Cases on the
+                Opportunity page layout, filtered to the last 12 months, sorted by date").</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">4.</span>How do you prioritize competing requirements from multiple
+                stakeholders?</h3>
+            <p>Tie each requirement back to a measurable business outcome or KPI, then facilitate a
+                prioritization exercise (e.g., MoSCoW — Must/Should/Could/Won't) with all stakeholders present
+                so trade-offs are made collaboratively and transparently rather than unilaterally by the
+                consultant.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">5.</span>What is a process map and why create one during discovery?</h3>
+            <p>A visual diagram of a business process's steps, decision points, and handoffs between roles or
+                systems. It surfaces edge cases and exceptions that get missed in narrative descriptions, and
+                gives stakeholders something concrete to validate or correct before design begins.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">6.</span>How do you handle a client who says "just make it work like our
+                old system"?</h3>
+            <p>Dig into what specifically worked well for them functionally rather than replicating the old
+                system's technical implementation — often what they actually value is a specific outcome
+                (speed, a particular report, a familiar terminology) that can be delivered better within
+                Salesforce's native capabilities rather than recreating legacy technical debt.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">7.</span>What is a fit-gap analysis?</h3>
+            <p>A structured comparison of business requirements against out-of-the-box Salesforce
+                capabilities, categorizing each requirement as a "fit" (native functionality covers it), a
+                "gap" (requires configuration or customization), or "won't fit" (requires a workaround or
+                process change) — used to scope the project and set expectations before design.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">8.</span>How do you write a good user story for a Salesforce feature?</h3>
+            <p>Follow the "As a [role], I want [capability], so that [business value]" format, paired with
+                clear, testable acceptance criteria. A good story is small enough to estimate and deliver
+                within a sprint, and focuses on the "why" (business value) as much as the "what."</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">9.</span>What questions should you ask before recommending a specific
+                Salesforce Cloud (Sales, Service, Experience, etc.)?</h3>
+            <p>Who are the end users (internal reps vs. external customers/partners)? What's the core process
+                being automated (selling, case resolution, self-service)? What existing licenses does the
+                client already own? Answering these prevents recommending an expensive Cloud when a
+                cheaper, already-licensed feature set would suffice.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">10.</span>How do you scope a project when the client's requirements are
+                still vague?</h3>
+            <p>Time-box a discrete discovery/design phase as its own deliverable before committing to a fixed
+                scope and price for build — this produces a requirements document and estimate the client can
+                sign off on, rather than guessing at scope and absorbing the risk of scope creep later.</p>
+        </div>
+
+        <h2>Stakeholder Management</h2>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">11.</span>How do you manage a stakeholder who keeps changing
+                requirements mid-project?</h3>
+            <p>Implement a lightweight change-control process: log the new requirement, assess its impact on
+                timeline/budget/scope, and get explicit sign-off before implementing it. This isn't about
+                blocking legitimate change — it's about making the trade-off visible so decisions are made
+                deliberately, not accidentally.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">12.</span>How do you communicate technical constraints to a
+                non-technical executive sponsor?</h3>
+            <p>Frame constraints in terms of business risk and trade-offs rather than technical jargon — e.g.,
+                "this approach adds two weeks but reduces the risk of data loss during migration" rather than
+                explaining governor limits or API rate limits directly.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">13.</span>What's your approach to running an effective status meeting
+                with a client?</h3>
+            <p>Come with a short, pre-shared agenda; lead with decisions/blockers that need the client's
+                input rather than a full narrative of every task completed; and end every meeting with clear
+                owners and dates for open items.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">14.</span>How do you handle a disagreement between two client
+                stakeholders about how a feature should work?</h3>
+            <p>Facilitate rather than arbitrate — bring both perspectives back to the underlying business
+                outcome each is trying to achieve, and look for a design that satisfies both, or escalate to a
+                single decision-maker with authority over that process if no compromise exists.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">15.</span>What is a RACI matrix and why use one on a Salesforce project?</h3>
+            <p>A matrix defining who is Responsible, Accountable, Consulted, and Informed for each project
+                decision or deliverable. On multi-stakeholder Salesforce projects it prevents delays caused by
+                unclear decision-making authority, especially for sign-offs like data model or UAT approval.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">16.</span>How do you set realistic expectations about Salesforce's
+                out-of-the-box limitations early in a project?</h3>
+            <p>Address well-known constraints (e.g., standard object field limits, governor limits at scale,
+                UI customization boundaries) during discovery rather than after building started, using
+                concrete examples relevant to the client's use case so it doesn't feel abstract or
+                theoretical.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">17.</span>How would you handle a client insisting on a solution you
+                believe is technically unsound?</h3>
+            <p>Present the risk clearly with a recommended alternative, document the discussion and the
+                client's decision in writing, and implement the safest version of their request if they still
+                choose to proceed after understanding the trade-offs — the goal is informed consent, not
+                unilaterally overriding the client.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">18.</span>What is User Acceptance Testing (UAT) and what's your role in
+                it as a consultant?</h3>
+            <p>UAT is the phase where actual end users validate the built solution against real business
+                scenarios before go-live. As a consultant, your role is to prepare clear test scripts tied to
+                original requirements, triage reported issues (bug vs. new requirement vs. training gap), and
+                track sign-off formally.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">19.</span>How do you handle scope creep during a fixed-price engagement?</h3>
+            <p>Distinguish clarifications of existing scope (absorbed) from genuinely new requirements
+                (logged as a change request with its own estimate and approval). Being consistent and
+                transparent about this distinction from day one prevents relationship friction later.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">20.</span>What documentation should a consultant produce during a
+                project, and for whom?</h3>
+            <p>A requirements/design document for stakeholder sign-off, a technical specification for the
+                build team, a data dictionary for anyone integrating with the org later, and an
+                admin/end-user guide for the client's internal team to maintain the solution post-go-live.</p>
+        </div>
+
+        <h2>Change Management &amp; Adoption</h2>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">21.</span>Why do Salesforce projects fail even when the technical build
+                is solid?</h3>
+            <p>Most commonly: poor user adoption because change management and training were an afterthought,
+                misaligned expectations from unclear requirements, or a data migration that undermined trust
+                in the new system's data quality on day one.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">22.</span>How do you drive user adoption after go-live?</h3>
+            <p>Involve end users early (not just executives) during design so the solution reflects their
+                actual workflow, provide role-specific training rather than generic overviews, identify
+                internal champions per team, and track adoption metrics (login frequency, feature usage) to
+                catch drop-off early.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">23.</span>What is a hypercare period and why include one in a project
+                plan?</h3>
+            <p>A defined window immediately after go-live (typically 2-4 weeks) where the project team
+                provides heightened, rapid support to resolve issues and reinforce training — preventing early
+                friction from turning into long-term abandonment of the new system.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">24.</span>How do you measure whether a Salesforce implementation was
+                successful?</h3>
+            <p>Tie back to the original business case: adoption rate, the specific KPI the project was meant
+                to move (e.g., reduced case resolution time, increased pipeline visibility), and user
+                satisfaction — not just "the system was deployed on time and on budget," which measures
+                delivery, not value.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">25.</span>How do you plan a phased rollout versus a big-bang go-live?</h3>
+            <p>Choose phased rollout when risk needs to be contained (e.g., one region or business unit first)
+                or when dependencies between features allow incremental value delivery. Choose big-bang when
+                the process being replaced can't run in two parallel states (e.g., a single shared order
+                management workflow) or when the org is small enough that phasing adds coordination overhead
+                without reducing real risk.</p>
+        </div>
+
+        <blockquote>
+            Continue to <a href="consultant-qa-part2.html">Part 2: Data Model &amp; Sharing Design</a> for
+            questions on object modeling, relationship design, and security architecture decisions.
+        </blockquote>
+
+    </article>
+
+    <div class="article-footer">
+        <div class="author-card">
+            <div class="author-info">
+                <h4>Salesforce Interview Prep</h4>
+                <p>A free, ad-free reference for Salesforce interview candidates</p>
+            </div>
+        </div>
+        <a href="../index.html" class="back-btn">← Back to Portfolio</a>
+    </div>
+
+    <footer>
+        &copy; 2026 Michael George
+    </footer>
+
+</body>
+
+</html>

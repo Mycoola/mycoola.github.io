@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Salesforce Consultant Interview Q&amp;A — Part 4: Migration, Performance &amp; Governance</title>
+    <meta name="description"
+        content="25 Salesforce Senior Consultant interview questions and answers on data migration methodology, performance troubleshooting, and org governance." />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet" />
+    <link rel="stylesheet" href="qa-style.css" />
+</head>
+
+<body>
+
+    <nav>
+        <a href="../index.html" class="nav-brand">Michael <span>George</span></a>
+        <a href="../index.html#blog" class="back-link">← Back to Portfolio</a>
+    </nav>
+
+    <div class="article-hero">
+        <div class="article-tag">Salesforce · Consultant</div>
+        <h1 class="article-title">Salesforce Consultant Interview Q&amp;A — Part 4: Migration, Performance &amp;
+            Governance</h1>
+        <div class="article-meta">Updated August 2026 &nbsp;·&nbsp; Part 4 of 4 &nbsp;·&nbsp; 25 questions</div>
+    </div>
+
+    <article class="article-body">
+
+        <div class="qa-nav">
+            <strong>Salesforce Consultant Interview Series (100 questions)</strong>
+            <a href="consultant-qa-part1.html">Part 1: Discovery &amp; Requirements</a>
+            <a href="consultant-qa-part2.html">Part 2: Data Model &amp; Sharing</a>
+            <a href="consultant-qa-part3.html">Part 3: Automation &amp; Integration</a>
+            <a href="consultant-qa-part4.html">Part 4: Migration &amp; Governance</a>
+        </div>
+
+        <p>
+            The final part of the Consultant series covers data migration methodology, performance
+            troubleshooting frameworks, and the org governance practices that keep a Salesforce
+            implementation healthy long after go-live.
+        </p>
+
+        <h2>Data Migration</h2>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">1.</span>What are the main phases of a data migration project?</h3>
+            <p>Data assessment/profiling, field mapping, cleansing/deduplication, staged loading (parents
+                before children), validation/reconciliation, and cutover planning with a rollback strategy.
+                Skipping the assessment phase is the most common cause of migration surprises mid-project.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">2.</span>Why do you migrate parent records before child records?</h3>
+            <p>Child records typically reference their parent via a lookup/master-detail field that requires
+                the parent's Salesforce Id (or an external Id for upsert) to already exist — loading children
+                first would either fail or require a costly second pass to relink relationships.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">3.</span>How do you handle deduplication during a migration?</h3>
+            <p>Profile the source data for exact and fuzzy duplicates (matching on name, email, phone,
+                external Id) before loading, using either the source system's existing merge history, a
+                dedicated dedup tool, or a scripted matching pass — resolving duplicates before load is far
+                cheaper than merging them after they're live in Salesforce.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">4.</span>What is a reconciliation report and why is it required after
+                migration?</h3>
+            <p>A report comparing source system record counts and key field values against what landed in
+                Salesforce, confirming nothing was silently dropped or corrupted during transformation/load —
+                without it, data-quality issues surface much later when a user notices missing information.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">5.</span>How do you decide which historical data to migrate versus
+                archive?</h3>
+            <p>Migrate what's needed for active business processes and recent reporting/compliance
+                requirements; archive (keep accessible but outside the live transactional org) data that's
+                rarely accessed but must be retained for legal/audit reasons — migrating everything
+                indiscriminately bloats the org and slows performance for no business benefit.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">6.</span>What tools would you choose for a migration of 500,000 records
+                versus 50 million records?</h3>
+            <p>500,000 records is comfortably handled by Data Loader or a similar Bulk API-based tool with
+                standard batch sizes. 50 million records typically requires a dedicated ETL tool
+                (Informatica, MuleSoft, custom scripts using Bulk API 2.0) with careful batching, parallelization,
+                and monitoring to avoid API limits and long runtimes.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">7.</span>How do you plan a cutover window to minimize business
+                disruption?</h3>
+            <p>Schedule during the lowest-usage period (weekend, off-hours), freeze source-system changes
+                before the final data pull to avoid missing last-minute updates, communicate the freeze window
+                clearly to end users in advance, and have a tested rollback plan ready in case validation
+                fails post-load.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">8.</span>What is a delta load and when do you use one?</h3>
+            <p>A delta load migrates only records that changed since the last full or delta load (based on a
+                last-modified timestamp), used during a multi-week migration project to keep the target org
+                current with the source without repeatedly reloading the entire dataset.</p>
+        </div>
+
+        <h2>Performance Troubleshooting</h2>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">9.</span>A client reports "Salesforce is slow" — what's your
+                troubleshooting framework?</h3>
+            <p>Narrow the scope first: is it one page, one report, one user, or org-wide? Check Debug Logs for
+                slow SOQL/Apex, use the Query Plan tool for non-selective queries, review Event Monitoring for
+                patterns, and check for excessive automation firing on the same transaction — diagnose before
+                changing anything.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">10.</span>What is Salesforce Optimizer and what does it help identify?</h3>
+            <p>A free, automated org health report identifying unused fields, layouts, and automation, API
+                usage trends, and other technical debt indicators — a good first step in any org health
+                assessment before deeper manual investigation.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">11.</span>What causes a report to time out, and how do you fix it?</h3>
+            <p>Usually a non-selective filter on a very large object, too many joined objects, or a
+                cross-filter without adequate indexing. Fixes include adding a more selective filter (date
+                range, indexed field), reducing the number of related objects in the report type, or
+                pre-aggregating data via a summary object updated on a schedule.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">12.</span>How do you diagnose slow page load times on a record page?</h3>
+            <p>Check the number and complexity of Lightning components on the page (especially those making
+                separate Apex/LDS calls), look for unindexed related-list queries, verify Einstein/AI
+                widgets or third-party managed package components aren't adding overhead, and use browser dev
+                tools plus Salesforce's Lightning Usage App for real user monitoring data.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">13.</span>What's the impact of too many automations firing on the same
+                object and how do you identify it?</h3>
+            <p>Each automation adds to the transaction's total execution time and governor limit consumption;
+                stacking many Flows, triggers, and validation rules on one save can create noticeable UI lag or
+                even limit exceptions under bulk load. Identify it via Debug Logs' timeline view showing every
+                automation invoked in a single save.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">14.</span>How do you approach a performance issue that only occurs during
+                bulk data loads (not normal UI usage)?</h3>
+            <p>Review whether triggers/Flows on the object are properly bulkified, check for per-record
+                callouts that should be batched, and confirm the load tool's batch size is appropriately
+                tuned — bulk-specific issues almost always trace back to automation that works fine for one
+                record but wasn't designed for 200+ at once.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">15.</span>What role does Large Data Volume (LDV) design play in
+                performance?</h3>
+            <p>Objects with tens of millions of records require deliberate design — selective queries using
+                indexed fields, avoiding formula fields that reference across many records, and skew
+                management for ownership/lookup skew — since default configuration that works fine at low
+                volume can degrade sharply at LDV scale.</p>
+        </div>
+
+        <h2>Org Governance</h2>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">16.</span>What is a Center of Excellence (CoE) and why would a growing
+                Salesforce org need one?</h3>
+            <p>A CoE is a cross-functional governance body (admins, architects, business stakeholders) that
+                sets and enforces standards for how the org evolves — reviewing new requests, maintaining
+                naming/design conventions, and preventing uncoordinated changes across multiple teams from
+                creating conflicting automation or technical debt.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">17.</span>How do you establish a sustainable release management process
+                for an org with multiple concurrent projects?</h3>
+            <p>Use a shared sandbox strategy with clear environment purposes (dev, integration/QA, UAT,
+                staging), a defined release calendar/cadence, and a change-approval gate so multiple teams'
+                changes are tested together before reaching production, avoiding "it worked in my sandbox but
+                broke in prod" conflicts.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">18.</span>What is technical debt in a Salesforce context, and how do you
+                communicate its cost to business stakeholders?</h3>
+            <p>Technical debt is any shortcut or outdated pattern (unbulkified code, redundant automation,
+                unused fields) that increases the cost/risk of future changes. Communicate it in business
+                terms — increased time-to-deliver new features, higher risk of outages — rather than technical
+                jargon, so stakeholders understand why paying it down matters.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">19.</span>How often should an org's security model (profiles, permission
+                sets, sharing rules) be audited?</h3>
+            <p>At minimum annually, and after any major reorg or role change — using the Health Check tool,
+                a review of users with overly broad "Modify All Data" or "View All Data" permissions, and a
+                check for stale sharing rules referencing groups/roles that no longer reflect the current
+                organization.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">20.</span>What governance practices prevent "shadow IT" style
+                uncontrolled configuration changes in a large org?</h3>
+            <p>A documented change-request process even for declarative changes, restricting System
+                Administrator profile assignment to a small controlled group, and using sandboxes with a formal
+                promotion path rather than allowing direct production configuration by business users.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">21.</span>How do you plan for a Salesforce seasonal release (three times
+                a year)?</h3>
+            <p>Review release notes for features affecting your org, test critical customizations in a
+                sandbox that has already received the release ahead of your org, and check for any deprecated
+                features your org depends on — release readiness should be a standing recurring task, not
+                reactive firefighting after something breaks.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">22.</span>What is the purpose of a data governance policy, and what
+                should it define?</h3>
+            <p>A data governance policy defines data ownership, quality standards, retention/archival rules,
+                and who can create/modify which fields and objects — providing a reference so data quality
+                doesn't degrade as more teams and integrations touch the same org over time.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">23.</span>How do you handle the tension between innovation speed and
+                governance controls?</h3>
+            <p>Right-size governance to risk — lightweight approval for low-risk sandbox experimentation,
+                stricter review gates for production changes affecting shared data models or security. Overly
+                heavy governance on everything slows delivery without proportional risk reduction and drives
+                teams toward workarounds.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">24.</span>What is the role of a system of record, and how do you handle
+                conflicts when multiple systems claim to be authoritative for the same data?</h3>
+            <p>Designate a single system of record per data domain (e.g., the ERP is authoritative for
+                pricing, Salesforce for customer relationship data) and design integrations so that source
+                system's data always wins in a conflict — ambiguity about which system is authoritative is a
+                common root cause of data quality disputes.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">25.</span>How do you plan for org consolidation when a company has grown
+                through multiple Salesforce orgs (e.g., via acquisitions)?</h3>
+            <p>Start with a data model and process reconciliation across the orgs being merged, prioritize
+                consolidating the highest-value shared processes first (rather than a single big-bang merge of
+                everything), and plan the migration itself using the same phased, validated approach as any
+                other large-scale data migration project.</p>
+        </div>
+
+        <blockquote>
+            That completes the 100-question Salesforce Consultant interview series. See also the
+            <a href="dev-qa-part1.html">Developer series</a> for implementation-level detail, and the
+            <a href="architect-qa-part1.html">Architect series</a> for certification-level architecture depth.
+        </blockquote>
+
+    </article>
+
+    <div class="article-footer">
+        <div class="author-card">
+            <div class="author-info">
+                <h4>Salesforce Interview Prep</h4>
+                <p>A free, ad-free reference for Salesforce interview candidates</p>
+            </div>
+        </div>
+        <a href="../index.html" class="back-btn">← Back to Portfolio</a>
+    </div>
+
+    <footer>
+        &copy; 2026 Michael George
+    </footer>
+
+</body>
+
+</html>

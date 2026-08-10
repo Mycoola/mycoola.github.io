@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Salesforce Developer Interview Q&amp;A — Part 4: LWC, SOQL &amp; DevOps</title>
+    <meta name="description"
+        content="25 Salesforce Developer interview questions and answers on Lightning Web Components, SOQL/SOSL optimization, and Salesforce DX deployment/CI-CD." />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet" />
+    <link rel="stylesheet" href="qa-style.css" />
+</head>
+
+<body>
+
+    <nav>
+        <a href="../index.html" class="nav-brand">Michael <span>George</span></a>
+        <a href="../index.html#blog" class="back-link">← Back to Portfolio</a>
+    </nav>
+
+    <div class="article-hero">
+        <div class="article-tag">Salesforce · Developer</div>
+        <h1 class="article-title">Salesforce Developer Interview Q&amp;A — Part 4: LWC, SOQL &amp; DevOps</h1>
+        <div class="article-meta">Updated August 2026 &nbsp;·&nbsp; Part 4 of 4 &nbsp;·&nbsp; 25 questions</div>
+    </div>
+
+    <article class="article-body">
+
+        <div class="qa-nav">
+            <strong>Salesforce Developer Interview Series (100 questions)</strong>
+            <a href="dev-qa-part1.html">Part 1: Apex &amp; OOP</a>
+            <a href="dev-qa-part2.html">Part 2: Triggers &amp; Async</a>
+            <a href="dev-qa-part3.html">Part 3: Testing &amp; Security</a>
+            <a href="dev-qa-part4.html">Part 4: LWC, SOQL &amp; DevOps</a>
+        </div>
+
+        <p>
+            The final part of the Developer series covers Lightning Web Components, query optimization, and
+            the DevOps/deployment knowledge expected of a senior-level candidate.
+        </p>
+
+        <h2>Lightning Web Components</h2>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">1.</span>What is a Lightning Web Component (LWC)?</h3>
+            <p>A UI component built on modern web standards (native Web Components, ES6+ JavaScript, HTML
+                templates) that runs on the Lightning Component framework. LWC coexists with the older Aura
+                framework and can interoperate with it, but is now Salesforce's recommended approach for new
+                UI development.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">2.</span>What is the <code>@wire</code> decorator used for?</h3>
+            <p>It declaratively binds a component property or function to a Salesforce data source (an Apex
+                method or a Lightning Data Service adapter), automatically re-invoking the wire whenever its
+                reactive parameters change, and handling the resulting data/error states.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">3.</span>What's the difference between <code>@api</code>, <code>@track</code>,
+                and a plain property?</h3>
+            <p><code>@api</code> exposes a property/method publicly so a parent component can set it or call
+                it. <code>@track</code> (rarely needed since W3C proxy-based reactivity became default) forces
+                reactivity for mutations to fields of an object/array. A plain property is private and
+                reactive automatically for primitive reassignment.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">4.</span>How do sibling LWCs communicate with each other?</h3>
+            <p>Through a parent component that listens for a custom event dispatched by the child (child-to-parent),
+                then passes data down via a property to the sibling (parent-to-child) — or, for unrelated
+                components, via a Lightning Message Service channel for pub/sub-style messaging.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">5.</span>How does a child component notify a parent of an event?</h3>
+            <p>The child creates and dispatches a <code>CustomEvent</code> (<code>this.dispatchEvent(new
+                CustomEvent('save', { detail: data }))</code>). The parent listens for it in the template using
+                <code>onsave={handleSave}</code> and receives the payload via <code>event.detail</code>.
+            </p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">6.</span>What is Lightning Data Service (LDS) and why use it over Apex?</h3>
+            <p>LDS (<code>lightning/ui*Api</code> wire adapters like <code>getRecord</code>,
+                <code>createRecord</code>) provides shared record caching, offline-priming support, and
+                automatic FLS/CRUD enforcement without writing any Apex — reducing server round trips and
+                keeping the UI in sync across components using the same record.
+            </p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">7.</span>When would you still write an Apex controller instead of using
+                LDS?</h3>
+            <p>When you need complex server-side logic (aggregations, joins across multiple objects, custom
+                business rules) that a single-record LDS call can't express, or when performance requires
+                batching several related lookups into one round trip.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">8.</span>What does <code>@AuraEnabled(cacheable=true)</code> do?</h3>
+            <p>It marks an Apex method as safe for the Lightning Data Service client-side cache and usable
+                with <code>@wire</code>. Cacheable methods must be read-only (no DML) so the platform can
+                safely reuse cached results and refresh them via <code>refreshApex</code>.</p>
+        </div>
+
+        <h2>SOQL &amp; SOSL</h2>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">9.</span>What's the difference between SOQL and SOSL?</h3>
+            <p>SOQL (Salesforce Object Query Language) queries one specific object type (with related object
+                traversal) and is ideal when you know which object/fields you're targeting. SOSL (Salesforce
+                Object Search Language) performs a full-text search across multiple objects and fields
+                simultaneously, ideal for a global "search everywhere" experience.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">10.</span>What makes a SOQL query "selective," and why does it matter?</h3>
+            <p>A selective query filters on an indexed field (standard indexed fields, custom fields marked
+                External ID/Unique, or fields on which a custom index was requested) and returns a small
+                fraction of the object's total records. Non-selective queries on very large objects risk a
+                full table scan and can time out or trigger a <code>QueryException</code>.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">11.</span>How do you avoid the "too many SOQL queries" governor limit
+                error?</h3>
+            <p>Bulkify: query once outside loops using a collected Set of Ids, use relationship queries to
+                pull parent/child data in a single SOQL statement instead of separate queries per
+                relationship, and cache repeated lookups in a Map for the duration of the transaction.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">12.</span>What is a relationship query and how do parent-to-child and
+                child-to-parent syntax differ?</h3>
+            <p>Child-to-parent uses dot notation (<code>SELECT Name, Account.Industry FROM Contact</code>).
+                Parent-to-child uses a nested subquery with the child relationship name (<code>SELECT Name,
+                (SELECT LastName FROM Contacts) FROM Account</code>), since an Account can have many Contacts.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">13.</span>What is the difference between an aggregate query and a regular
+                SOQL query?</h3>
+            <p>An aggregate query uses functions like <code>COUNT()</code>, <code>SUM()</code>,
+                <code>AVG()</code>, typically combined with <code>GROUP BY</code>, to return computed summary
+                results (as <code>AggregateResult</code> records) rather than individual sObject records.
+            </p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">14.</span>How do you use the Query Plan tool and why is it useful?</h3>
+            <p>Available in Developer Console, it shows the execution plan Salesforce's optimizer chose for a
+                given SOQL query — including which index (if any) is used and the estimated cost — helping you
+                diagnose why a query is slow or non-selective before it becomes a production performance
+                issue.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">15.</span>What is a custom index and when would you request one?</h3>
+            <p>A database-level index on a custom field, requested via a Salesforce Support case (or
+                self-service on certain field types), used when a field is frequently filtered on in large
+                objects but isn't naturally indexed (unlike External ID or Unique fields, which are indexed
+                automatically).</p>
+        </div>
+
+        <h2>DevOps &amp; Deployment</h2>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">16.</span>What is Salesforce DX and why was it introduced?</h3>
+            <p>A source-driven development model and CLI toolchain (<code>sf</code> commands) that treats
+                metadata as version-controlled source files rather than the org itself being the source of
+                truth — enabling standard software practices like branching, pull requests, and CI/CD
+                pipelines for Salesforce development.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">17.</span>What is a scratch org?</h3>
+            <p>A temporary, fully-configurable Salesforce org created from a definition file
+                (<code>project-scratch-def.json</code>), typically used per-feature-branch or per-developer for
+                isolated development and testing, then discarded once the feature is deployed and merged.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">18.</span>What's the difference between Metadata API and Tooling API?</h3>
+            <p>Metadata API deploys/retrieves org configuration (objects, fields, classes, flows) as XML for
+                CI/CD and package deployment. Tooling API exposes a more granular, often SObject-like interface
+                to individual metadata components — commonly used by IDEs/tools for things like real-time class
+                editing or fetching a single Apex class's body.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">19.</span>What is a Second-Generation Managed Package (2GP)?</h3>
+            <p>A source-driven packaging format that lets ISVs and internal teams version, namespace, and
+                distribute metadata as an installable package built from version-controlled source, replacing
+                the older org-dependent 1GP packaging workflow.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">20.</span>What is a CI/CD pipeline in a Salesforce context?</h3>
+            <p>An automated workflow (e.g., via GitHub Actions, GitLab CI, Azure DevOps, or Copado/Gearset)
+                that validates and deploys metadata changes automatically when code is merged — typically
+                running Apex tests, static code analysis, and a metadata deployment to a target sandbox or
+                production org without manual intervention.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">21.</span>What is the difference between a Change Set and a Metadata API
+                deployment?</h3>
+            <p>Change Sets are a point-and-click, org-to-org deployment mechanism with no version control, best
+                for very simple, low-frequency deployments. Metadata API deployments (via the <code>sf</code>
+                CLI or CI/CD tools) are source-controlled, repeatable, and scriptable, and are the recommended
+                approach for professional development.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">22.</span>What is a "destructive change" in a Salesforce deployment?</h3>
+            <p>A deployment package (<code>destructiveChanges.xml</code>) that removes metadata components
+                (fields, classes, etc.) from an org, rather than adding or updating them. These require care
+                since deleting a field can cause irreversible data loss if not planned carefully.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">23.</span>What is a validation-only deployment and why use one?</h3>
+            <p>A deployment run with <code>--dry-run</code> (or "Check Only" in Setup) that executes all Apex
+                tests and validates the metadata without actually committing the changes — used to confirm a
+                deployment will succeed before doing it for real, especially useful ahead of a production
+                release window.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">24.</span>What does "quick deploy" mean in Salesforce deployments?</h3>
+            <p>After a validation-only deployment succeeds, its Apex test results are cached for a limited
+                time; a subsequent real deployment of the exact same changeset can skip re-running tests
+                (quick deploy), which meaningfully speeds up the production release when tests are slow.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">25.</span>How do you handle environment-specific configuration (e.g., a
+                sandbox vs. production endpoint) across deployments?</h3>
+            <p>Use Custom Metadata Types or Named Credentials scoped per environment rather than hardcoding
+                values in Apex — Custom Metadata records can be deployed once and then updated per org without
+                a new code deployment, and Named Credentials keep endpoint/auth details out of source entirely.</p>
+        </div>
+
+        <blockquote>
+            That completes the 100-question Salesforce Developer interview series. See also the
+            <a href="consultant-qa-part1.html">Senior Consultant series</a> for solution-design questions, and
+            the <a href="architect-qa-part1.html">Architect series</a> for certification-level architecture
+            questions.
+        </blockquote>
+
+    </article>
+
+    <div class="article-footer">
+        <div class="author-card">
+            <div class="author-info">
+                <h4>Salesforce Interview Prep</h4>
+                <p>A free, ad-free reference for Salesforce interview candidates</p>
+            </div>
+        </div>
+        <a href="../index.html" class="back-btn">← Back to Portfolio</a>
+    </div>
+
+    <footer>
+        &copy; 2026 Michael George
+    </footer>
+
+</body>
+
+</html>

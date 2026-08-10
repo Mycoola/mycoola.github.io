@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Salesforce Developer Interview Q&amp;A — Part 1: Apex &amp; OOP Fundamentals</title>
+    <meta name="description"
+        content="25 Salesforce Developer interview questions and answers on Apex fundamentals, object-oriented programming, and core platform concepts." />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet" />
+    <link rel="stylesheet" href="qa-style.css" />
+</head>
+
+<body>
+
+    <nav>
+        <a href="../index.html" class="nav-brand">Michael <span>George</span></a>
+        <a href="../index.html#blog" class="back-link">← Back to Portfolio</a>
+    </nav>
+
+    <div class="article-hero">
+        <div class="article-tag">Salesforce · Developer</div>
+        <h1 class="article-title">Salesforce Developer Interview Q&amp;A — Part 1: Apex &amp; OOP Fundamentals</h1>
+        <div class="article-meta">Updated August 2026 &nbsp;·&nbsp; Part 1 of 4 &nbsp;·&nbsp; 25 questions</div>
+    </div>
+
+    <article class="article-body">
+
+        <div class="qa-nav">
+            <strong>Salesforce Developer Interview Series (100 questions)</strong>
+            <a href="dev-qa-part1.html">Part 1: Apex &amp; OOP</a>
+            <a href="dev-qa-part2.html">Part 2: Triggers &amp; Async</a>
+            <a href="dev-qa-part3.html">Part 3: Testing &amp; Security</a>
+            <a href="dev-qa-part4.html">Part 4: LWC, SOQL &amp; DevOps</a>
+        </div>
+
+        <p>
+            A general-purpose reference for Salesforce Developer interviews. This part covers Apex language
+            fundamentals and object-oriented programming concepts that come up in almost every technical screen.
+        </p>
+
+        <h2>Apex Language &amp; OOP Fundamentals</h2>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">1.</span>What is Apex and how is it different from Java?</h3>
+            <p>Apex is a strongly-typed, object-oriented programming language that runs natively on the
+                Salesforce platform. It's syntactically similar to Java, but it's tightly coupled to the
+                database — DML and SOQL are first-class language constructs — and it runs in a multi-tenant
+                environment enforced by governor limits, which Java does not have.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">2.</span>What are governor limits and why do they exist?</h3>
+            <p>Governor limits are runtime constraints Salesforce enforces per transaction (e.g., SOQL query
+                count, DML statements, heap size, CPU time) to prevent any single tenant from monopolizing
+                shared platform resources in a multi-tenant environment. Exceeding one throws a runtime
+                exception that cannot be caught in the same context that triggered it.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">3.</span>What's the difference between a class and an interface in Apex?</h3>
+            <p>A class defines both structure and behavior — fields, methods, and their implementations. An
+                interface only declares method signatures without implementation; any class that implements
+                the interface must provide the actual logic. Interfaces enable polymorphism and decoupling.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">4.</span>Explain the difference between abstract classes and interfaces.</h3>
+            <p>An abstract class can contain both implemented and unimplemented (abstract) methods, and can
+                hold state via member variables. An interface cannot implement any method body or hold instance
+                state. A class can extend only one abstract class but implement multiple interfaces.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">5.</span>What access modifiers are available in Apex?</h3>
+            <p><code>private</code> (default, visible only within the defining class), <code>protected</code>
+                (visible to the defining class and its subclasses), <code>public</code> (visible within the
+                application/namespace), and <code>global</code> (visible everywhere, including managed
+                packages — requires careful versioning since global members can't be removed later).</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">6.</span>What is the difference between <code>with sharing</code> and
+                <code>without sharing</code>?
+            </h3>
+            <p><code>with sharing</code> enforces the running user's record-level sharing rules on all
+                queries and DML within the class. <code>without sharing</code> executes in system context,
+                bypassing sharing rules (though field-level security and CRUD permissions may still apply
+                depending on how the class is written). Classes without an explicit sharing keyword inherit
+                the sharing mode of the calling context.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">7.</span>What is polymorphism and how does it apply in Apex?</h3>
+            <p>Polymorphism lets a variable of a parent type or interface reference an object of a subtype,
+                and the correct overridden method is invoked at runtime. In Apex this is achieved through
+                interfaces and virtual/override method inheritance, commonly used to swap implementations
+                (e.g., different payment gateway integrations behind a common interface).</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">8.</span>What's the difference between <code>static</code> and instance
+                methods/variables?</h3>
+            <p>Static members belong to the class itself and are shared across all instances within a single
+                transaction — they reset between transactions. Instance members belong to a specific object
+                and hold state unique to that object. Static variables are commonly used to prevent recursive
+                trigger execution within a transaction.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">9.</span>What collection types does Apex support, and when would you use
+                each?</h3>
+            <p><strong>List</strong> — ordered, allows duplicates, indexed access; use for ordered result sets.
+                <strong>Set</strong> — unordered, no duplicates; ideal for uniqueness checks like collecting
+                distinct Ids. <strong>Map</strong> — key-value pairs; ideal for fast lookups, commonly
+                <code>Map&lt;Id, SObject&gt;</code> to avoid repeated queries inside loops.
+            </p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">10.</span>What is an SObject and how does it differ from a regular Apex
+                class?</h3>
+            <p>An SObject is any object that can be stored and retrieved from the Salesforce database
+                (standard like Account, or custom ending in <code>__c</code>). It automatically has fields,
+                relationships, and DML/SOQL support built in, unlike a plain Apex class which has none of that
+                unless explicitly coded.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">11.</span>What is the difference between an Apex Trigger and an Apex
+                Class?</h3>
+            <p>A trigger is Apex code that executes automatically in response to a DML event (before/after
+                insert, update, delete, undelete) on a specific object. A class is a reusable code container
+                that must be explicitly invoked — from a trigger, controller, batch job, or another class.
+                Best practice is to keep triggers thin and delegate logic to handler classes.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">12.</span>What is a Design Pattern you commonly use in Apex, and why?</h3>
+            <p>The Trigger Handler pattern (one trigger per object delegating to a handler class) keeps logic
+                testable and centrally controlled. The Selector pattern centralizes SOQL queries per object.
+                The Service layer pattern separates business logic from data access, improving reuse and
+                testability across UI, API, and batch entry points.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">13.</span>What's the difference between <code>==</code> and
+                <code>.equals()</code> in Apex?
+            </h3>
+            <p>For primitive types like Integer and String, <code>==</code> compares values. For sObjects and
+                custom objects, <code>==</code> compares by reference unless
+                <code>equals()</code>/<code>hashCode()</code>
+                is overridden. In practice, Apex's <code>==</code> on sObjects actually performs a field-value
+                comparison, unlike Java, which is a common trip-up point in interviews.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">14.</span>What is a Custom Exception and when should you create one?</h3>
+            <p>A custom exception is a class that extends <code>Exception</code>, allowing you to define
+                domain-specific error types (e.g., <code>InvalidDiscountException</code>). Create one when you
+                need callers to differentiate your business-logic failures from generic runtime errors and
+                handle them distinctly with targeted <code>catch</code> blocks.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">15.</span>What is the transaction boundary in Apex?</h3>
+            <p>A transaction is the full unit of work — from the triggering event (a save, an API call, a
+                scheduled job execution) through every trigger, flow, and Apex invoked as a result — that
+                either commits entirely or rolls back entirely on an unhandled exception. Governor limits reset
+                per transaction, not per method call.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">16.</span>What's the difference between a Formula field and a Roll-Up
+                Summary field?</h3>
+            <p>A formula field calculates a value on the same object (or across a lookup) in real time when
+                read, using fields on that record or its parents. A Roll-Up Summary field aggregates (SUM,
+                COUNT, MIN, MAX) child record values onto a master record, and only works across Master-Detail
+                relationships, not standard Lookups.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">17.</span>What is the difference between a Lookup and a Master-Detail
+                relationship?</h3>
+            <p>A Lookup relationship loosely links two objects — the child can exist independently, and
+                deleting the parent doesn't delete children by default. Master-Detail creates a tight
+                ownership relationship — deleting the parent cascades to delete children, the child inherits
+                the parent's sharing and security, and Roll-Up Summary fields are only possible on this
+                relationship type.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">18.</span>What are the main data types in Apex?</h3>
+            <p>Primitives (<code>Integer</code>, <code>Double</code>, <code>Long</code>, <code>Boolean</code>,
+                <code>String</code>, <code>Date</code>, <code>Datetime</code>, <code>Id</code>), collections
+                (<code>List</code>, <code>Set</code>, <code>Map</code>), sObjects, enums, and user-defined
+                classes/interfaces.
+            </p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">19.</span>What is an Enum in Apex and when would you use one?</h3>
+            <p>An Enum defines a fixed set of named constants (e.g., <code>OrderStatus { NEW, PROCESSING,
+                SHIPPED }</code>). Use it instead of raw strings to get compile-time safety, avoid typos, and
+                make switch-style logic (using Apex's <code>switch on</code> statement) more readable.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">20.</span>What is a Wrapper class and why is it useful?</h3>
+            <p>A Wrapper class combines fields from one or more sObjects (or computed values) into a single
+                custom object, typically to pass structured, UI-friendly data between Apex and Visualforce/LWC
+                — for example, wrapping a Contact with a computed "isSelected" checkbox flag for a table with
+                row selection.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">21.</span>What is the difference between synchronous and asynchronous Apex
+                at a conceptual level?</h3>
+            <p>Synchronous Apex executes immediately within the calling transaction and shares its governor
+                limits (e.g., a trigger or a button click). Asynchronous Apex (Future, Queueable, Batch,
+                Scheduled) runs in a separate transaction with its own, generally higher, limits — useful for
+                long-running or bulk operations that would otherwise exceed synchronous limits.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">22.</span>What is the difference between <code>public</code> and
+                <code>global</code> in the context of managed packages?
+            </h3>
+            <p><code>public</code> members are visible only within the same namespace/application.
+                <code>global</code> members are exposed outside the package's namespace and, once released in
+                a managed package, can never be removed or have their signature changed without breaking
+                subscribers — so global should be used sparingly and deliberately.
+            </p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">23.</span>What is method overloading, and does Apex support it?</h3>
+            <p>Method overloading means defining multiple methods with the same name but different parameter
+                lists (number, type, or order) within the same class. Apex supports this fully — the compiler
+                resolves which version to call based on the arguments passed at compile time.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">24.</span>Can Apex classes be inherited? Explain class inheritance.</h3>
+            <p>Yes — a class marked <code>virtual</code> or <code>abstract</code> can be extended by a
+                subclass using <code>extends</code>. The subclass inherits public/protected members and can
+                override virtual methods using the <code>override</code> keyword. Apex supports single
+                inheritance only (no multiple class inheritance), though multiple interface implementation is
+                allowed.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">25.</span>What is the purpose of the <code>this</code> keyword in Apex?</h3>
+            <p><code>this</code> refers to the current instance of the class. It's most commonly used to
+                disambiguate between a constructor parameter and an instance field with the same name (e.g.,
+                <code>this.name = name;</code>), or to pass the current object as an argument to another
+                method.
+            </p>
+        </div>
+
+        <blockquote>
+            Continue to <a href="dev-qa-part2.html">Part 2: Triggers, Bulkification &amp; Async Apex</a> for
+            the questions that test whether you actually write production-safe, bulk-ready code.
+        </blockquote>
+
+    </article>
+
+    <div class="article-footer">
+        <div class="author-card">
+            <div class="author-info">
+                <h4>Salesforce Interview Prep</h4>
+                <p>A free, ad-free reference for Salesforce interview candidates</p>
+            </div>
+        </div>
+        <a href="../index.html" class="back-btn">← Back to Portfolio</a>
+    </div>
+
+    <footer>
+        &copy; 2026 Michael George
+    </footer>
+
+</body>
+
+</html>

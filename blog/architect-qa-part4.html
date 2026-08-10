@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Salesforce Architect Interview Q&amp;A — Part 4: Integration Architecture</title>
+    <meta name="description"
+        content="25 Salesforce Integration Architect interview questions and answers on enterprise integration patterns, API strategy, and event-driven architecture." />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet" />
+    <link rel="stylesheet" href="qa-style.css" />
+</head>
+
+<body>
+
+    <nav>
+        <a href="../index.html" class="nav-brand">Michael <span>George</span></a>
+        <a href="../index.html#blog" class="back-link">← Back to Portfolio</a>
+    </nav>
+
+    <div class="article-hero">
+        <div class="article-tag">Salesforce · Architect</div>
+        <h1 class="article-title">Salesforce Architect Interview Q&amp;A — Part 4: Integration Architecture</h1>
+        <div class="article-meta">Updated August 2026 &nbsp;·&nbsp; Part 4 of 4 &nbsp;·&nbsp; 25 questions</div>
+    </div>
+
+    <article class="article-body">
+
+        <div class="qa-nav">
+            <strong>Salesforce Architect Interview Series (100 questions)</strong>
+            <a href="architect-qa-part1.html">Part 1: Application Architecture</a>
+            <a href="architect-qa-part2.html">Part 2: Data Architecture &amp; LDV</a>
+            <a href="architect-qa-part3.html">Part 3: Sharing &amp; Visibility</a>
+            <a href="architect-qa-part4.html">Part 4: Integration Architecture</a>
+        </div>
+
+        <p>
+            The final part of the Architect series, aligned to the Integration Architect certification domain,
+            covers enterprise integration patterns, API strategy, and event-driven design at scale.
+        </p>
+
+        <h2>Integration Patterns</h2>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">1.</span>What are the four core enterprise integration patterns relevant
+                to Salesforce?</h3>
+            <p><strong>Request-Reply</strong> (synchronous call-and-wait), <strong>Fire-and-Forget</strong>
+                (async, no confirmation needed), <strong>Batch Data Synchronization</strong> (scheduled bulk
+                sync), and <strong>Remote Call-In</strong> (an external system calling into Salesforce's
+                exposed APIs) — most real integrations combine several of these patterns.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">2.</span>What factors determine the choice between synchronous and
+                asynchronous integration at an architectural level?</h3>
+            <p>Business tolerance for latency, whether the calling process needs an immediate confirmation to
+                proceed, the reliability/availability of the target system, and the volume/frequency of calls
+                — high-volume, latency-tolerant scenarios favor async; low-volume, decision-blocking scenarios
+                favor sync.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">3.</span>What is the Circuit Breaker pattern and how does it apply to
+                Salesforce integrations?</h3>
+            <p>A pattern that stops sending requests to a failing downstream system after a threshold of
+                consecutive failures, "opening the circuit" to avoid overwhelming an already-struggling system
+                and wasting resources on calls likely to fail — implemented via middleware or custom Apex
+                logic tracking recent failure rates before attempting a callout.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">4.</span>What is the Saga pattern and when is it relevant to Salesforce
+                integration design?</h3>
+            <p>A pattern for managing a multi-step, multi-system transaction where a traditional distributed
+                transaction/rollback isn't possible — each step has a corresponding compensating action to
+                "undo" it if a later step fails, relevant when a Salesforce process spans multiple external
+                systems that must stay logically consistent without true two-phase commit support.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">5.</span>How do you design integration architecture for a scenario
+                requiring guaranteed message delivery?</h3>
+            <p>Use a durable message queue or middleware with guaranteed at-least-once delivery semantics
+                (rather than a simple HTTP fire-and-forget), combined with idempotent processing on the
+                receiving end so a duplicate delivery (which at-least-once guarantees can produce) doesn't
+                cause incorrect duplicate data.</p>
+        </div>
+
+        <h2>API Strategy</h2>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">6.</span>What Salesforce APIs are available and when would you use each?</h3>
+            <p><strong>REST API</strong> — general-purpose, JSON, good for most integrations. <strong>SOAP
+                API</strong> — XML-based, used for legacy system compatibility. <strong>Bulk API 2.0</strong> —
+                large data volume load/extract. <strong>Streaming/Pub-Sub API</strong> — real-time event
+                consumption. <strong>GraphQL API</strong> — flexible, client-specified queries reducing
+                over-fetching for modern app integration.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">7.</span>What is API-led connectivity and why does it matter for a
+                large enterprise?</h3>
+            <p>Structuring integrations into System, Process, and Experience API layers to maximize reuse and
+                reduce point-to-point coupling. It matters at enterprise scale because without this layering,
+                every new integration tends to be built from scratch, multiplying maintenance cost as the
+                number of integrated systems grows.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">8.</span>How do you design an API versioning strategy to avoid breaking
+                existing integration consumers?</h3>
+            <p>Use explicit versioning (URL path or header-based) so breaking changes ship as a new version
+                while existing consumers continue using the prior version until they migrate, combined with a
+                documented deprecation timeline communicated well in advance of retiring an old version.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">9.</span>What is rate limiting and how do you architect around
+                Salesforce's API call limits?</h3>
+            <p>Salesforce enforces a rolling 24-hour API call limit per org edition/license count. Architect
+                around it by favoring Bulk API for high-volume operations (which consumes limits differently
+                and more efficiently than many small REST calls), caching results where freshness tolerance
+                allows, and monitoring consumption proactively rather than discovering the limit was hit in
+                production.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">10.</span>What is the difference between the Composite API and making
+                multiple separate REST calls?</h3>
+            <p>The Composite API bundles multiple sub-requests into a single API call/round-trip, reducing
+                network overhead and API call consumption, and supports referencing the output of one
+                sub-request as input to another within the same call — useful for integrations that need to
+                create related records in one atomic-feeling operation.</p>
+        </div>
+
+        <h2>Event-Driven Architecture</h2>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">11.</span>What is the Pub/Sub API and how does it differ from the legacy
+                Streaming API?</h3>
+            <p>Pub/Sub API is the modern, gRPC-based event streaming interface supporting higher throughput
+                and better client language support than the legacy CometD-based Streaming API — new
+                event-driven integrations should default to Pub/Sub API rather than the legacy option.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">12.</span>How do you design for event ordering guarantees in an
+                event-driven Salesforce architecture?</h3>
+            <p>Understand that Platform Events and CDC generally don't guarantee strict cross-object ordering
+                by default in all delivery scenarios; if strict ordering matters for correctness, design
+                consumers to handle out-of-order delivery gracefully (e.g., using a sequence/timestamp field to
+                reconcile) rather than assuming delivery order matches publish order.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">13.</span>What is the difference between a Platform Event and a
+                Standard/Custom Notification?</h3>
+            <p>A Platform Event is a structured data message for system-to-system or process-to-process
+                communication, consumed programmatically. A Notification is a user-facing alert meant to be
+                seen by a human in the UI or via mobile push — they serve fundamentally different audiences
+                even though both use an event-like publish mechanism internally.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">14.</span>How would you architect a real-time dashboard that reflects
+                changes across multiple Salesforce orgs?</h3>
+            <p>Use Change Data Capture or Platform Events published from each org, consumed by a central
+                aggregation service (custom app or middleware) that maintains the unified real-time view,
+                rather than having the dashboard poll each org individually, which doesn't scale well and adds
+                latency.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">15.</span>What is event replay and why is it useful in Pub/Sub API-based
+                architectures?</h3>
+            <p>The ability to re-consume events from a specific point in the event stream's retention window
+                (rather than only new events going forward) — useful for recovering from a consumer outage
+                without losing events that were published while the consumer was down.</p>
+        </div>
+
+        <h2>Legacy System Integration</h2>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">16.</span>How do you architect an integration with a legacy system that
+                only exposes a flat-file export/import mechanism?</h3>
+            <p>Design a scheduled batch process (via middleware or a Scheduled Flow/Batch Apex combined with
+                an SFTP-capable integration tool) that picks up the file on a defined cadence, validates and
+                transforms it, and loads it via Bulk API — accepting the inherent latency of file-based
+                exchange rather than forcing a real-time pattern the legacy system can't support.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">17.</span>What is an Anti-Corruption Layer and why would you introduce
+                one when integrating with a legacy system?</h3>
+            <p>A translation layer that isolates your clean Salesforce data model from a legacy system's
+                outdated or inconsistent data structures/semantics, preventing legacy technical debt from
+                leaking into and corrupting the new system's design.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">18.</span>How do you handle data type/format mismatches between
+                Salesforce and an external system during integration design?</h3>
+            <p>Define explicit field-level transformation rules in the middleware or integration layer
+                (date format conversions, picklist value mapping, currency/unit conversions) documented in a
+                data mapping specification, rather than relying on implicit, undocumented assumptions that
+                break silently when either system's data changes shape.</p>
+        </div>
+
+        <h2>Integration Governance &amp; Monitoring</h2>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">19.</span>What should an integration logging strategy capture for
+                effective troubleshooting?</h3>
+            <p>Request/response payloads (or at least a summary/hash if payloads are sensitive), timestamps,
+                correlation Ids to trace a single business transaction across multiple systems, and
+                success/failure status with error details — without this, diagnosing an intermittent
+                integration failure becomes guesswork.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">20.</span>What is a correlation Id and why is it critical in a
+                multi-system integration architecture?</h3>
+            <p>A unique identifier attached to a business transaction as it flows across multiple systems,
+                allowing logs from each system to be joined together to reconstruct the full journey of a
+                single request — without it, tracing a failure across three or four hops becomes nearly
+                impossible.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">21.</span>How do you design monitoring/alerting for a critical
+                integration to catch failures proactively rather than reactively?</h3>
+            <p>Set up automated alerts on failure rate thresholds, queue backlog depth, and unusual latency
+                (not just complete outages), routed to the team responsible, so integration health degradation
+                is caught before it becomes a business-visible incident reported by an end user.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">22.</span>What governance process should exist before a new integration
+                is added to a mature Salesforce org?</h3>
+            <p>A review of the integration's expected volume/frequency against API limits, its authentication
+                approach against security standards, its error-handling design, and its impact on existing
+                automation on the objects it touches — ideally as a lightweight architecture review gate
+                rather than an ad hoc, unreviewed addition.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">23.</span>How do you decide which system should own conflict resolution
+                when two systems can both update the same data?</h3>
+            <p>Designate a clear system of record per data domain up front so conflicts are resolved by rule
+                (that system always wins) rather than requiring case-by-case manual resolution, and design the
+                integration to enforce that rule automatically rather than relying on process/discipline
+                alone.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">24.</span>How would you architect a "kill switch" for a problematic
+                integration in production?</h3>
+            <p>Build a Custom Metadata Type or Custom Setting toggle that automation/Apex checks before
+                executing an integration call, so a misbehaving integration (e.g., flooding an external system
+                with erroneous calls) can be disabled instantly by an admin without a code deployment.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">25.</span>What's your overall framework for evaluating whether a proposed
+                integration architecture is production-ready?</h3>
+            <p>Confirm it handles failure gracefully (retries, idempotency, alerting), respects both systems'
+                rate/volume limits at projected scale, has clear ownership and monitoring, uses a secure,
+                least-privilege authentication method, and has been tested against realistic failure scenarios
+                — not just the happy path — before it's approved for production traffic.</p>
+        </div>
+
+        <blockquote>
+            That completes the 100-question Salesforce Architect interview series. See also the
+            <a href="dev-qa-part1.html">Developer series</a> and <a href="consultant-qa-part1.html">Consultant
+                series</a> for complementary implementation and solution-design perspectives.
+        </blockquote>
+
+    </article>
+
+    <div class="article-footer">
+        <div class="author-card">
+            <div class="author-info">
+                <h4>Salesforce Interview Prep</h4>
+                <p>A free, ad-free reference for Salesforce interview candidates</p>
+            </div>
+        </div>
+        <a href="../index.html" class="back-btn">← Back to Portfolio</a>
+    </div>
+
+    <footer>
+        &copy; 2026 Michael George
+    </footer>
+
+</body>
+
+</html>

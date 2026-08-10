@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Salesforce Consultant Interview Q&amp;A — Part 3: Automation &amp; Integration Patterns</title>
+    <meta name="description"
+        content="25 Salesforce Senior Consultant interview questions and answers on Flow vs. Apex decisions, automation strategy, and integration architecture patterns." />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet" />
+    <link rel="stylesheet" href="qa-style.css" />
+</head>
+
+<body>
+
+    <nav>
+        <a href="../index.html" class="nav-brand">Michael <span>George</span></a>
+        <a href="../index.html#blog" class="back-link">← Back to Portfolio</a>
+    </nav>
+
+    <div class="article-hero">
+        <div class="article-tag">Salesforce · Consultant</div>
+        <h1 class="article-title">Salesforce Consultant Interview Q&amp;A — Part 3: Automation &amp; Integration
+            Patterns</h1>
+        <div class="article-meta">Updated August 2026 &nbsp;·&nbsp; Part 3 of 4 &nbsp;·&nbsp; 25 questions</div>
+    </div>
+
+    <article class="article-body">
+
+        <div class="qa-nav">
+            <strong>Salesforce Consultant Interview Series (100 questions)</strong>
+            <a href="consultant-qa-part1.html">Part 1: Discovery &amp; Requirements</a>
+            <a href="consultant-qa-part2.html">Part 2: Data Model &amp; Sharing</a>
+            <a href="consultant-qa-part3.html">Part 3: Automation &amp; Integration</a>
+            <a href="consultant-qa-part4.html">Part 4: Migration &amp; Governance</a>
+        </div>
+
+        <p>
+            This part covers automation tool selection and integration architecture — the decisions that
+            determine whether a solution stays maintainable as it scales.
+        </p>
+
+        <h2>Automation Strategy</h2>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">1.</span>How do you decide between Flow and Apex for a given automation
+                requirement?</h3>
+            <p>Default to Flow for anything declarative tools can express clearly — record updates, simple
+                approvals, screen-guided data entry. Move to Apex when the logic involves complex branching
+                that would make a Flow unreadable, needs a callout with custom error handling, or requires
+                performance that Flow's overhead can't deliver at scale.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">2.</span>What are the different Flow types and when is each used?</h3>
+            <p><strong>Screen Flow</strong> — guided, user-interactive data collection. <strong>Record-Triggered
+                    Flow</strong> — runs automatically on record create/update/delete, replacing Process Builder
+                and most trigger-based automation needs. <strong>Scheduled Flow</strong> — runs on a
+                recurring schedule against a batch of records. <strong>Autolaunched Flow</strong> — invoked
+                from Apex, another Flow, or a Platform Event with no UI.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">3.</span>What is the difference between a before-save and after-save
+                record-triggered Flow?</h3>
+            <p>A before-save Flow updates fields on the triggering record itself without a second database
+                write (fast, no re-triggering other automation on that same object). An after-save Flow can
+                perform actions on related records, call Apex, or send notifications, but incurs the cost of a
+                second save.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">4.</span>Why should a team avoid having multiple record-triggered Flows
+                on the same object and event?</h3>
+            <p>Multiple Flows on the same trigger event execute in a somewhat unpredictable relative order
+                (based on an order number that's easy to overlook) and multiply the risk of Flow interviews
+                interacting unexpectedly. Best practice is one Flow per object per triggering event, with
+                internal decision logic to combine different scenarios.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">5.</span>What is the recommended migration path for orgs still using
+                Workflow Rules or Process Builder?</h3>
+            <p>Migrate to Flow using Salesforce's official Migrate to Flow tooling where possible, prioritizing
+                by risk/complexity — Salesforce has been retiring Workflow Rules and Process Builder in favor
+                of Flow as the single declarative automation tool, and new automation should never be built on
+                the legacy tools.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">6.</span>How do you prevent automation "spaghetti" as an org grows?</h3>
+            <p>Enforce one automation tool of record per object/event combination (documented in a design
+                standard), name Flows/classes descriptively, and maintain an automation inventory/register so
+                new team members can see what already exists on an object before adding to it.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">7.</span>What are Flow's known limitations compared to Apex?</h3>
+            <p>Flow struggles with very complex conditional logic (deeply nested decisions become hard to
+                read), lacks robust custom error handling comparable to Apex try/catch, has less efficient
+                bulkification in some versions/patterns, and can't directly implement certain low-level
+                platform APIs that Apex can access.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">8.</span>How do you approach approval processes for multi-step,
+                conditional approvals?</h3>
+            <p>Native Approval Processes handle straightforward linear or simple parallel approvals well. For
+                highly dynamic routing (e.g., approver determined by a calculated discount tier that changes
+                per submission), a Screen Flow or Apex-driven approach often provides more flexibility than
+                the native Approval Process builder allows.</p>
+        </div>
+
+        <h2>Integration Architecture</h2>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">9.</span>How do you decide between real-time and batch integration for a
+                given requirement?</h3>
+            <p>Choose real-time when the business process depends on immediate data consistency (e.g.,
+                checking live inventory before confirming an order). Choose batch when near-real-time is
+                acceptable and volume/cost favor processing in scheduled windows (e.g., nightly financial
+                reconciliation).</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">10.</span>What is middleware and when would you recommend it over
+                point-to-point integration?</h3>
+            <p>Middleware (like MuleSoft, Dell Boomi, or Workato) sits between systems, handling
+                transformation, orchestration, and routing centrally. Recommend it when integrating three or
+                more systems, since point-to-point integration between many systems creates an unmaintainable
+                web of connections that middleware consolidates into a hub-and-spoke model.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">11.</span>What is the difference between Platform Events and Change Data
+                Capture?</h3>
+            <p>Platform Events are custom-defined event messages you publish explicitly from Apex, Flow, or an
+                external system for any business event you define. Change Data Capture automatically publishes
+                events whenever a record changes on a supported standard/custom object, without needing to
+                explicitly author the publish logic.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">12.</span>When would you recommend an event-driven integration pattern
+                over a request-response pattern?</h3>
+            <p>When multiple systems need to react to the same change independently (publish-subscribe), or
+                when you want to decouple the source system's availability from the consuming systems' —
+                request-response tightly couples the caller to the immediate availability and response time of
+                the callee.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">13.</span>What is API-led connectivity (as popularized by MuleSoft)?</h3>
+            <p>An architecture pattern organizing integrations into three layers — System APIs (direct
+                connection to a backend system), Process APIs (business logic/orchestration across systems),
+                and Experience APIs (tailored to a specific consuming channel) — to maximize reuse and reduce
+                point-to-point coupling.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">14.</span>How do you design for integration failure and retries?</h3>
+            <p>Make operations idempotent (safe to retry) using external Ids for upserts, implement exponential
+                backoff for retries rather than immediate hammering, and log every integration transaction
+                (payload, status, timestamp) in a custom object or middleware dashboard so failures are
+                visible and traceable, not silent.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">15.</span>What authentication approach would you recommend for a
+                server-to-server integration with Salesforce?</h3>
+            <p>OAuth 2.0 JWT Bearer Flow for unattended, server-to-server integrations — it doesn't require a
+                stored username/password or interactive login, uses a certificate for authentication, and is
+                the recommended pattern for any headless/scheduled integration.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">16.</span>What is the difference between the REST API and Bulk API, and
+                when do you use each?</h3>
+            <p>REST API is optimized for smaller, transactional operations (single or few records) with
+                low-latency responses. Bulk API 2.0 is designed for large data volumes (thousands to millions
+                of records), processing asynchronously in batches — using REST API for a bulk load would be
+                far slower and could exhaust API call limits.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">17.</span>How do you handle a legacy system that can only push data on a
+                schedule, not in real time?</h3>
+            <p>Design the integration to accept that constraint — use a Scheduled Flow, Batch Apex, or
+                middleware polling job aligned to when the legacy system's export is actually available, and
+                set stakeholder expectations that data will be near-real-time, not live, given the source
+                system's limitation.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">18.</span>What is a webhook and how does it fit into a Salesforce
+                integration?</h3>
+            <p>A webhook is an HTTP callback — an external system calls a Salesforce REST endpoint (or a
+                Salesforce Flow/Apex publishes to an external system's webhook URL) when a specific event
+                occurs, enabling near-real-time, event-driven integration without polling.</p>
+        </div>
+
+        <h2>Solution Design Trade-offs</h2>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">19.</span>How do you evaluate whether to buy an AppExchange package
+                versus build a custom solution?</h3>
+            <p>Weigh total cost of ownership (license fees vs. build/maintenance hours), how closely the
+                package matches the actual requirement without heavy customization, the vendor's track record
+                and support model, and whether the capability is core-differentiating for the business (worth
+                building) or a commodity capability (better bought).</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">20.</span>How do you evaluate technical debt trade-offs when a client
+                wants a fast, "quick fix" solution?</h3>
+            <p>Deliver the fast option if truly needed for a deadline, but document the technical debt
+                explicitly (what shortcut was taken and why) and get agreement on when/how it will be
+                revisited — an undocumented shortcut becomes invisible risk, a documented one becomes a
+                planned follow-up.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">21.</span>What is a proof of concept (POC) and when do you recommend
+                running one?</h3>
+            <p>A small, time-boxed build validating a specific technical approach or high-risk requirement
+                before committing to full-scale development. Recommend one when a requirement's feasibility is
+                genuinely uncertain (e.g., an unusual integration pattern or a performance-critical design)
+                rather than for well-understood, standard configuration.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">22.</span>How do you balance configuration versus customization in a
+                solution recommendation?</h3>
+            <p>Prefer configuration (declarative tools, standard features) as the default since it's easier to
+                maintain, upgrade-safe, and requires less specialized skill to support long-term. Reach for
+                custom code only when configuration genuinely can't meet the requirement, and document why
+                that decision was made.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">23.</span>How would you design a solution that needs to work both online
+                and offline (e.g., field service reps)?</h3>
+            <p>Leverage the Salesforce Mobile App's offline data priming capabilities, keep offline-critical
+                data models simple (avoid complex nested queries that don't prime well), and design conflict
+                resolution rules for what happens when the same record is edited both offline and by another
+                user online before sync.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">24.</span>What is a common architectural mistake consultants make when
+                designing for future scale?</h3>
+            <p>Over-engineering for a scale the client may never reach, adding unnecessary complexity and cost
+                upfront — versus the opposite mistake of ignoring known scale requirements (e.g., a stated plan
+                to 10x record volume in a year) and designing something that will need a costly rework. The
+                fix is designing to the requirements actually stated, with clearly flagged assumptions.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">25.</span>How do you evaluate whether a client's requested integration
+                pattern will scale?</h3>
+            <p>Model the expected data volume and frequency against the chosen pattern's known limits (API call
+                limits, batch size, callout timeout) using realistic growth projections, not just current-day
+                volume, and flag any pattern that's viable today but likely to break within the client's
+                planned growth horizon.</p>
+        </div>
+
+        <blockquote>
+            Continue to <a href="consultant-qa-part4.html">Part 4: Migration, Performance &amp; Governance</a>
+            for data migration methodology and org governance questions.
+        </blockquote>
+
+    </article>
+
+    <div class="article-footer">
+        <div class="author-card">
+            <div class="author-info">
+                <h4>Salesforce Interview Prep</h4>
+                <p>A free, ad-free reference for Salesforce interview candidates</p>
+            </div>
+        </div>
+        <a href="../index.html" class="back-btn">← Back to Portfolio</a>
+    </div>
+
+    <footer>
+        &copy; 2026 Michael George
+    </footer>
+
+</body>
+
+</html>

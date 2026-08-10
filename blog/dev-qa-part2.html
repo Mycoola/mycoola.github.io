@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Salesforce Developer Interview Q&amp;A — Part 2: Triggers, Bulkification &amp; Async Apex</title>
+    <meta name="description"
+        content="25 Salesforce Developer interview questions and answers on triggers, bulkification, governor limits, and asynchronous Apex (Future, Queueable, Batch, Scheduled)." />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet" />
+    <link rel="stylesheet" href="qa-style.css" />
+</head>
+
+<body>
+
+    <nav>
+        <a href="../index.html" class="nav-brand">Michael <span>George</span></a>
+        <a href="../index.html#blog" class="back-link">← Back to Portfolio</a>
+    </nav>
+
+    <div class="article-hero">
+        <div class="article-tag">Salesforce · Developer</div>
+        <h1 class="article-title">Salesforce Developer Interview Q&amp;A — Part 2: Triggers, Bulkification &amp; Async
+            Apex</h1>
+        <div class="article-meta">Updated August 2026 &nbsp;·&nbsp; Part 2 of 4 &nbsp;·&nbsp; 25 questions</div>
+    </div>
+
+    <article class="article-body">
+
+        <div class="qa-nav">
+            <strong>Salesforce Developer Interview Series (100 questions)</strong>
+            <a href="dev-qa-part1.html">Part 1: Apex &amp; OOP</a>
+            <a href="dev-qa-part2.html">Part 2: Triggers &amp; Async</a>
+            <a href="dev-qa-part3.html">Part 3: Testing &amp; Security</a>
+            <a href="dev-qa-part4.html">Part 4: LWC, SOQL &amp; DevOps</a>
+        </div>
+
+        <p>
+            This part covers the most heavily tested Developer topics: trigger design, bulk-safe coding, and
+            the four asynchronous Apex execution contexts.
+        </p>
+
+        <h2>Triggers &amp; Bulkification</h2>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">1.</span>What are the trigger execution events in Apex?</h3>
+            <p><code>before insert</code>, <code>after insert</code>, <code>before update</code>,
+                <code>after update</code>, <code>before delete</code>, <code>after delete</code>, and
+                <code>after undelete</code>. "Before" events let you modify the record before it's saved;
+                "after" events give you the committed record Id and let you act on related records.
+            </p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">2.</span>Why should you never put SOQL or DML inside a for loop?</h3>
+            <p>Each iteration of a loop over a bulk operation (e.g., 200 records from a Data Loader batch)
+                would issue its own query or DML statement, quickly exceeding the 100-SOQL-query or
+                150-DML-statement per-transaction governor limits. Always collect data into a Set/Map first,
+                query or perform DML once outside the loop.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">3.</span>What is a bulkified trigger?</h3>
+            <p>A trigger written to correctly and efficiently process any number of records (1 to 200 per
+                batch) in a single execution, using collections and single SOQL/DML statements instead of
+                per-record queries — so it behaves identically whether it fires from a UI save or a
+                10,000-record bulk API job.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">4.</span>What is <code>Trigger.new</code> and <code>Trigger.old</code>?</h3>
+            <p><code>Trigger.new</code> holds the list of new/updated record versions (writable in
+                <code>before</code> triggers). <code>Trigger.old</code> holds the list of record versions
+                before the change (read-only). In delete triggers only <code>Trigger.old</code> is populated.
+            </p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">5.</span>What is <code>Trigger.newMap</code> used for?</h3>
+            <p>It's a <code>Map&lt;Id, SObject&gt;</code> giving O(1) lookup of a record by Id inside the
+                trigger context — commonly used in <code>after update</code> to compare the new vs. old value
+                of a field for a specific record without looping to find it.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">6.</span>How do you prevent recursive trigger execution?</h3>
+            <p>Use a static Boolean (or a static Set of processed record Ids) in a helper class that's checked
+                at the start of the trigger/handler and set to true before any DML that could re-fire the
+                trigger. Static variables persist for the duration of the transaction, so this reliably blocks
+                a second pass within the same transaction.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">7.</span>What's the recommended trigger design pattern?</h3>
+            <p>One trigger per object (avoiding multiple triggers with unpredictable order), which delegates
+                immediately to a handler class implementing the business logic per event. This keeps the
+                trigger itself nearly empty, keeps logic testable in isolation, and gives a single place to
+                control execution order and recursion guards.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">8.</span>What happens if an exception is thrown in a trigger?</h3>
+            <p>The entire transaction is rolled back, including any DML already performed earlier in that
+                transaction (even in unrelated objects), unless the exception is caught and handled. In bulk
+                operations, a single record's failure without proper partial-success handling can fail the
+                whole batch.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">9.</span>What is <code>Database.insert(records, false)</code> used for?</h3>
+            <p>The second parameter (<code>allOrNone</code>) set to <code>false</code> allows partial success
+                — records that fail validation don't roll back records that succeed. The method returns a
+                list of <code>Database.SaveResult</code> objects you can inspect to see which records failed
+                and why, which is essential for bulk data-load tolerance.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">10.</span>What are the key governor limits a developer should always keep
+                in mind?</h3>
+            <p>100 SOQL queries per transaction (200 for async), 150 DML statements, 50,000 records retrieved
+                by SOQL, 10,000 DML rows, 6MB heap size (12MB for async), and 10 seconds of CPU time (60 for
+                async). Bulkified code respects these regardless of batch size.</p>
+        </div>
+
+        <h2>Asynchronous Apex</h2>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">11.</span>What are the four types of asynchronous Apex?</h3>
+            <p><strong>Future methods</strong> (simple fire-and-forget async), <strong>Queueable Apex</strong>
+                (chainable, accepts complex types), <strong>Batch Apex</strong> (processes massive record
+                volumes in chunks), and <strong>Scheduled Apex</strong> (runs on a cron-like schedule).</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">12.</span>What is a Future method and what are its limitations?</h3>
+            <p>A method annotated <code>@future</code> that runs asynchronously in its own thread and
+                transaction. Limitations: parameters must be primitive types or collections of primitives (no
+                sObjects), it can't be chained to another future call, and it doesn't return a monitorable job
+                Id.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">13.</span>What is Queueable Apex and how is it different from Future
+                methods?</h3>
+            <p>Queueable Apex is a class implementing the <code>Queueable</code> interface. Unlike Future
+                methods, it can accept complex/non-primitive types including sObjects, can be chained (one
+                Queueable enqueuing another), and returns a job Id via <code>System.enqueueJob()</code> that
+                can be tracked in <code>AsyncApexJob</code>.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">14.</span>When would you use Batch Apex instead of Queueable?</h3>
+            <p>When you need to process a very large number of records (thousands to millions) that exceed
+                normal transaction limits, since Batch Apex automatically splits the record set into
+                governor-limit-safe chunks (default 200) via <code>start</code>/<code>execute</code>/<code>finish</code>
+                methods. Queueable is better for smaller, more immediate async work.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">15.</span>What are the three methods every Batch Apex class must
+                implement?</h3>
+            <p><code>start()</code> — returns a <code>Database.QueryLocator</code> or iterable defining the
+                full record set. <code>execute()</code> — processes one chunk (scope) of records at a time.
+                <code>finish()</code> — runs once after all chunks complete, useful for sending a summary email
+                or chaining another job.
+            </p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">16.</span>What is Scheduled Apex and how do you schedule a job?</h3>
+            <p>A class implementing the <code>Schedulable</code> interface with an <code>execute()</code>
+                method, registered to run at a specific time using a CRON expression via
+                <code>System.schedule('JobName', cronExpr, new MyClass())</code>, or through the Setup UI.
+            </p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">17.</span>Can you chain Batch Apex jobs?</h3>
+            <p>Yes — call <code>Database.executeBatch()</code> for the next batch job from inside the
+                <code>finish()</code> method of the current one. This is a common pattern for multi-stage data
+                processing pipelines.
+            </p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">18.</span>What is the maximum number of Queueable jobs you can chain?</h3>
+            <p>In most orgs you can chain Queueable jobs up to a depth of 5 in some limited contexts, but for
+                standard (non-test) execution, chaining depth is effectively unlimited as of newer API
+                versions, though each still respects per-transaction governor limits — so chaining isn't a way
+                to bypass limits, just to sequence separate transactions.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">19.</span>What is Platform Cache and how does it help asynchronous
+                processing?</h3>
+            <p>Platform Cache stores data in a distributed, in-memory cache that persists across transactions
+                (org cache) or within a single user's session (session cache). It reduces redundant SOQL/callouts
+                by letting async and sync transactions share computed or fetched data without re-querying.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">20.</span>What happens if you exceed the number of queued/executing Batch
+                jobs allowed?</h3>
+            <p>Salesforce enforces a limit on concurrent Apex flex/batch jobs per org (typically 5 active
+                concurrently, with a queue for the rest). Exceeding the total daily async Apex method
+                executions or attempting to queue beyond the concurrent limit throws a
+                <code>LimitException</code>.
+            </p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">21.</span>How do you make a callout from a trigger?</h3>
+            <p>You can't make a synchronous HTTP callout directly from a trigger context. Instead, wrap the
+                callout logic in a <code>@future(callout=true)</code> method or a Queueable class implementing
+                <code>Database.AllowsCallouts</code>, and invoke that from the trigger.
+            </p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">22.</span>What is the difference between a stateful and stateless
+                Queueable class?</h3>
+            <p>By default, Queueable instance variables don't persist across chained jobs unless the class
+                implements <code>Database.Stateful</code>. A stateful Queueable retains its member variable
+                values from one chained execution to the next — useful for running totals across a chain.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">23.</span>What is the Limits class used for?</h3>
+            <p>The built-in <code>Limits</code> class (e.g., <code>Limits.getQueries()</code>,
+                <code>Limits.getLimitQueries()</code>) lets you programmatically check current governor limit
+                consumption at runtime, useful for defensive coding in loops that process unpredictable data
+                volumes.
+            </p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">24.</span>How would you process 1 million records without hitting
+                limits?</h3>
+            <p>Use Batch Apex with an appropriately small scope size (e.g., 200), a selective
+                <code>QueryLocator</code> in <code>start()</code> to avoid the 50-million-row batch query
+                limit, and bulkified logic in <code>execute()</code>. For extremely large volumes, consider
+                Bulk API 2.0 outside of Apex entirely for the ingestion piece.
+            </p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">25.</span>What's the difference between synchronous and asynchronous
+                governor limits?</h3>
+            <p>Async contexts (Future, Queueable, Batch execute) generally get roughly double the synchronous
+                limits — e.g., 12MB heap vs. 6MB, 60s CPU time vs. 10s — because they're expected to handle
+                heavier processing loads outside the constraints of a user waiting on a page.</p>
+        </div>
+
+        <blockquote>
+            Continue to <a href="dev-qa-part3.html">Part 3: Testing, Integrations &amp; Security</a> for test
+            class patterns, mocking callouts, and sharing/CRUD enforcement questions.
+        </blockquote>
+
+    </article>
+
+    <div class="article-footer">
+        <div class="author-card">
+            <div class="author-info">
+                <h4>Salesforce Interview Prep</h4>
+                <p>A free, ad-free reference for Salesforce interview candidates</p>
+            </div>
+        </div>
+        <a href="../index.html" class="back-btn">← Back to Portfolio</a>
+    </div>
+
+    <footer>
+        &copy; 2026 Michael George
+    </footer>
+
+</body>
+
+</html>

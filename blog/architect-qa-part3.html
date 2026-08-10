@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Salesforce Architect Interview Q&amp;A — Part 3: Sharing &amp; Visibility Architecture</title>
+    <meta name="description"
+        content="25 Salesforce Sharing & Visibility Architect interview questions and answers on OWD design, encryption, and complex enterprise security models." />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet" />
+    <link rel="stylesheet" href="qa-style.css" />
+</head>
+
+<body>
+
+    <nav>
+        <a href="../index.html" class="nav-brand">Michael <span>George</span></a>
+        <a href="../index.html#blog" class="back-link">← Back to Portfolio</a>
+    </nav>
+
+    <div class="article-hero">
+        <div class="article-tag">Salesforce · Architect</div>
+        <h1 class="article-title">Salesforce Architect Interview Q&amp;A — Part 3: Sharing &amp; Visibility
+            Architecture</h1>
+        <div class="article-meta">Updated August 2026 &nbsp;·&nbsp; Part 3 of 4 &nbsp;·&nbsp; 25 questions</div>
+    </div>
+
+    <article class="article-body">
+
+        <div class="qa-nav">
+            <strong>Salesforce Architect Interview Series (100 questions)</strong>
+            <a href="architect-qa-part1.html">Part 1: Application Architecture</a>
+            <a href="architect-qa-part2.html">Part 2: Data Architecture &amp; LDV</a>
+            <a href="architect-qa-part3.html">Part 3: Sharing &amp; Visibility</a>
+            <a href="architect-qa-part4.html">Part 4: Integration Architecture</a>
+        </div>
+
+        <p>
+            Aligned to the Salesforce Sharing &amp; Visibility Architect certification domain, this part
+            covers enterprise-grade security model design decisions.
+        </p>
+
+        <h2>Sharing Model Fundamentals</h2>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">1.</span>What is the order of evaluation in the Salesforce sharing
+                model?</h3>
+            <p>Org-Wide Defaults set the baseline (most restrictive starting point), then role hierarchy
+                grants (if enabled per object), then sharing rules, then manual/Apex-managed sharing, and
+                finally team-based sharing (Account/Opportunity/Case Teams) — access is the union of all
+                these grants, and a user's final access is the highest level any applicable rule grants.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">2.</span>What is the difference between object-level, field-level, and
+                record-level security?</h3>
+            <p>Object-level security (profiles/permission sets) controls whether a user can access an object
+                type at all (CRUD). Field-level security controls visibility/editability of specific fields.
+                Record-level security (OWD, sharing rules, role hierarchy) controls which specific records a
+                user with object access can actually see.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">3.</span>How do you decide the right Org-Wide Default for a new
+                object?</h3>
+            <p>Start from the most restrictive option that reflects genuine default business need (usually
+                Private), and open access deliberately via sharing rules for known access patterns —
+                retrofitting a restrictive OWD after go-live is far more disruptive than starting restrictive
+                and opening up.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">4.</span>What is "Controlled by Parent" sharing and when is it used?</h3>
+            <p>An OWD setting available for detail objects in a Master-Detail relationship, meaning the child
+                record's visibility is entirely determined by the parent's sharing — the child has no
+                independent OWD setting of its own, consistent with Master-Detail's tight ownership model.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">5.</span>What is the difference between a criteria-based sharing rule
+                and an owner-based sharing rule?</h3>
+            <p>Owner-based sharing rules grant access based on who owns the record (e.g., all records owned by
+                members of Role A shared with Group B). Criteria-based sharing rules grant access based on
+                field values on the record itself (e.g., all records where Region = 'EMEA' shared with a
+                specific group), regardless of who owns them.</p>
+        </div>
+
+        <h2>Complex Enterprise Scenarios</h2>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">6.</span>How would you design sharing for a scenario where a manager
+                needs to see their direct reports' records, but not their peers' or skip-level reports'?</h3>
+            <p>The standard role hierarchy naturally provides this — with "Grant Access Using Hierarchies"
+                enabled, a manager's role sees all roles below it, and access doesn't extend laterally to
+                peers or beyond the hierarchy's natural structure, so this is often achievable without any
+                custom sharing rules at all.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">7.</span>How do you design sharing when the org structure (who reports
+                to whom) doesn't match the desired data-visibility structure?</h3>
+            <p>Decouple the two using Public Groups for sharing purposes rather than relying purely on the
+                role hierarchy — the role hierarchy can remain a true reflection of the org chart while
+                sharing rules based on Public Groups implement the actual desired visibility pattern, which
+                may cut across reporting lines.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">8.</span>What is Apex-managed sharing and when would you use it instead
+                of declarative sharing rules?</h3>
+            <p>Sharing granted programmatically via <code>__Share</code> object records inserted by Apex,
+                used when the access logic is too dynamic or complex for declarative sharing rules to express
+                — for example, sharing based on a calculated business condition that changes frequently or
+                depends on multiple related object states.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">9.</span>What is the difference between implicit and explicit sharing on
+                related objects (e.g., Opportunity and its Account)?</h3>
+            <p>By default, users with access to an Opportunity implicitly gain read access to its related
+                Account (and vice versa, in some configurations) even without an explicit sharing rule on the
+                Account itself — this implicit sharing behavior needs to be understood since it can grant
+                more access than an architect might expect from the Account's OWD/sharing rules alone.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">10.</span>How would you design a security model for a scenario where
+                external partners need to see a subset of Opportunities but never each other's data?</h3>
+            <p>Use an Experience Cloud partner community with a restrictive OWD, Sharing Sets or Share Groups
+                tied to the partner's Account/Contact, and validate that guest/partner user profiles have no
+                broader object access than strictly required — partner isolation failures are a common
+                security review finding.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">11.</span>What are Account Teams, Opportunity Teams, and Case Teams, and
+                when would you recommend them?</h3>
+            <p>These are native features letting individual users be added to a specific record's collaborative
+                "team" with defined access levels, ideal for ad hoc, per-record collaboration (e.g., a deal
+                desk specialist added to one specific Opportunity) rather than a broad, rule-based sharing
+                pattern.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">12.</span>How does sharing work differently for high-volume community/portal
+                users compared to standard internal users?</h3>
+            <p>High-volume community users don't have roles and can't be placed in the role hierarchy (for
+                scalability reasons, since role-based sharing recalculation doesn't scale to millions of
+                external users) — their access is managed instead through Sharing Sets, which map their
+                profile/criteria to specific record access rather than hierarchy-based visibility.</p>
+        </div>
+
+        <h2>Encryption &amp; Data Protection</h2>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">13.</span>What is Shield Platform Encryption and what does it protect
+                against?</h3>
+            <p>A feature that encrypts data at rest using an org-specific key, protecting against certain
+                threat vectors like unauthorized database-level access, while preserving most standard
+                Salesforce functionality (search, some automation) on encrypted fields — it's not a substitute
+                for access control, since properly authorized users still see decrypted data.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">14.</span>What is the difference between Shield Platform Encryption and
+                Classic Encryption?</h3>
+            <p>Classic Encryption (legacy, custom text fields only) offers basic masking with very limited
+                platform feature compatibility. Shield Platform Encryption is the modern, more capable option
+                supporting a broader range of standard/custom field types with better compatibility with
+                search, reports, and other platform features.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">15.</span>What are the limitations to be aware of when encrypting fields
+                with Shield Platform Encryption?</h3>
+            <p>Certain automation and features (some formula fields, certain API/integration behaviors,
+                specific search index behaviors) have restrictions or altered behavior on encrypted fields —
+                architects must validate that encryption doesn't silently break a required business process
+                before enabling it broadly.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">16.</span>What is Field-Level Security versus encryption — are they
+                solving the same problem?</h3>
+            <p>No — FLS controls whether a user can see/edit a field at all based on their permissions.
+                Encryption protects the data at the storage/infrastructure layer against threats that bypass
+                normal application access controls (e.g., a database-level breach). A properly authorized user
+                with FLS access sees the decrypted value regardless of encryption.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">17.</span>How do you decide which fields need encryption versus which
+                just need strict FLS?</h3>
+            <p>Encrypt fields containing highly sensitive regulated data (SSN, health records, financial
+                account numbers) where infrastructure-level protection is a compliance requirement. Rely on
+                FLS alone for sensitive-but-not-regulated business data where access control (not
+                infrastructure-layer protection) is the actual requirement.</p>
+        </div>
+
+        <h2>Auditing &amp; Monitoring</h2>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">18.</span>What is Field Audit Trail (part of Shield) and how does it
+                differ from standard Field History Tracking?</h3>
+            <p>Standard Field History Tracking retains a limited history window and a limited number of
+                tracked fields per object. Field Audit Trail (a Shield feature) extends retention up to 10
+                years and increases the number of trackable fields, supporting longer-term compliance and
+                audit requirements.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">19.</span>What is Event Monitoring and how does it support a security
+                architecture?</h3>
+            <p>Event Monitoring captures detailed logs of user activity (logins, API calls, report exports,
+                Lightning page views) that can be analyzed for anomalous behavior — useful for detecting
+                potential data exfiltration or investigating a security incident after the fact.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">20.</span>How would you architect detection for a user who's exporting
+                unusually large volumes of data?</h3>
+            <p>Use Event Monitoring's report/API export events combined with Transaction Security Policies to
+                automatically flag, block, or require additional authentication when export volume for a
+                single user exceeds a defined threshold in a given period.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">21.</span>What is a Transaction Security Policy and what can it enforce?</h3>
+            <p>A Shield feature letting you define real-time rules that trigger an action (block, notify,
+                require MFA) in response to specific user behaviors — such as a login from an unusual location,
+                or bulk data export exceeding a threshold — enforced automatically without waiting for
+                after-the-fact log review.</p>
+        </div>
+
+        <h2>Guest User &amp; External Access Risk</h2>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">22.</span>Why is Guest User access a common security risk area, and how
+                do you mitigate it?</h3>
+            <p>Guest User profiles (used for unauthenticated Experience Cloud site visitors) are sometimes
+                over-permissioned during initial site setup and forgotten. Mitigate by regularly auditing
+                Guest User profile object/field/record access against the strict minimum needed for public
+                pages, and disabling any "View All"/broad sharing that shouldn't apply to anonymous users.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">23.</span>What is the Health Check tool and what does it assess?</h3>
+            <p>A built-in Salesforce tool that scores an org's security configuration against Salesforce's
+                recommended baseline (password policies, session settings, and other org-wide security
+                settings), flagging deviations that increase risk — a useful periodic architectural review
+                step.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">24.</span>How do you architect access for an integration user account
+                to follow least-privilege principles?</h3>
+            <p>Create a dedicated integration user (never reuse a real employee's login) with a minimal
+                permission set granting only the specific object/field access the integration actually needs,
+                and avoid granting "Modify All Data" or broad admin permissions purely for convenience.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">25.</span>How would you design and validate a comprehensive security
+                review process for a new Salesforce implementation before go-live?</h3>
+            <p>Combine automated tooling (Health Check, a static analysis scan for CRUD/FLS gaps in custom
+                code) with a manual review of OWD/sharing rules against the documented requirements, a
+                penetration-style review of any custom-exposed endpoints (Sites, Experience Cloud, REST
+                resources), and a sign-off checklist covering encryption, guest access, and integration user
+                permissions before production release.</p>
+        </div>
+
+        <blockquote>
+            Continue to <a href="architect-qa-part4.html">Part 4: Integration Architecture</a> for
+            enterprise integration pattern and API strategy questions.
+        </blockquote>
+
+    </article>
+
+    <div class="article-footer">
+        <div class="author-card">
+            <div class="author-info">
+                <h4>Salesforce Interview Prep</h4>
+                <p>A free, ad-free reference for Salesforce interview candidates</p>
+            </div>
+        </div>
+        <a href="../index.html" class="back-btn">← Back to Portfolio</a>
+    </div>
+
+    <footer>
+        &copy; 2026 Michael George
+    </footer>
+
+</body>
+
+</html>

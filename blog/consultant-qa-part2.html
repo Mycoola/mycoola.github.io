@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Salesforce Consultant Interview Q&amp;A — Part 2: Data Model &amp; Sharing Design</title>
+    <meta name="description"
+        content="25 Salesforce Senior Consultant interview questions and answers on object modeling, relationship design, and sharing/security architecture decisions." />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet" />
+    <link rel="stylesheet" href="qa-style.css" />
+</head>
+
+<body>
+
+    <nav>
+        <a href="../index.html" class="nav-brand">Michael <span>George</span></a>
+        <a href="../index.html#blog" class="back-link">← Back to Portfolio</a>
+    </nav>
+
+    <div class="article-hero">
+        <div class="article-tag">Salesforce · Consultant</div>
+        <h1 class="article-title">Salesforce Consultant Interview Q&amp;A — Part 2: Data Model &amp; Sharing
+            Design</h1>
+        <div class="article-meta">Updated August 2026 &nbsp;·&nbsp; Part 2 of 4 &nbsp;·&nbsp; 25 questions</div>
+    </div>
+
+    <article class="article-body">
+
+        <div class="qa-nav">
+            <strong>Salesforce Consultant Interview Series (100 questions)</strong>
+            <a href="consultant-qa-part1.html">Part 1: Discovery &amp; Requirements</a>
+            <a href="consultant-qa-part2.html">Part 2: Data Model &amp; Sharing</a>
+            <a href="consultant-qa-part3.html">Part 3: Automation &amp; Integration</a>
+            <a href="consultant-qa-part4.html">Part 4: Migration &amp; Governance</a>
+        </div>
+
+        <p>
+            This part covers the object modeling and sharing/security design decisions a consultant must make
+            before any configuration begins.
+        </p>
+
+        <h2>Data Model Design</h2>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">1.</span>When should you extend a standard object versus create a custom
+                object?</h3>
+            <p>Extend a standard object (Account, Contact, Opportunity) when the concept genuinely matches its
+                built-in semantics and you want to inherit related features (forecasting, standard reports,
+                AppExchange compatibility). Create a custom object when the concept is fundamentally different
+                or when standard object limits/behavior would force awkward workarounds.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">2.</span>How do you decide between a Lookup and a Master-Detail
+                relationship during data model design?</h3>
+            <p>Use Master-Detail when the child record has no meaning without its parent (e.g., Order Line
+                Items without an Order) and you need cascading delete or roll-up summaries. Use Lookup when
+                the child can exist independently or when the relationship might need to become optional or
+                change later — Master-Detail is much harder to convert after data exists.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">3.</span>What is a junction object and when do you need one?</h3>
+            <p>A custom object with two Master-Detail relationships used to model a many-to-many relationship
+                between two objects (e.g., linking Contacts to multiple Accounts they're affiliated with,
+                beyond the single primary Account). It's the standard pattern since Salesforce objects only
+                support one direct parent per Master-Detail relationship.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">4.</span>What are the trade-offs of using record types versus separate
+                custom objects for variations of the same concept?</h3>
+            <p>Record types keep data in one object with shared reporting and fewer relationships to manage,
+                good when the variations share most fields and processes. Separate objects make sense when the
+                variations have fundamentally different fields, security needs, or automation, since cramming
+                unrelated concepts into one object with many record types becomes hard to maintain.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">5.</span>How do you design a data model to support multiple business
+                units on one org?</h3>
+            <p>Use a combination of record types for process variation, a business unit lookup field for
+                segmentation/reporting, and sharing rules or Enterprise Territory Management to control
+                visibility — while keeping shared master data (like Accounts) genuinely shared rather than
+                duplicated per unit.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">6.</span>What is denormalization and when is it appropriate in a
+                Salesforce data model?</h3>
+            <p>Denormalization means storing redundant/derived data (e.g., a roll-up or a copied field) rather
+                than always computing it live. It's appropriate when you need that value in contexts a formula
+                can't reach (e.g., across a non-Master-Detail relationship) or need it snapshotted at a point
+                in time rather than always current.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">7.</span>How many custom fields is "too many" on an object, and how do
+                you prevent field sprawl?</h3>
+            <p>There's no fixed number, but field sprawl becomes a problem when users can't find the fields
+                they need or when page layouts become unusable. Prevent it by challenging every new field
+                request against existing fields, using field-level help text and clear naming conventions, and
+                periodically auditing field usage with tools like Salesforce Optimizer.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">8.</span>What's your approach to naming conventions for custom objects
+                and fields?</h3>
+            <p>Consistent, descriptive, and human-readable labels (not clever abbreviations), a documented
+                convention for API names (e.g., prefixing by domain area), and avoiding generic names like
+                "Status_2" that give no context to the next developer or admin who inherits the org.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">9.</span>How do you handle a data model requirement that conflicts with
+                Salesforce's Master-Detail cascading-delete behavior?</h3>
+            <p>If the child records must survive independently of the parent (auditability, historical
+                reference), use a Lookup relationship instead and replicate needed automation (like
+                roll-ups) via Flow or Apex triggers, accepting the added maintenance for the flexibility
+                gained.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">10.</span>What is an External Id field and why is it important for
+                integrations?</h3>
+            <p>A custom field marked as External ID lets you uniquely identify a record using a key from an
+                external system, enabling upsert operations (insert-or-update in one call) that are essential
+                for idempotent integration and data migration design.</p>
+        </div>
+
+        <h2>Sharing &amp; Security Architecture</h2>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">11.</span>What factors determine your Org-Wide Default (OWD) setting for
+                an object?</h3>
+            <p>Start from the most restrictive setting that matches the business's actual default visibility
+                need — Private if most records should only be visible to their owner and explicitly shared
+                team members, Public Read/Write only if broad visibility is genuinely required by default. It's
+                easier to open access via sharing rules than to retroactively restrict it.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">12.</span>How do you decide between a sharing rule and manual sharing?</h3>
+            <p>Sharing rules apply automatically based on criteria (record owner's role/group, or field
+                values) and scale to any number of records — use them for any recurring, predictable access
+                pattern. Manual sharing is a one-off, user-initiated grant for exceptional cases and doesn't
+                scale as a primary access strategy.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">13.</span>What is the role hierarchy and how does it affect record
+                visibility?</h3>
+            <p>The role hierarchy grants users above a record owner in the hierarchy the same level of access
+                the owner has (if "Grant Access Using Hierarchies" is enabled, which it is by default for most
+                objects), used to model management visibility (a manager sees their team's records) without
+                individual sharing rules per user.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">14.</span>What's the difference between a Public Group and a Role for
+                sharing purposes?</h3>
+            <p>A Role represents a position in the organizational hierarchy and grants hierarchical visibility
+                automatically. A Public Group is a flexible, admin-defined collection of users, roles, or other
+                groups used purely for sharing/visibility purposes without implying any reporting structure.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">15.</span>When would you use Territory Management instead of the standard
+                role hierarchy?</h3>
+            <p>When account/opportunity assignment needs to be based on criteria like geography, industry, or
+                account size rather than strictly who owns the record — common in sales orgs where multiple
+                reps need shared visibility into the same accounts based on territory rules rather than direct
+                ownership.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">16.</span>What is a permission set and how does it differ from a
+                profile?</h3>
+            <p>A profile defines a user's baseline permissions and is assigned exactly one per user (mandatory).
+                A permission set grants additional permissions on top of the profile and can be assigned to
+                multiple users regardless of their profile — the recommended approach is minimal profiles plus
+                composable permission sets, rather than dozens of near-duplicate profiles.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">17.</span>What is a permission set group?</h3>
+            <p>A bundle of multiple permission sets assigned as a single unit, simplifying user provisioning
+                when a role consistently needs the same combination of permission sets (e.g., "Sales Rep" =
+                three specific permission sets bundled together and assigned in one action).</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">18.</span>How do you design security for an object that needs to be
+                visible externally (e.g., via Experience Cloud/Community)?</h3>
+            <p>Use Sharing Sets or Share Groups (for high-volume/authenticated external users) tied to the
+                external user's account/contact, combined with a restrictive OWD, and always verify guest user
+                access is scoped as tightly as possible since misconfigured guest access is a common Salesforce
+                security finding.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">19.</span>What's the risk of over-relying on "without sharing" Apex
+                classes in a design?</h3>
+            <p>It can quietly bypass the org's intended sharing model, exposing data across business units or
+                to users who shouldn't see it, and can be difficult to audit later since the access isn't
+                visible in the standard sharing configuration UI. It should be a deliberate, documented
+                exception, not a default habit.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">20.</span>How do you approach field-level security design across many
+                profiles?</h3>
+            <p>Default to permission sets for field visibility (rather than editing dozens of profiles
+                individually) so access is composable and auditable, and periodically review field-level
+                security alongside object permissions using tools like the Permission Set/Profile comparison
+                reports.</p>
+        </div>
+
+        <h2>Multi-Business-Unit &amp; Complex Org Design</h2>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">21.</span>What is Enterprise Territory Management and when would you
+                recommend it over basic Territory Management?</h3>
+            <p>Enterprise Territory Management is the modern, more flexible territory model supporting
+                multiple territory models, more granular rule-based assignment, and better reporting — it's the
+                right recommendation for any new implementation needing territory-based sharing, since the
+                original Territory Management feature is legacy.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">22.</span>How do you decide between one org and multiple orgs for a
+                multi-business-unit company?</h3>
+            <p>Favor one org whenever business units share enough common data/processes to benefit from unified
+                reporting and a single source of truth — multiple orgs add real integration and reporting
+                overhead. Consider separate orgs only when regulatory/data-residency requirements or
+                fundamentally incompatible processes make a single org genuinely unworkable.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">23.</span>What is a Business Unit field pattern and how does it support
+                multi-BU reporting?</h3>
+            <p>A required picklist or lookup field present on key objects identifying which business unit a
+                record belongs to, used consistently in report filters, sharing rules, and automation criteria
+                so BU-level reporting and access control stay consistent across the org without needing
+                separate objects per unit.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">24.</span>How do you handle a requirement for one business unit to see
+                only their own data while another needs cross-BU visibility?</h3>
+            <p>Set OWD restrictive enough for the unit needing isolation, then use a sharing rule or public
+                group specifically for the cross-BU role/team that needs the broader view — this keeps the
+                default safe while granting the necessary exception explicitly and auditable.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">25.</span>What questions do you ask to determine the right sharing model
+                before implementation starts?</h3>
+            <p>Who owns each type of record day-to-day? Who needs visibility beyond the owner, and why (manager
+                oversight, cross-functional collaboration, external partner access)? Are there any regulatory
+                or contractual data segregation requirements? Answering these before configuring OWD prevents
+                a costly sharing model rebuild mid-project.</p>
+        </div>
+
+        <blockquote>
+            Continue to <a href="consultant-qa-part3.html">Part 3: Automation &amp; Integration Patterns</a>
+            for Flow vs. Apex decisions and integration architecture questions.
+        </blockquote>
+
+    </article>
+
+    <div class="article-footer">
+        <div class="author-card">
+            <div class="author-info">
+                <h4>Salesforce Interview Prep</h4>
+                <p>A free, ad-free reference for Salesforce interview candidates</p>
+            </div>
+        </div>
+        <a href="../index.html" class="back-btn">← Back to Portfolio</a>
+    </div>
+
+    <footer>
+        &copy; 2026 Michael George
+    </footer>
+
+</body>
+
+</html>

@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Salesforce Architect Interview Q&amp;A — Part 1: Application Architecture</title>
+    <meta name="description"
+        content="25 Salesforce Application Architect interview questions and answers on solution design principles, multi-org strategy, and platform capability decisions." />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet" />
+    <link rel="stylesheet" href="qa-style.css" />
+</head>
+
+<body>
+
+    <nav>
+        <a href="../index.html" class="nav-brand">Michael <span>George</span></a>
+        <a href="../index.html#blog" class="back-link">← Back to Portfolio</a>
+    </nav>
+
+    <div class="article-hero">
+        <div class="article-tag">Salesforce · Architect</div>
+        <h1 class="article-title">Salesforce Architect Interview Q&amp;A — Part 1: Application Architecture</h1>
+        <div class="article-meta">Updated August 2026 &nbsp;·&nbsp; Part 1 of 4 &nbsp;·&nbsp; 25 questions</div>
+    </div>
+
+    <article class="article-body">
+
+        <div class="qa-nav">
+            <strong>Salesforce Architect Interview Series (100 questions)</strong>
+            <a href="architect-qa-part1.html">Part 1: Application Architecture</a>
+            <a href="architect-qa-part2.html">Part 2: Data Architecture &amp; LDV</a>
+            <a href="architect-qa-part3.html">Part 3: Sharing &amp; Visibility</a>
+            <a href="architect-qa-part4.html">Part 4: Integration Architecture</a>
+        </div>
+
+        <p>
+            A general-purpose reference aligned to the Salesforce Application Architect certification domain
+            and real-world architect interviews. This part covers core solution architecture responsibilities
+            and platform capability trade-offs.
+        </p>
+
+        <h2>Architect Role &amp; Responsibilities</h2>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">1.</span>What is the core responsibility of a Salesforce Application
+                Architect?</h3>
+            <p>Owning the end-to-end technical design of a solution — data model, security/sharing,
+                integration approach, and platform feature selection — ensuring every decision aligns to
+                long-term maintainability and Salesforce best practices, not just short-term delivery
+                speed.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">2.</span>How does an Application Architect's role differ from a
+                Technical Architect's or Solution Architect's?</h3>
+            <p>Definitions vary by organization, but generally an Application Architect focuses on a single
+                application/platform's design depth, a Solution Architect spans multiple systems and
+                business context at a higher level, and a Technical Architect focuses on the underlying
+                technical implementation standards and non-functional requirements across projects.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">3.</span>What artifacts should an architect produce during a project?</h3>
+            <p>A data model diagram (ERD), a security/sharing design document, an integration architecture
+                diagram, a list of key design decisions with rationale (architecture decision records), and a
+                non-functional requirements checklist covering performance, scalability, and compliance.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">4.</span>What is an Architecture Decision Record (ADR) and why use one?</h3>
+            <p>A short document capturing a specific architectural decision, the context/options considered,
+                and the reasoning for the chosen approach. It prevents "why did we build it this way?"
+                becoming lost institutional knowledge once the original architect moves to another project.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">5.</span>How do you balance long-term architectural purity against
+                short-term delivery pressure?</h3>
+            <p>Distinguish between decisions that are truly hard to reverse (data model, sharing model,
+                integration patterns) — where it's worth pushing back on shortcuts — versus decisions that are
+                cheap to change later (UI layout, some automation choices), where pragmatic short-term delivery
+                is reasonable.</p>
+        </div>
+
+        <h2>Multi-Org &amp; Platform Strategy</h2>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">6.</span>What factors determine whether a company should use one org or
+                multiple orgs?</h3>
+            <p>Shared data/process needs favor a single org (unified reporting, one source of truth).
+                Separate orgs may be justified by data residency/regulatory requirements, fundamentally
+                incompatible business processes, or the technical need for org-level isolation (e.g.,
+                separate limits pools for very high-volume independent business units).</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">7.</span>What is a hub-and-spoke org strategy?</h3>
+            <p>A pattern where one central "hub" org holds shared master data (often via Salesforce
+                Connect or MuleSoft) and multiple "spoke" orgs handle business-unit-specific processes,
+                syncing back to the hub — used when full org consolidation isn't feasible but some unified
+                view is still required.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">8.</span>What is Salesforce Connect and when would you recommend it?</h3>
+            <p>A feature that lets Salesforce access data in an external system in real time via external
+                objects, without physically copying/storing the data — recommended when you need Salesforce
+                users to view/interact with external system data without a full data migration, and near-real-time
+                accuracy matters more than offline availability.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">9.</span>When would you recommend a Salesforce package (managed or
+                unlocked) versus building directly in the org?</h3>
+            <p>Use a package when the functionality needs to be versioned, distributed across multiple orgs,
+                or developed/tested in isolation from the rest of the org's metadata — an unlocked package for
+                internal multi-org reuse, a managed package if you're distributing to external customers or
+                need strict namespace protection.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">10.</span>How do you evaluate whether a requirement should be solved
+                with a native Salesforce feature, a Flow, Apex, or an AppExchange package?</h3>
+            <p>Work down a preference order: native/standard feature first (cheapest to maintain), then
+                declarative (Flow), then a well-vetted AppExchange package if it closely matches the need
+                without heavy customization, and Apex/custom code only when none of the above can meet the
+                requirement.</p>
+        </div>
+
+        <h2>Non-Functional Requirements</h2>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">11.</span>What are non-functional requirements and why do architects
+                need to define them explicitly?</h3>
+            <p>Requirements about how a system performs rather than what it does — performance, scalability,
+                availability, security, and compliance. Left undefined, they default to whatever the
+                implementation happens to produce, which often fails silently until the system is under real
+                load or scrutiny.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">12.</span>How do you architect for scalability from day one without
+                over-engineering?</h3>
+            <p>Design for the data volumes and user counts the business realistically expects within a defined
+                horizon (e.g., 2-3 years) based on stated growth plans, rather than either ignoring scale
+                entirely or designing for an arbitrary "web-scale" that adds unnecessary complexity for a need
+                that may never materialize.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">13.</span>What does high availability mean in a Salesforce context, and
+                what's the architect's role in it?</h3>
+            <p>Salesforce itself guarantees platform-level availability via its multi-tenant infrastructure and
+                SLA; the architect's role is ensuring the solution's design (integration dependencies, custom
+                code, external system reliance) doesn't introduce single points of failure that undermine that
+                platform-level guarantee.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">14.</span>How do you architect a solution to be resilient to a downstream
+                integration failure?</h3>
+            <p>Design graceful degradation — if a real-time integration call fails, the core Salesforce
+                transaction should still complete where business-safe to do so, with the failed integration
+                logged and queued for retry rather than blocking the entire user transaction.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">15.</span>What compliance considerations does an architect need to factor
+                into a data model design?</h3>
+            <p>Data residency requirements (which region data must be stored in), field-level encryption
+                needs for regulated data (PII, health, financial), retention/deletion policies (e.g., GDPR
+                right to be forgotten), and audit trail requirements — these often constrain object/field
+                design choices made early in the project.</p>
+        </div>
+
+        <h2>Design Trade-offs</h2>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">16.</span>How do you evaluate a trade-off between declarative simplicity
+                and custom code flexibility?</h3>
+            <p>Weigh the maintenance cost of custom code (needs a developer to change, requires test coverage,
+                harder for admins to troubleshoot) against the ceiling declarative tools hit for genuinely
+                complex logic — the right answer depends on how likely the logic is to need frequent business-user-driven
+                changes versus stable, complex rules.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">17.</span>What is architectural technical debt, and how does an architect
+                manage it across a program of work?</h3>
+            <p>Deliberate or accumulated design compromises that increase future cost of change. An architect
+                manages it by maintaining visibility (a tracked backlog of known debt items), advocating for
+                dedicated remediation time in roadmap planning, and preventing new debt through design review
+                gates on major changes.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">18.</span>How do you handle a situation where the business wants a
+                feature that's technically possible but architecturally risky?</h3>
+            <p>Quantify the specific risk (performance degradation at scale, security exposure, upgrade
+                fragility) in business terms, propose a lower-risk alternative that meets the same underlying
+                need, and if the business still insists after understanding the trade-off, document the
+                decision and implement the safest achievable version.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">19.</span>What is the role of a proof of concept in de-risking an
+                architectural decision?</h3>
+            <p>A POC validates a specific uncertain assumption (a novel integration pattern's feasibility, a
+                performance-critical query's actual behavior at volume) cheaply, before committing significant
+                budget to a full build based on an assumption that turns out to be wrong.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">20.</span>How do you future-proof an architecture against Salesforce
+                platform changes (e.g., feature deprecations)?</h3>
+            <p>Favor currently-recommended, actively-invested-in features (Flow over Process Builder, Lightning
+                Web Components over Aura, GraphQL/composite APIs over older patterns), stay current with
+                release notes for deprecation announcements, and avoid deep dependency on any feature explicitly
+                flagged as legacy.</p>
+        </div>
+
+        <h2>Communicating Architecture</h2>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">21.</span>How do you present a complex architecture decision to a
+                non-technical steering committee?</h3>
+            <p>Translate the decision into business risk/benefit terms (cost, timeline, risk of failure,
+                future flexibility) with a simple visual, and avoid deep technical jargon — the committee needs
+                enough to make an informed go/no-go decision, not a full technical education.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">22.</span>How do you ensure architectural decisions are actually followed
+                during implementation, not just documented?</h3>
+            <p>Build lightweight design review checkpoints into the development process (e.g., a peer/architect
+                review before a significant pull request merges), rather than relying purely on documentation
+                that developers may not revisit under delivery pressure.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">23.</span>How do you handle disagreement with another architect or
+                senior technical stakeholder about a design decision?</h3>
+            <p>Ground the disagreement in specific, evaluatable criteria (performance data, maintenance cost,
+                alignment to documented non-functional requirements) rather than opinion, and be willing to be
+                convinced by a stronger argument — architecture decisions should be won on merit, not
+                seniority.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">24.</span>What's your approach to onboarding a new architect or senior
+                developer onto an existing, complex org?</h3>
+            <p>Walk them through the architecture decision records and data model diagram first (the "why"),
+                not just the metadata itself, then pair them on a real, moderately complex change so they
+                experience the org's actual conventions and constraints hands-on rather than only reading
+                documentation.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">25.</span>How do you keep architecture documentation from becoming stale
+                as the org evolves?</h3>
+            <p>Treat significant documentation updates as a required part of the definition of done for any
+                architecturally significant change, store diagrams in a format that's easy to update
+                incrementally (not a static image nobody wants to redo), and periodically audit documentation
+                against the live org during governance reviews.</p>
+        </div>
+
+        <blockquote>
+            Continue to <a href="architect-qa-part2.html">Part 2: Data Architecture &amp; Large Data
+                Volumes</a> for LDV design patterns and data governance questions.
+        </blockquote>
+
+    </article>
+
+    <div class="article-footer">
+        <div class="author-card">
+            <div class="author-info">
+                <h4>Salesforce Interview Prep</h4>
+                <p>A free, ad-free reference for Salesforce interview candidates</p>
+            </div>
+        </div>
+        <a href="../index.html" class="back-btn">← Back to Portfolio</a>
+    </div>
+
+    <footer>
+        &copy; 2026 Michael George
+    </footer>
+
+</body>
+
+</html>

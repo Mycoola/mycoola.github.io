@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Salesforce Developer Interview Q&amp;A — Part 3: Testing, Integrations &amp; Security</title>
+    <meta name="description"
+        content="25 Salesforce Developer interview questions and answers on Apex testing, mocking callouts, CRUD/FLS enforcement, and secure coding practices." />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet" />
+    <link rel="stylesheet" href="qa-style.css" />
+</head>
+
+<body>
+
+    <nav>
+        <a href="../index.html" class="nav-brand">Michael <span>George</span></a>
+        <a href="../index.html#blog" class="back-link">← Back to Portfolio</a>
+    </nav>
+
+    <div class="article-hero">
+        <div class="article-tag">Salesforce · Developer</div>
+        <h1 class="article-title">Salesforce Developer Interview Q&amp;A — Part 3: Testing, Integrations &amp;
+            Security</h1>
+        <div class="article-meta">Updated August 2026 &nbsp;·&nbsp; Part 3 of 4 &nbsp;·&nbsp; 25 questions</div>
+    </div>
+
+    <article class="article-body">
+
+        <div class="qa-nav">
+            <strong>Salesforce Developer Interview Series (100 questions)</strong>
+            <a href="dev-qa-part1.html">Part 1: Apex &amp; OOP</a>
+            <a href="dev-qa-part2.html">Part 2: Triggers &amp; Async</a>
+            <a href="dev-qa-part3.html">Part 3: Testing &amp; Security</a>
+            <a href="dev-qa-part4.html">Part 4: LWC, SOQL &amp; DevOps</a>
+        </div>
+
+        <p>
+            This part covers Apex testing methodology, integration testing/mocking, and the secure coding
+            practices interviewers expect from a mid-to-senior developer.
+        </p>
+
+        <h2>Apex Testing</h2>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">1.</span>What is the minimum code coverage required to deploy to
+                production?</h3>
+            <p>75% overall organization code coverage, and every trigger must have some coverage (technically
+                &gt;0%, though 75%+ per class is the practical target). Coverage is a compliance metric, not a
+                quality metric — 75% coverage with weak assertions proves far less than 60% coverage with
+                strong ones.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">2.</span>What is <code>@isTest</code> and how is it used?</h3>
+            <p>An annotation marking a class or method as test-only code. Test classes/methods don't count
+                toward the org's Apex code size limit and can't be called from non-test contexts. Test methods
+                must also include the <code>@isTest</code> annotation (or legacy <code>testMethod</code>
+                keyword) individually.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">3.</span>What is <code>Test.startTest()</code> / <code>Test.stopTest()</code>
+                used for?</h3>
+            <p>They reset governor limits for the code executed between them, and force any asynchronous Apex
+                enqueued inside the block (Future, Queueable, Batch start) to execute synchronously before
+                <code>stopTest()</code> returns — allowing you to assert on the results of async operations
+                within the same test method.
+            </p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">4.</span>Why should test classes never rely on existing org data?</h3>
+            <p>Tests run against a fresh, isolated data context by default (no access to existing records
+                unless <code>@isTest(SeeAllData=true)</code> is used, which is discouraged) so they are
+                deterministic and portable — they need to pass identically in every sandbox, scratch org, and
+                the production org itself.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">5.</span>What is a Test Data Factory pattern?</h3>
+            <p>A utility class with static methods that generate consistent, valid test sObjects (e.g.,
+                <code>TestDataFactory.createAccount()</code>), reducing duplicated setup code across test
+                classes and centralizing the definition of "what a valid test Account looks like" in one
+                place.
+            </p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">6.</span>How do you test bulk behavior in Apex?</h3>
+            <p>Insert 200+ records (matching Salesforce's default trigger batch size) in your test setup and
+                invoke the logic against that full collection, not a single record — this is the only way to
+                catch a SOQL/DML-in-a-loop bug before it reaches production.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">7.</span>What is <code>System.runAs()</code> used for?</h3>
+            <p>It executes a block of test code in the context of a specific user, letting you test
+                sharing-rule enforcement, profile-based field visibility, or record ownership logic — since by
+                default all test code runs as the System Administrator running the test, regardless of the
+                calling user's actual profile.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">8.</span>What makes a good assertion in a test method?</h3>
+            <p>Assertions should check specific expected values (<code>System.assertEquals(expected, actual)</code>)
+                rather than just that "no exception was thrown." A test with zero assertions can pass 100% of
+                the time while validating nothing — reviewers specifically look for this.</p>
+        </div>
+
+        <h2>Integration Testing &amp; Mocking</h2>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">9.</span>Why can't you make a real HTTP callout in a test method?</h3>
+            <p>Salesforce disallows real outbound callouts during test execution to keep tests fast,
+                deterministic, and independent of external system availability. Attempting one throws a
+                <code>CalloutException</code>.
+            </p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">10.</span>What is <code>HttpCalloutMock</code>?</h3>
+            <p>An interface you implement to return a fake, predictable <code>HttpResponse</code> for any
+                outbound REST callout during a test, registered via
+                <code>Test.setMock(HttpCalloutMock.class, new MyMock())</code>. This lets you test callout
+                logic including error handling without hitting a real endpoint.
+            </p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">11.</span>What is <code>WebServiceMock</code> used for?</h3>
+            <p>The equivalent of <code>HttpCalloutMock</code> for SOAP-based callouts generated from a WSDL —
+                it lets you fake the SOAP response object structure so SOAP integration logic can be unit
+                tested without a live external service.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">12.</span>How should you test error handling in an integration?</h3>
+            <p>Write mocks that return each realistic failure mode you expect (400, 401, 404, 500, timeout,
+                malformed JSON) and assert your code handles each gracefully — logging the error, retrying if
+                appropriate, and not leaving the transaction in an inconsistent state.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">13.</span>What's the difference between a synchronous and asynchronous
+                integration pattern?</h3>
+            <p>Synchronous: the calling process waits for the external system's response before continuing
+                (e.g., a real-time REST callout during a page load). Asynchronous: the request is fired and
+                the response is handled later — via callback, polling, Platform Events, or Change Data
+                Capture — decoupling the two systems' availability and latency.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">14.</span>What is idempotency and why does it matter in integrations?</h3>
+            <p>An idempotent operation produces the same result no matter how many times it's executed with
+                the same input — critical for integrations because network failures can cause retries, and
+                without idempotency (e.g., using an external Id as an upsert key) a retry could create
+                duplicate records.</p>
+        </div>
+
+        <h2>Security &amp; Secure Coding</h2>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">15.</span>What is CRUD and FLS enforcement, and why does it matter?</h3>
+            <p>CRUD (Create/Read/Update/Delete) and FLS (Field-Level Security) enforcement ensures Apex code
+                respects the running user's object and field permissions rather than silently exposing or
+                modifying data they shouldn't have access to. This matters most in classes running
+                <code>without sharing</code> or in <code>@AuraEnabled</code> methods exposed to the UI.
+            </p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">16.</span>How do you enforce FLS/CRUD checks in Apex?</h3>
+            <p>Use <code>WITH SECURITY_ENFORCED</code> in SOQL (or the newer <code>WITH USER_MODE</code>
+                clause), the <code>Security.stripInaccessible()</code> method, or explicit
+                <code>Schema.sObjectType.Account.isAccessible()</code>/<code>isCreateable()</code>/<code>isUpdateable()</code>
+                checks before performing DML on user-supplied data.
+            </p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">17.</span>What is SOQL injection and how do you prevent it?</h3>
+            <p>SOQL injection occurs when unsanitized user input is concatenated directly into a dynamic SOQL
+                string, allowing an attacker to alter the query's logic. Prevent it using bind variables
+                (<code>:variable</code>) in static SOQL, or <code>String.escapeSingleQuotes()</code> combined
+                with strict type-checking for dynamic SOQL.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">18.</span>What is Cross-Site Scripting (XSS) and how does Salesforce
+                guard against it?</h3>
+            <p>XSS occurs when unsanitized user input is rendered as executable script in a browser. Lightning
+                Web Components auto-escape data bound in templates by default; Visualforce requires explicit
+                use of <code>HTMLENCODE()</code>/<code>JSENCODE()</code> when outputting user-controlled data
+                to avoid it.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">19.</span>What is Cross-Site Request Forgery (CSRF) and how is it
+                mitigated on the platform?</h3>
+            <p>CSRF tricks an authenticated user's browser into submitting an unwanted request. Salesforce
+                mitigates this at the platform level (session tokens, referrer checks) for standard UI
+                interactions, but custom REST endpoints exposed via <code>@RestResource</code> should still
+                validate the caller via OAuth scopes rather than relying on cookies alone.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">20.</span>What is the principle of least privilege and how does it apply
+                to Apex?</h3>
+            <p>Grant only the minimum access needed to perform a task. In Apex, this means preferring
+                <code>with sharing</code> by default, only using <code>without sharing</code> when a specific
+                system-context need is justified and documented, and scoping Connected App OAuth scopes
+                narrowly.
+            </p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">21.</span>How do you securely store an API key or secret used by Apex?</h3>
+            <p>Never hardcode secrets in Apex source. Use a Named Credential (or External Credential with the
+                newer authentication provider framework) so the secret is stored encrypted by the platform and
+                never appears in code, logs, or debug output.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">22.</span>What is a Named Credential and why is it preferred over storing
+                endpoint/auth details in Custom Settings?</h3>
+            <p>A Named Credential centralizes an external endpoint URL and its authentication (Basic, OAuth
+                2.0, JWT, certificate) in one encrypted, admin-managed record. Apex references it by name and
+                never handles raw credentials, unlike storing a password in a Custom Setting/Metadata field
+                which is visible to anyone with access to view that record.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">23.</span>What is the difference between authentication and
+                authorization?</h3>
+            <p>Authentication verifies who the caller is (login, OAuth token validation). Authorization
+                determines what that verified caller is allowed to do (profile, permission set, sharing
+                rules). A system can authenticate a user correctly and still incorrectly authorize them if
+                permissions are misconfigured.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">24.</span>What is a common vulnerability in <code>@AuraEnabled</code>
+                methods and how do you prevent it?</h3>
+            <p>Exposing a method that performs DML/queries without CRUD/FLS enforcement, effectively letting
+                any user who can access the component perform actions beyond their permission level.
+                Prevention: explicitly enforce object/field-level security inside the method, and mark methods
+                <code>@AuraEnabled(cacheable=true)</code> only for read-only, side-effect-free queries.
+            </p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">25.</span>How do you test that sharing rules are correctly enforced?</h3>
+            <p>Write a test using <code>System.runAs()</code> with a test user assigned a specific profile and
+                role, insert records owned by a different user, and assert the test user can/cannot see or
+                modify them as expected based on the org's sharing model.</p>
+        </div>
+
+        <blockquote>
+            Continue to <a href="dev-qa-part4.html">Part 4: LWC, SOQL &amp; DevOps</a> for front-end component
+            questions, query optimization, and deployment/CI-CD topics.
+        </blockquote>
+
+    </article>
+
+    <div class="article-footer">
+        <div class="author-card">
+            <div class="author-info">
+                <h4>Salesforce Interview Prep</h4>
+                <p>A free, ad-free reference for Salesforce interview candidates</p>
+            </div>
+        </div>
+        <a href="../index.html" class="back-btn">← Back to Portfolio</a>
+    </div>
+
+    <footer>
+        &copy; 2026 Michael George
+    </footer>
+
+</body>
+
+</html>
