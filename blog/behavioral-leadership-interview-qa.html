@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Behavioral &amp; Leadership Interview Q&amp;A — Michael George</title>
+    <meta name="description"
+        content="STAR-format behavioral and leadership interview answers, elevator pitch, questions to ask interviewers, and salary negotiation framing for Salesforce roles." />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet" />
+
+    <style>
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        :root {
+            --navy: #0f2044;
+            --blue: #2a5298;
+            --accent: #7ec8e3;
+            --text: #1a1a2e;
+            --muted: #5a6a8a;
+            --light: #f4f7fb;
+            --border: #dde4f0;
+            --white: #ffffff;
+        }
+
+        body {
+            font-family: 'Inter', Arial, sans-serif;
+            background: var(--white);
+            color: var(--text);
+        }
+
+        nav {
+            background: var(--navy);
+            padding: 16px 32px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .nav-brand {
+            color: var(--white);
+            font-weight: 700;
+            font-size: 1rem;
+            text-decoration: none;
+        }
+
+        .nav-brand span {
+            color: var(--accent);
+        }
+
+        .back-link {
+            color: rgba(255, 255, 255, .6);
+            font-size: .85rem;
+            text-decoration: none;
+        }
+
+        .back-link:hover {
+            color: var(--accent);
+        }
+
+        .article-hero {
+            background: linear-gradient(135deg, var(--navy), #1a3560);
+            padding: 60px 32px 50px;
+            text-align: center;
+        }
+
+        .article-tag {
+            display: inline-block;
+            background: rgba(126, 200, 227, .2);
+            border: 1px solid rgba(126, 200, 227, .35);
+            color: var(--accent);
+            font-size: .75rem;
+            font-weight: 700;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            padding: 4px 12px;
+            border-radius: 20px;
+            margin-bottom: 18px;
+        }
+
+        .article-title {
+            font-size: clamp(1.6rem, 4vw, 2.4rem);
+            font-weight: 700;
+            color: var(--white);
+            max-width: 720px;
+            margin: 0 auto 16px;
+            line-height: 1.2;
+        }
+
+        .article-meta {
+            color: rgba(255, 255, 255, .5);
+            font-size: .85rem;
+        }
+
+        .article-body {
+            max-width: 720px;
+            margin: 0 auto;
+            padding: 52px 32px 80px;
+        }
+
+        .article-body h2 {
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: var(--navy);
+            margin: 36px 0 12px;
+        }
+
+        .article-body h3 {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--blue);
+            margin: 24px 0 8px;
+        }
+
+        .article-body p {
+            font-size: 1.02rem;
+            line-height: 1.8;
+            color: #3a4a6a;
+            margin-bottom: 18px;
+        }
+
+        .article-body ul,
+        .article-body ol {
+            padding-left: 24px;
+            margin-bottom: 18px;
+        }
+
+        .article-body li {
+            font-size: 1rem;
+            line-height: 1.7;
+            color: #3a4a6a;
+            margin-bottom: 6px;
+        }
+
+        .article-body table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            font-size: .92rem;
+        }
+
+        .article-body th,
+        .article-body td {
+            border: 1px solid var(--border);
+            padding: 8px 12px;
+            text-align: left;
+        }
+
+        .article-body th {
+            background: var(--light);
+            color: var(--navy);
+        }
+
+        .article-body blockquote {
+            border-left: 3px solid var(--accent);
+            padding-left: 18px;
+            color: var(--muted);
+            font-style: italic;
+            margin: 24px 0;
+        }
+
+        .article-body strong {
+            color: var(--navy);
+        }
+
+        .article-body a {
+            color: var(--blue);
+        }
+
+        .article-body a:hover {
+            color: var(--accent);
+        }
+
+        .qa-item {
+            background: var(--light);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 20px 24px;
+            margin-bottom: 20px;
+        }
+
+        .qa-item h3 {
+            margin: 0 0 10px;
+        }
+
+        .qa-item p:last-child,
+        .qa-item ol:last-child,
+        .qa-item ul:last-child {
+            margin-bottom: 0;
+        }
+
+        .article-footer {
+            max-width: 720px;
+            margin: 0 auto;
+            padding: 0 32px 60px;
+            border-top: 1px solid var(--border);
+            padding-top: 36px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 16px;
+        }
+
+        .author-card {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+        }
+
+        .author-info h4 {
+            font-size: .95rem;
+            font-weight: 700;
+            color: var(--navy);
+        }
+
+        .author-info p {
+            font-size: .8rem;
+            color: var(--muted);
+        }
+
+        .back-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 9px 20px;
+            background: var(--navy);
+            color: var(--white);
+            border-radius: 8px;
+            font-size: .85rem;
+            font-weight: 600;
+            text-decoration: none;
+            transition: background .2s;
+        }
+
+        .back-btn:hover {
+            background: var(--blue);
+            color: var(--white);
+        }
+
+        footer {
+            background: var(--light);
+            border-top: 1px solid var(--border);
+            text-align: center;
+            padding: 20px;
+            font-size: .8rem;
+            color: var(--muted);
+        }
+    </style>
+</head>
+
+<body>
+
+    <nav>
+        <a href="../index.html" class="nav-brand">Michael <span>George</span></a>
+        <a href="../index.html#blog" class="back-link">← Back to Portfolio</a>
+    </nav>
+
+    <div class="article-hero">
+        <div class="article-tag">Salesforce · Career</div>
+        <h1 class="article-title">Behavioral &amp; Leadership Interview Q&amp;A</h1>
+        <div class="article-meta">Michael George &nbsp;·&nbsp; Updated August 2026 &nbsp;·&nbsp; 8 min read</div>
+    </div>
+
+    <article class="article-body">
+
+        <p>
+            The technical questions get you shortlisted; the behavioral round decides the offer. These are
+            the STAR-format answers, elevator pitch, and closing questions I use across Salesforce Architect,
+            Technical Manager, and Principal Developer interviews — kept current as new patterns come up.
+        </p>
+
+        <h2>Elevator Pitch</h2>
+
+        <div class="qa-item">
+            <h3>Q: Tell me about yourself.</h3>
+            <p>
+                "I'm Michael George, a 13-times Salesforce-certified professional with over 15 years in
+                software development, including 7+ years deeply focused on Salesforce. I've led enterprise
+                CRM implementations across automotive, real estate, healthcare, logistics, and non-profit
+                industries. Most recently at Capgemini, I served as Salesforce Technical Manager and Lead
+                Solutions Consultant, managing multi-country deployments like Stellantis across France,
+                Germany, UK, Italy, and Spain. I hold the Application Architect and Data Architect
+                certifications, and I specialize in designing scalable architectures and leading complex
+                integrations. I'm now looking for a senior architect or principal developer role where I can
+                drive digital transformation at scale."
+            </p>
+        </div>
+
+        <h2>Leadership &amp; Team Management</h2>
+
+        <div class="qa-item">
+            <h3>Q: Tell me about a time you led a team through a complex project.</h3>
+            <p>
+                <strong>Situation:</strong> At Capgemini, I was appointed Technical Manager for the Stellantis
+                Salesforce CRM — a multi-country, multi-language enterprise implementation across France,
+                Germany, UK, Italy, and Spain.<br />
+                <strong>Task:</strong> Lead a team of developers and consultants to maintain operational
+                excellence and deliver continuous platform improvements.<br />
+                <strong>Action:</strong> I established regular cadences with regional stakeholders, ran code
+                reviews, prioritized the backlog by business impact, and implemented CI/CD deployment
+                practices using Salesforce DX.<br />
+                <strong>Result:</strong> High service standards sustained over 2+ years, with improved
+                first-call resolution rates and zero critical deployment failures.
+            </p>
+        </div>
+
+        <div class="qa-item">
+            <h3>Q: Describe a time you mentored a junior developer.</h3>
+            <p>
+                <strong>Situation:</strong> At CloudzLab, junior developers were struggling with Salesforce
+                governor limits and async Apex patterns.<br />
+                <strong>Task:</strong> Bring them up to speed without slowing delivery timelines.<br />
+                <strong>Action:</strong> I created internal code review checklists and held weekly
+                knowledge-sharing sessions on Apex best practices, SOQL optimization, and integration
+                patterns.<br />
+                <strong>Result:</strong> Measurable improvement in code quality — fewer bugs in QA and faster
+                PR approvals.
+            </p>
+        </div>
+
+        <h2>Problem Solving</h2>
+
+        <div class="qa-item">
+            <h3>Q: Tell me about the most complex Salesforce bug you ever debugged.</h3>
+            <p>
+                <strong>Situation:</strong> At IQVIA, an integration with a third-party pharma data provider
+                was intermittently failing, with no governor limit hits and no exceptions in the logs.<br />
+                <strong>Task:</strong> Find the root cause without a clear error trail.<br />
+                <strong>Action:</strong> Traced it to a race condition in a Queueable chain — bulk-inserted
+                records were spawning competing jobs for the same external ID.<br />
+                <strong>Result:</strong> Fixed with a Batch Apex re-architecture, and added a custom
+                <code>Integration_Log__c</code> object for full visibility going forward.
+            </p>
+        </div>
+
+        <h2>Questions to Ask the Interviewer</h2>
+
+        <div class="qa-item">
+            <ol>
+                <li>"What does the Salesforce architecture look like today — how many orgs, clouds, and
+                    integrations are in scope?"</li>
+                <li>"What's the biggest technical challenge the team is facing right now?"</li>
+                <li>"How does the team currently handle deployments — is there a CI/CD pipeline?"</li>
+                <li>"What does success look like for this role in the first 90 days?"</li>
+                <li>"How involved is this role in pre-sales / client-facing architecture discussions?"</li>
+                <li>"What certifications or skills would you most like this person to develop further?"</li>
+            </ol>
+        </div>
+
+        <h2>Salary Negotiation</h2>
+
+        <div class="qa-item">
+            <h3>Q: What are your salary expectations?</h3>
+            <p>
+                "Based on my 15 years of experience and 13 Salesforce certifications including Application
+                Architect and Data Architect, combined with my track record leading enterprise multi-country
+                implementations, I'm targeting [X]. However, I'm open to discussing the full compensation
+                package including benefits, bonuses, and growth opportunities."
+            </p>
+            <table>
+                <tr>
+                    <th>Market</th>
+                    <th>Range</th>
+                </tr>
+                <tr>
+                    <td>USA (Remote)</td>
+                    <td>$120,000–$160,000/year</td>
+                </tr>
+                <tr>
+                    <td>UK</td>
+                    <td>£70,000–£100,000/year</td>
+                </tr>
+                <tr>
+                    <td>UAE</td>
+                    <td>AED 25,000–45,000/month</td>
+                </tr>
+                <tr>
+                    <td>Egypt (on-site)</td>
+                    <td>EGP 80,000–150,000/month</td>
+                </tr>
+                <tr>
+                    <td>EU (Remote)</td>
+                    <td>€80,000–€120,000/year</td>
+                </tr>
+            </table>
+        </div>
+
+        <blockquote>
+            Red flags I now listen for during the same conversation: no clear org consolidation strategy, no
+            version control or metadata deployment process, being expected to be both architect and full-time
+            admin, or a rush straight to implementation without discovery.
+        </blockquote>
+
+        <p>
+            See also: <a href="senior-developer-interview-qa.html">Senior Developer Interview Q&amp;A</a>,
+            <a href="technical-consultant-interview-qa.html">Senior Consultant / Tech Interview Q&amp;A</a>,
+            and <a href="architect-interview-qa.html">Architect Interview Q&amp;A</a> for the technical rounds
+            that usually precede this one.
+        </p>
+
+    </article>
+
+    <div class="article-footer">
+        <div class="author-card">
+            <div class="author-info">
+                <h4>Michael George</h4>
+                <p>13× Salesforce Certified · Principal Developer &amp; Architect</p>
+            </div>
+        </div>
+        <a href="../index.html" class="back-btn">← Back to Portfolio</a>
+    </div>
+
+    <footer>
+        &copy; 2026 Michael George
+    </footer>
+
+</body>
+
+</html>

@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Salesforce Architect Interview Q&amp;A — Michael George</title>
+    <meta name="description"
+        content="Application Architect and Data Architect level interview questions: technical debt, data governance, sharing vs. data architecture, and large-scale design decisions." />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet" />
+
+    <style>
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        :root {
+            --navy: #0f2044;
+            --blue: #2a5298;
+            --accent: #7ec8e3;
+            --text: #1a1a2e;
+            --muted: #5a6a8a;
+            --light: #f4f7fb;
+            --border: #dde4f0;
+            --white: #ffffff;
+        }
+
+        body {
+            font-family: 'Inter', Arial, sans-serif;
+            background: var(--white);
+            color: var(--text);
+        }
+
+        nav {
+            background: var(--navy);
+            padding: 16px 32px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .nav-brand {
+            color: var(--white);
+            font-weight: 700;
+            font-size: 1rem;
+            text-decoration: none;
+        }
+
+        .nav-brand span {
+            color: var(--accent);
+        }
+
+        .back-link {
+            color: rgba(255, 255, 255, .6);
+            font-size: .85rem;
+            text-decoration: none;
+        }
+
+        .back-link:hover {
+            color: var(--accent);
+        }
+
+        .article-hero {
+            background: linear-gradient(135deg, var(--navy), #1a3560);
+            padding: 60px 32px 50px;
+            text-align: center;
+        }
+
+        .article-tag {
+            display: inline-block;
+            background: rgba(126, 200, 227, .2);
+            border: 1px solid rgba(126, 200, 227, .35);
+            color: var(--accent);
+            font-size: .75rem;
+            font-weight: 700;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            padding: 4px 12px;
+            border-radius: 20px;
+            margin-bottom: 18px;
+        }
+
+        .article-title {
+            font-size: clamp(1.6rem, 4vw, 2.4rem);
+            font-weight: 700;
+            color: var(--white);
+            max-width: 720px;
+            margin: 0 auto 16px;
+            line-height: 1.2;
+        }
+
+        .article-meta {
+            color: rgba(255, 255, 255, .5);
+            font-size: .85rem;
+        }
+
+        .article-body {
+            max-width: 720px;
+            margin: 0 auto;
+            padding: 52px 32px 80px;
+        }
+
+        .article-body h2 {
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: var(--navy);
+            margin: 36px 0 12px;
+        }
+
+        .article-body h3 {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--blue);
+            margin: 24px 0 8px;
+        }
+
+        .article-body p {
+            font-size: 1.02rem;
+            line-height: 1.8;
+            color: #3a4a6a;
+            margin-bottom: 18px;
+        }
+
+        .article-body ul,
+        .article-body ol {
+            padding-left: 24px;
+            margin-bottom: 18px;
+        }
+
+        .article-body li {
+            font-size: 1rem;
+            line-height: 1.7;
+            color: #3a4a6a;
+            margin-bottom: 6px;
+        }
+
+        .article-body code {
+            background: var(--light);
+            border: 1px solid var(--border);
+            padding: 2px 7px;
+            border-radius: 4px;
+            font-size: .88rem;
+            font-family: 'Courier New', monospace;
+        }
+
+        .article-body blockquote {
+            border-left: 3px solid var(--accent);
+            padding-left: 18px;
+            color: var(--muted);
+            font-style: italic;
+            margin: 24px 0;
+        }
+
+        .article-body strong {
+            color: var(--navy);
+        }
+
+        .article-body a {
+            color: var(--blue);
+        }
+
+        .article-body a:hover {
+            color: var(--accent);
+        }
+
+        .qa-item {
+            background: var(--light);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 20px 24px;
+            margin-bottom: 20px;
+        }
+
+        .qa-item h3 {
+            margin: 0 0 10px;
+        }
+
+        .qa-item p:last-child,
+        .qa-item ol:last-child,
+        .qa-item ul:last-child {
+            margin-bottom: 0;
+        }
+
+        .article-footer {
+            max-width: 720px;
+            margin: 0 auto;
+            padding: 0 32px 60px;
+            border-top: 1px solid var(--border);
+            padding-top: 36px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 16px;
+        }
+
+        .author-card {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+        }
+
+        .author-info h4 {
+            font-size: .95rem;
+            font-weight: 700;
+            color: var(--navy);
+        }
+
+        .author-info p {
+            font-size: .8rem;
+            color: var(--muted);
+        }
+
+        .back-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 9px 20px;
+            background: var(--navy);
+            color: var(--white);
+            border-radius: 8px;
+            font-size: .85rem;
+            font-weight: 600;
+            text-decoration: none;
+            transition: background .2s;
+        }
+
+        .back-btn:hover {
+            background: var(--blue);
+            color: var(--white);
+        }
+
+        footer {
+            background: var(--light);
+            border-top: 1px solid var(--border);
+            text-align: center;
+            padding: 20px;
+            font-size: .8rem;
+            color: var(--muted);
+        }
+    </style>
+</head>
+
+<body>
+
+    <nav>
+        <a href="../index.html" class="nav-brand">Michael <span>George</span></a>
+        <a href="../index.html#blog" class="back-link">← Back to Portfolio</a>
+    </nav>
+
+    <div class="article-hero">
+        <div class="article-tag">Salesforce · Architect</div>
+        <h1 class="article-title">Salesforce Architect Interview Q&amp;A</h1>
+        <div class="article-meta">Michael George &nbsp;·&nbsp; Updated August 2026 &nbsp;·&nbsp; 6 min read</div>
+    </div>
+
+    <article class="article-body">
+
+        <p>
+            Architect-level interviews probe judgment more than trivia — they want to know how you make
+            durable decisions across data, security, and scale. Below are the Application Architect / Data
+            Architect questions I've been asked most often, backed by my Architect-track certifications.
+        </p>
+
+        <h2>Architecture Responsibilities</h2>
+
+        <div class="qa-item">
+            <h3>Q: As an Application Architect, what key decisions do you make?</h3>
+            <p>
+                Data model design, integration architecture, the security &amp; sharing model, deployment
+                strategy, and governance. My role is to make sure every technical decision aligns to
+                Salesforce best practices and long-term maintainability — not just "it works today."
+            </p>
+        </div>
+
+        <div class="qa-item">
+            <h3>Q: What's the difference between the Data Architect and Sharing &amp; Visibility Architect
+                certifications in practice?</h3>
+            <p>
+                <strong>Data Architect</strong> focuses on large data volumes, data migrations, data quality,
+                external data sources, and data governance. <strong>Sharing &amp; Visibility</strong> focuses on
+                who can see what — OWD, profiles, permission sets, sharing rules, encryption. Both matter most
+                in multi-business-unit, regulated industries like healthcare and financial services, where
+                getting either one wrong creates compliance exposure.
+            </p>
+        </div>
+
+        <h2>Scale &amp; Data Governance</h2>
+
+        <div class="qa-item">
+            <h3>Q: A client wants to migrate 10 million records from their legacy CRM. How do you approach
+                it at the architecture level?</h3>
+            <ol>
+                <li>Data assessment — profile quality, duplicates, missing required fields before touching
+                    tooling.</li>
+                <li>Field mapping document — source → Salesforce object/field, agreed and signed off.</li>
+                <li>Staged migration — parents first (Accounts), then children (Contacts, Opportunities) to
+                    respect relationship integrity.</li>
+                <li>Tool selection based on volume and transform complexity — Data Loader for straightforward
+                    bulk, Informatica/MuleSoft for complex transforms.</li>
+                <li>Validation — pre-migration counts and post-migration reconciliation reports, not a
+                    spot-check.</li>
+                <li>Freeze/cutover plan to minimize downtime, with an explicit rollback plan.</li>
+            </ol>
+        </div>
+
+        <div class="qa-item">
+            <h3>Q: How do you handle technical debt in a Salesforce org?</h3>
+            <ol>
+                <li><strong>Audit first:</strong> run Salesforce Optimizer, review field usage reports, check
+                    for duplicate automation on the same object.</li>
+                <li><strong>Prioritize:</strong> debt causing bugs or blocking new features first; cosmetic
+                    debt last.</li>
+                <li><strong>Refactor incrementally:</strong> never rewrite everything at once — e.g. replace
+                    one Process Builder with Flow per sprint.</li>
+                <li><strong>Prevent:</strong> enforce code review standards, metadata naming conventions, and
+                    architecture review gates so the debt doesn't return.</li>
+            </ol>
+        </div>
+
+        <blockquote>
+            Architect interviews reward showing your reasoning path, not just the final answer — panels
+            consistently followed up with "why not X instead?" so I make sure to name the alternative I
+            rejected and why.
+        </blockquote>
+
+        <p>
+            See also: <a href="technical-consultant-interview-qa.html">Senior Consultant / Tech Interview
+                Q&amp;A</a> for the client-facing framing of these same decisions, and
+            <a href="senior-developer-interview-qa.html">Senior Developer Interview Q&amp;A</a> for the
+            implementation-level detail underneath them.
+        </p>
+
+    </article>
+
+    <div class="article-footer">
+        <div class="author-card">
+            <div class="author-info">
+                <h4>Michael George</h4>
+                <p>13× Salesforce Certified · Principal Developer &amp; Architect</p>
+            </div>
+        </div>
+        <a href="../index.html" class="back-btn">← Back to Portfolio</a>
+    </div>
+
+    <footer>
+        &copy; 2026 Michael George
+    </footer>
+
+</body>
+
+</html>

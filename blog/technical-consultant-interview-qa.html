@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Senior Consultant / Tech Interview Q&amp;A — Michael George</title>
+    <meta name="description"
+        content="Salesforce solution architecture, Flow vs Apex decisions, integration strategy, and client case-study questions for Senior Consultant interviews." />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet" />
+
+    <style>
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        :root {
+            --navy: #0f2044;
+            --blue: #2a5298;
+            --accent: #7ec8e3;
+            --text: #1a1a2e;
+            --muted: #5a6a8a;
+            --light: #f4f7fb;
+            --border: #dde4f0;
+            --white: #ffffff;
+        }
+
+        body {
+            font-family: 'Inter', Arial, sans-serif;
+            background: var(--white);
+            color: var(--text);
+        }
+
+        nav {
+            background: var(--navy);
+            padding: 16px 32px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .nav-brand {
+            color: var(--white);
+            font-weight: 700;
+            font-size: 1rem;
+            text-decoration: none;
+        }
+
+        .nav-brand span {
+            color: var(--accent);
+        }
+
+        .back-link {
+            color: rgba(255, 255, 255, .6);
+            font-size: .85rem;
+            text-decoration: none;
+        }
+
+        .back-link:hover {
+            color: var(--accent);
+        }
+
+        .article-hero {
+            background: linear-gradient(135deg, var(--navy), #1a3560);
+            padding: 60px 32px 50px;
+            text-align: center;
+        }
+
+        .article-tag {
+            display: inline-block;
+            background: rgba(126, 200, 227, .2);
+            border: 1px solid rgba(126, 200, 227, .35);
+            color: var(--accent);
+            font-size: .75rem;
+            font-weight: 700;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            padding: 4px 12px;
+            border-radius: 20px;
+            margin-bottom: 18px;
+        }
+
+        .article-title {
+            font-size: clamp(1.6rem, 4vw, 2.4rem);
+            font-weight: 700;
+            color: var(--white);
+            max-width: 720px;
+            margin: 0 auto 16px;
+            line-height: 1.2;
+        }
+
+        .article-meta {
+            color: rgba(255, 255, 255, .5);
+            font-size: .85rem;
+        }
+
+        .article-body {
+            max-width: 720px;
+            margin: 0 auto;
+            padding: 52px 32px 80px;
+        }
+
+        .article-body h2 {
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: var(--navy);
+            margin: 36px 0 12px;
+        }
+
+        .article-body h3 {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--blue);
+            margin: 24px 0 8px;
+        }
+
+        .article-body p {
+            font-size: 1.02rem;
+            line-height: 1.8;
+            color: #3a4a6a;
+            margin-bottom: 18px;
+        }
+
+        .article-body ul,
+        .article-body ol {
+            padding-left: 24px;
+            margin-bottom: 18px;
+        }
+
+        .article-body li {
+            font-size: 1rem;
+            line-height: 1.7;
+            color: #3a4a6a;
+            margin-bottom: 6px;
+        }
+
+        .article-body code {
+            background: var(--light);
+            border: 1px solid var(--border);
+            padding: 2px 7px;
+            border-radius: 4px;
+            font-size: .88rem;
+            font-family: 'Courier New', monospace;
+        }
+
+        .article-body blockquote {
+            border-left: 3px solid var(--accent);
+            padding-left: 18px;
+            color: var(--muted);
+            font-style: italic;
+            margin: 24px 0;
+        }
+
+        .article-body strong {
+            color: var(--navy);
+        }
+
+        .article-body a {
+            color: var(--blue);
+        }
+
+        .article-body a:hover {
+            color: var(--accent);
+        }
+
+        .qa-item {
+            background: var(--light);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 20px 24px;
+            margin-bottom: 20px;
+        }
+
+        .qa-item h3 {
+            margin: 0 0 10px;
+        }
+
+        .qa-item p:last-child,
+        .qa-item ol:last-child,
+        .qa-item ul:last-child {
+            margin-bottom: 0;
+        }
+
+        .article-footer {
+            max-width: 720px;
+            margin: 0 auto;
+            padding: 0 32px 60px;
+            border-top: 1px solid var(--border);
+            padding-top: 36px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 16px;
+        }
+
+        .author-card {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+        }
+
+        .author-info h4 {
+            font-size: .95rem;
+            font-weight: 700;
+            color: var(--navy);
+        }
+
+        .author-info p {
+            font-size: .8rem;
+            color: var(--muted);
+        }
+
+        .back-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 9px 20px;
+            background: var(--navy);
+            color: var(--white);
+            border-radius: 8px;
+            font-size: .85rem;
+            font-weight: 600;
+            text-decoration: none;
+            transition: background .2s;
+        }
+
+        .back-btn:hover {
+            background: var(--blue);
+            color: var(--white);
+        }
+
+        footer {
+            background: var(--light);
+            border-top: 1px solid var(--border);
+            text-align: center;
+            padding: 20px;
+            font-size: .8rem;
+            color: var(--muted);
+        }
+    </style>
+</head>
+
+<body>
+
+    <nav>
+        <a href="../index.html" class="nav-brand">Michael <span>George</span></a>
+        <a href="../index.html#blog" class="back-link">← Back to Portfolio</a>
+    </nav>
+
+    <div class="article-hero">
+        <div class="article-tag">Salesforce · Consultant</div>
+        <h1 class="article-title">Senior Consultant / Tech Interview Q&amp;A</h1>
+        <div class="article-meta">Michael George &nbsp;·&nbsp; Updated August 2026 &nbsp;·&nbsp; 7 min read</div>
+    </div>
+
+    <article class="article-body">
+
+        <p>
+            Senior Consultant and "Tech Interview" rounds tend to focus less on syntax and more on how
+            you frame trade-offs to a client. These are the solution-architecture and case-study questions
+            I actually get asked, kept current as I go through more of these interviews.
+        </p>
+
+        <h2>Solution Architecture Approach</h2>
+
+        <div class="qa-item">
+            <h3>Q: Walk me through how you approach designing a Salesforce solution architecture.</h3>
+            <ol>
+                <li><strong>Discovery:</strong> requirements workshops mapping business processes to Salesforce
+                    capabilities.</li>
+                <li><strong>Data model design:</strong> object relationships, sharing model, and data
+                    architecture up front — especially critical for complex orgs (Experience Cloud,
+                    multi-business-unit).</li>
+                <li><strong>Integration strategy:</strong> identify systems of record, choose sync vs. async,
+                    design error handling and retry logic.</li>
+                <li><strong>Security &amp; sharing:</strong> profiles, permission sets, sharing rules, and OWD
+                    designed early — never bolted on later.</li>
+                <li><strong>Scalability:</strong> governor-limit awareness, bulkified Apex, async processing
+                    with Queueable/Batch.</li>
+                <li><strong>Deployment:</strong> source-controlled with Salesforce DX, scratch orgs, CI/CD.</li>
+                <li><strong>Documentation &amp; handoff:</strong> technical specs, data flow diagrams, runbook.</li>
+            </ol>
+        </div>
+
+        <div class="qa-item">
+            <h3>Q: How do you decide between Flow, Apex, and Process Builder?</h3>
+            <p>
+                <strong>Flow</strong> is my first choice for declarative automation — it covers roughly 80% of
+                use cases: record-triggered flows, screen flows, scheduled flows.
+                <strong>Apex</strong> comes in when logic is too complex for Flow: multi-object calculations,
+                callouts, custom error handling.
+                <strong>Process Builder</strong> is legacy — I migrate every PB I find to Flow, and never build
+                a new one. Rule of thumb: declarative first, Apex second, and always document the "why" behind
+                the choice.
+            </p>
+        </div>
+
+        <div class="qa-item">
+            <h3>Q: Describe your approach to Salesforce integration architecture.</h3>
+            <p>
+                I start by classifying the need: real-time, near-real-time, or batch. For real-time, REST API
+                with Connected Apps and OAuth 2.0. For async, Platform Events or Change Data Capture. For
+                legacy systems, middleware (MuleSoft, Dell Boomi, or custom). I always design idempotent
+                endpoints, implement error queues, and log every integration transaction in a custom object
+                for auditability — clients need to be able to trace a failure without opening a support ticket
+                with me.
+            </p>
+        </div>
+
+        <h2>Client Case Studies</h2>
+
+        <div class="qa-item">
+            <h3>Q: A client wants to migrate 10 million records from their legacy CRM to Salesforce. How do you
+                approach it?</h3>
+            <ol>
+                <li>Data assessment: profile data quality, duplicates, missing required fields.</li>
+                <li>Field mapping document: source → Salesforce object/field.</li>
+                <li>Staged migration: parent objects (Accounts) first, then children (Contacts,
+                    Opportunities).</li>
+                <li>Tool selection: Data Loader for bulk, Informatica/MuleSoft for complex transforms.</li>
+                <li>Validation: pre-migration counts, post-migration reconciliation reports.</li>
+                <li>Freeze/cutover plan to minimize downtime.</li>
+                <li>Always have a rollback plan.</li>
+            </ol>
+        </div>
+
+        <div class="qa-item">
+            <h3>Q: A client says "Salesforce is too slow." What do you do?</h3>
+            <p>
+                Diagnose before guessing. Common culprits: unindexed custom fields in queries, list views
+                hitting SOQL limits, Visualforce pages without server-side pagination, too many real-time
+                callouts on page load, or missing caching. I use Debug Logs, Event Monitoring, and Salesforce
+                Optimizer to pinpoint the actual cause, then fix the root issue — not the symptom.
+            </p>
+        </div>
+
+        <div class="qa-item">
+            <h3>Q: Stakeholders want a feature that violates Salesforce best practices. What do you do?</h3>
+            <p>
+                I explain the risk clearly: technical debt, future maintenance cost, governor limit exposure,
+                upgrade risk. I propose an alternative that meets the business need within best practices. If
+                they insist after understanding the risk, I document the decision and my recommendation in
+                writing, then implement it as safely as possible.
+            </p>
+        </div>
+
+        <blockquote>
+            Consultant interviews reward structure. Even a partial answer scored well when I walked through
+            discovery → design → risk → recommendation instead of jumping straight to a technical fix.
+        </blockquote>
+
+        <p>
+            See also: <a href="senior-developer-interview-qa.html">Senior Developer Interview Q&amp;A</a> for
+            the underlying technical detail, and
+            <a href="behavioral-leadership-interview-qa.html">Behavioral &amp; Leadership Interview Q&amp;A</a>
+            for the STAR-format questions that often follow these.
+        </p>
+
+    </article>
+
+    <div class="article-footer">
+        <div class="author-card">
+            <div class="author-info">
+                <h4>Michael George</h4>
+                <p>13× Salesforce Certified · Principal Developer &amp; Architect</p>
+            </div>
+        </div>
+        <a href="../index.html" class="back-btn">← Back to Portfolio</a>
+    </div>
+
+    <footer>
+        &copy; 2026 Michael George
+    </footer>
+
+</body>
+
+</html>
