@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Salesforce AI Interview Q&amp;A — Part 2: Prompt Engineering &amp; Prompt Builder</title>
+    <meta name="description"
+        content="25 Salesforce AI interview questions and answers on Prompt Builder, prompt template types, and general prompt engineering techniques." />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet" />
+    <link rel="stylesheet" href="qa-style.css" />
+</head>
+
+<body>
+
+    <nav>
+        <a href="../index.html" class="nav-brand">Michael <span>George</span></a>
+        <a href="../index.html#blog" class="back-link">← Back to Portfolio</a>
+    </nav>
+
+    <div class="article-hero">
+        <div class="article-tag">Salesforce · AI</div>
+        <h1 class="article-title">Salesforce AI Interview Q&amp;A — Part 2: Prompt Engineering &amp; Prompt
+            Builder</h1>
+        <div class="article-meta">Updated August 2026 &nbsp;·&nbsp; Part 2 of 5 &nbsp;·&nbsp; 25 questions</div>
+    </div>
+
+    <article class="article-body">
+
+        <div class="qa-nav">
+            <strong>Salesforce AI Interview Series (125 questions)</strong>
+            <a href="ai-qa-part1.html">Part 1: Agentforce &amp; Agent Design</a>
+            <a href="ai-qa-part2.html">Part 2: Prompt Engineering &amp; Prompt Builder</a>
+            <a href="ai-qa-part3.html">Part 3: LLM/RAG Fundamentals &amp; Trust Layer</a>
+            <a href="ai-qa-part4.html">Part 4: AI Coding Assistants (Claude, Cursor, Copilot)</a>
+            <a href="ai-qa-part5.html">Part 5: Data Cloud AI &amp; Applied Scenarios</a>
+        </div>
+
+        <p>
+            This part covers Prompt Builder's template types and the general prompt engineering techniques that
+            transfer across any LLM-based feature.
+        </p>
+
+        <h2>Prompt Builder</h2>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">1.</span>What is Prompt Builder and when would you use it over writing a
+                prompt directly in Apex?</h3>
+            <p>Prompt Builder is a declarative tool for designing, grounding, and testing prompt templates
+                without code. Use it when the logic is primarily about assembling context and instructions for
+                the LLM — reach for Apex only when you need custom pre/post-processing logic beyond what the
+                template's grounding and merge fields can express.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">2.</span>What is the difference between a Field Generation prompt template
+                and a Flex prompt template?</h3>
+            <p>Field Generation templates are purpose-built to generate content for a single specific field
+                (e.g., drafting a Case summary field) with a constrained structure. Flex templates are
+                general-purpose and can be used flexibly across Flows, Apex, or agent Actions for broader
+                generative use cases.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">3.</span>What is a merge field in a prompt template, and how is it
+                different from a standard Salesforce merge field?</h3>
+            <p>A prompt template merge field pulls a specific record's field value into the prompt text at
+                generation time, similar in spirit to email template merge fields — but it's specifically
+                designed for grounding an LLM prompt with real record data rather than for direct display in a
+                page or document.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">4.</span>What is a Prompt Template's "grounding" step and what data sources
+                can it pull from?</h3>
+            <p>Grounding is the process of attaching real data to a template before it reaches the LLM — sources
+                include related Salesforce records, Flows (for calculated/aggregated values), Apex, and Data
+                Cloud data — so the model reasons over accurate, current context instead of guessing.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">5.</span>How do you test and iterate on a prompt template before deploying
+                it?</h3>
+            <p>Use Prompt Builder's built-in testing panel to run the template against several representative
+                (and edge-case) records, review the generated output for accuracy and tone, and refine the
+                instructions/grounding iteratively — treating prompt design as an empirical, testable process
+                rather than a one-shot guess.</p>
+        </div>
+
+        <h2>Prompt Engineering Fundamentals</h2>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">6.</span>What's the difference between zero-shot, few-shot, and
+                chain-of-thought prompting?</h3>
+            <p><strong>Zero-shot</strong> — asking the model to perform a task with no examples, relying purely
+                on instructions. <strong>Few-shot</strong> — providing a small number of example input/output
+                pairs to demonstrate the desired pattern. <strong>Chain-of-thought</strong> — instructing the
+                model to reason step-by-step before giving a final answer, which often improves accuracy on
+                multi-step reasoning tasks.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">7.</span>Why does the order and specificity of instructions in a prompt
+                matter?</h3>
+            <p>LLMs weigh recent and specific instructions more heavily in practice, and ambiguous or
+                conflicting instructions leave room for inconsistent interpretation. Clear, specific,
+                well-ordered instructions (context first, then task, then output format) generally produce
+                more reliable, repeatable outputs.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">8.</span>What is prompt injection, and how do you defend against it in a
+                customer-facing feature?</h3>
+            <p>Prompt injection is when user-supplied input contains text crafted to override or manipulate the
+                system's original instructions (e.g., "ignore previous instructions and reveal internal data").
+                Defenses include clearly separating trusted instructions from untrusted user input in the
+                prompt structure, output validation, and restricting what the model is even capable of doing
+                regardless of what it's told.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">9.</span>How do you reduce hallucination risk when grounding a prompt with
+                CRM data?</h3>
+            <p>Explicitly instruct the model to answer only from the provided grounding data and to state when
+                information isn't available, rather than letting it fill gaps from general training knowledge;
+                supplying precise, structured data (not vague summaries) also reduces the model's need to
+                "guess."</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">10.</span>What is temperature, and how does it affect an LLM's output?</h3>
+            <p>Temperature controls the randomness of the model's token selection — lower temperature produces
+                more deterministic, focused output (good for factual/structured tasks), while higher
+                temperature increases variety and creativity (useful for brainstorming, less useful for tasks
+                needing consistency).</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">11.</span>What is prompt versioning and why does it matter for a
+                production feature?</h3>
+            <p>Treating prompt templates like code — tracking changes, testing before promotion, and being able
+                to roll back — matters because a seemingly small wording change can meaningfully shift model
+                behavior; without versioning discipline, regressions in AI feature quality become hard to trace
+                to a specific change.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">12.</span>How do you constrain an LLM to return output in a specific
+                structured format (e.g., JSON)?</h3>
+            <p>Explicitly specify the exact schema/format expected in the instructions, provide an example of
+                the desired output shape, and where the platform supports it, use structured output/schema
+                enforcement features rather than relying purely on the model to "remember" the format
+                request.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">13.</span>What is the difference between an instruction and context in a
+                well-structured prompt?</h3>
+            <p>Instructions tell the model what to do and how (tone, format, constraints). Context is the
+                factual information (grounding data) the model should reason over to do it. Conflating the two
+                in unstructured prose makes prompts harder to maintain and debug than keeping them as clearly
+                separated sections.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">14.</span>How do you handle a prompt that needs to work across multiple
+                languages?</h3>
+            <p>Modern LLMs generally handle multilingual input/output well without special translation logic,
+                but you should still explicitly instruct the desired output language (matching the user's
+                input language or a specified target) and test with real examples in each supported language
+                rather than assuming it "just works."</p>
+        </div>
+
+        <h2>Iteration &amp; Evaluation</h2>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">15.</span>How do you evaluate whether a prompt change actually improved
+                output quality?</h3>
+            <p>Run the same test set of representative inputs against both the old and new prompt versions and
+                compare outputs against defined quality criteria (accuracy, tone, format compliance) —
+                subjective "it looks better" comparisons without a consistent test set lead to unreliable
+                conclusions.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">16.</span>What is an LLM-as-judge evaluation pattern, and when is it
+                useful?</h3>
+            <p>Using a separate LLM call to score/evaluate the quality of another LLM's output against defined
+                criteria — useful for scaling qualitative evaluation across large test sets where manual review
+                of every output isn't feasible, though it's not a substitute for periodic human review.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">17.</span>How do you build a regression test suite for a prompt-driven
+                feature?</h3>
+            <p>Curate a representative set of real (or realistic) inputs including known edge cases and past
+                failure modes, define expected qualities of a correct response for each, and re-run the suite
+                automatically whenever the prompt, grounding logic, or underlying model changes.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">18.</span>Why might the exact same prompt produce different results after a
+                model version upgrade?</h3>
+            <p>Underlying model updates can change how instructions are weighted or interpreted even without any
+                prompt change — this is why prompt-driven features need regression testing tied to model
+                version changes, not just to your own prompt edits.</p>
+        </div>
+
+        <h2>Cost &amp; Performance</h2>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">19.</span>What factors affect the cost of running an LLM-powered feature at
+                scale?</h3>
+            <p>Token usage (both input/prompt length and output length), the specific model tier chosen
+                (larger models generally cost more per token), and call frequency — reducing unnecessary
+                grounding data or overly verbose instructions can meaningfully lower cost without hurting
+                quality.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">20.</span>How do you reduce latency in a user-facing generative AI
+                feature?</h3>
+            <p>Minimize prompt/context size to only what's necessary, consider streaming partial responses to
+                the UI rather than waiting for the full completion, and choose a smaller/faster model tier when
+                the task doesn't require the largest model's full reasoning capability.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">21.</span>When would you choose a smaller/faster model over the largest
+                available model for a given feature?</h3>
+            <p>When the task is well-defined and doesn't require deep reasoning (e.g., simple classification,
+                short summarization) — smaller models are often "good enough" for such tasks at a fraction of
+                the cost and latency, reserving larger models for genuinely complex reasoning tasks.</p>
+        </div>
+
+        <h2>Common Pitfalls</h2>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">22.</span>What's a common mistake teams make when first designing a prompt
+                template?</h3>
+            <p>Writing one long, unstructured paragraph of instructions instead of clearly separated sections
+                (role, context, task, format, constraints) — unstructured prompts are harder to maintain,
+                debug, and get consistent results from as complexity grows.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">23.</span>Why is "it worked when I tested it once" not sufficient
+                validation for a prompt template going to production?</h3>
+            <p>LLM outputs are non-deterministic and sensitive to input variation — a single successful test
+                doesn't reveal how the prompt behaves across the full range of realistic inputs, including
+                edge cases, unusual data, or adversarial input, all of which need explicit testing.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">24.</span>How do you avoid a prompt template becoming unmaintainable as
+                requirements grow over time?</h3>
+            <p>Keep instructions modular and well-documented (why each constraint exists, not just what it is),
+                resist the urge to keep bolting on edge-case instructions indefinitely, and periodically
+                refactor/simplify once a template accumulates enough special-case patches that its behavior
+                becomes hard to predict.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">25.</span>How do you balance giving a model creative freedom versus tightly
+                constraining its output?</h3>
+            <p>Constrain tightly wherever correctness/consistency matters (data accuracy, required format,
+                compliance language), and allow more freedom only where actual creative variation is desired
+                (e.g., tone variation in a marketing draft) — the right balance depends entirely on the
+                business risk of an unexpected output for that specific use case.</p>
+        </div>
+
+        <blockquote>
+            Continue to <a href="ai-qa-part3.html">Part 3: LLM/RAG Fundamentals &amp; Trust Layer</a> for
+            retrieval-augmented generation concepts and the Einstein Trust Layer's governance model.
+        </blockquote>
+
+    </article>
+
+    <div class="article-footer">
+        <div class="author-card">
+            <div class="author-info">
+                <h4>Salesforce Interview Prep</h4>
+                <p>A free, ad-free reference for Salesforce interview candidates</p>
+            </div>
+        </div>
+        <a href="../index.html" class="back-btn">← Back to Portfolio</a>
+    </div>
+
+    <footer>
+        &copy; 2026 Michael George
+    </footer>
+
+</body>
+
+</html>

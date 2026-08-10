@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Salesforce AI Interview Q&amp;A — Part 1: Agentforce &amp; Agent Design</title>
+    <meta name="description"
+        content="25 Salesforce AI interview questions and answers on Agentforce, agent topics/actions, grounding, and guardrails." />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet" />
+    <link rel="stylesheet" href="qa-style.css" />
+</head>
+
+<body>
+
+    <nav>
+        <a href="../index.html" class="nav-brand">Michael <span>George</span></a>
+        <a href="../index.html#blog" class="back-link">← Back to Portfolio</a>
+    </nav>
+
+    <div class="article-hero">
+        <div class="article-tag">Salesforce · AI</div>
+        <h1 class="article-title">Salesforce AI Interview Q&amp;A — Part 1: Agentforce &amp; Agent Design</h1>
+        <div class="article-meta">Updated August 2026 &nbsp;·&nbsp; Part 1 of 5 &nbsp;·&nbsp; 25 questions</div>
+    </div>
+
+    <article class="article-body">
+
+        <div class="qa-nav">
+            <strong>Salesforce AI Interview Series (125 questions)</strong>
+            <a href="ai-qa-part1.html">Part 1: Agentforce &amp; Agent Design</a>
+            <a href="ai-qa-part2.html">Part 2: Prompt Engineering &amp; Prompt Builder</a>
+            <a href="ai-qa-part3.html">Part 3: LLM/RAG Fundamentals &amp; Trust Layer</a>
+            <a href="ai-qa-part4.html">Part 4: AI Coding Assistants (Claude, Cursor, Copilot)</a>
+            <a href="ai-qa-part5.html">Part 5: Data Cloud AI &amp; Applied Scenarios</a>
+        </div>
+
+        <p>
+            A general-purpose reference for the AI-focused round now common in Salesforce Developer, Consultant,
+            and Architect interviews. This part covers Agentforce fundamentals and agent design decisions.
+        </p>
+
+        <h2>Agentforce Fundamentals</h2>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">1.</span>What is Agentforce and how does it differ from a traditional rule-based
+                chatbot?</h3>
+            <p>Agentforce is Salesforce's platform for building autonomous AI agents that reason over a goal,
+                decide which action to take, and execute real CRM operations (not just answer questions). A
+                traditional chatbot follows a fixed decision tree; an agent uses an LLM to interpret intent
+                dynamically and select from a set of available Actions at runtime.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">2.</span>What is the difference between a Topic and an Action in
+                Agentforce?</h3>
+            <p>A Topic defines the scope of what an agent is responsible for (e.g., "Order Status Inquiries") along
+                with instructions guiding its behavior within that scope. An Action is a concrete, invokable unit
+                of work the agent can execute (an Apex class, a Flow, or a prompt template) to accomplish
+                something within a topic.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">3.</span>How does an agent decide which Action to invoke for a given user
+                request?</h3>
+            <p>The underlying LLM reasons over the user's utterance, the active Topic's instructions, and the
+                descriptions of available Actions, then selects (and supplies parameters for) the Action it
+                judges most likely to satisfy the request — this is why writing clear, unambiguous Action
+                descriptions is critical to reliable selection.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">4.</span>What is grounding, and why does it matter for an agent's
+                reliability?</h3>
+            <p>Grounding means supplying an LLM with specific, current, trustworthy data (CRM records, Data
+                Cloud profiles, retrieved documents) at the time of the request, rather than relying solely on
+                the model's pretrained knowledge. It reduces hallucination and ensures the agent's answers
+                reflect the actual state of the business, not outdated or generic training data.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">5.</span>What are guardrails in the context of an autonomous agent, and why
+                are they necessary?</h3>
+            <p>Guardrails are explicit constraints — instructions, permission scoping, and validation logic —
+                that prevent an agent from taking actions outside its intended scope (e.g., issuing a refund
+                above a threshold without approval). They're necessary because an LLM-driven agent can
+                misinterpret intent or be manipulated, so the system itself must enforce limits the model alone
+                can't be trusted to respect.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">6.</span>What is the difference between a deterministic Action and a
+                generative Action?</h3>
+            <p>A deterministic Action (an Apex/Flow-backed Action) always produces the same structured output
+                for the same input — ideal for things like creating a Case or querying an order. A generative
+                Action calls an LLM to produce free-form text (e.g., drafting a reply), which is inherently
+                more variable and requires more careful review/testing.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">7.</span>How do you decide whether a business process should be automated
+                with a standard Flow versus an Agentforce agent?</h3>
+            <p>Use a Flow when the process follows a fixed, predictable sequence of steps. Use an agent when the
+                process requires interpreting varied, unstructured user intent and dynamically choosing among
+                multiple possible paths/actions — agents add value in ambiguity, not in fixed, linear
+                processes that a Flow already handles well.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">8.</span>What is a subagent (or agent-to-agent handoff) and when would you
+                use one?</h3>
+            <p>A subagent is a separate, specialized agent that a primary agent can delegate a sub-task to —
+                useful when a single agent's topic scope would otherwise become too broad and hard to reason
+                about reliably. Splitting responsibilities across focused agents generally improves
+                predictability over one agent trying to do everything.</p>
+        </div>
+
+        <h2>Designing for Reliability</h2>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">9.</span>How do you prevent an agent from repeatedly retrying a failing
+                action in a loop?</h3>
+            <p>Set explicit retry/iteration limits in the agent's configuration and design Actions to return
+                clear success/failure signals the agent can reason about, rather than ambiguous errors that
+                might look retryable — combined with a fallback path (e.g., escalate to a human) once a
+                reasonable retry budget is exhausted.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">10.</span>What's the risk of giving an agent an Action with overly broad
+                permissions, and how do you mitigate it?</h3>
+            <p>An overly broad Action (e.g., one that can update any field on any object) increases the blast
+                radius if the agent misinterprets intent or is manipulated via prompt injection. Mitigate by
+                scoping each Action narrowly to the specific fields/objects/operations it actually needs —
+                least privilege applies to agent Actions just as it does to user permissions.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">11.</span>How should an agent handle a request it doesn't have an Action
+                for?</h3>
+            <p>It should recognize the request falls outside its available Actions/Topics and respond by
+                clarifying its limits or handing off to a human/different agent, rather than attempting to
+                improvise an answer or take an unsupported action — well-designed instructions explicitly tell
+                the agent what to do when nothing matches.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">12.</span>What is an escalation path and why must every production agent
+                have one?</h3>
+            <p>An escalation path is the defined handoff to a human agent/queue when the AI agent can't (or
+                shouldn't) resolve a request on its own — required because no agent can be assumed 100%
+                reliable, and customers need a guaranteed way to reach a human rather than being stuck in an
+                automated loop.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">13.</span>How do you test an Agentforce agent before releasing it to
+                production?</h3>
+            <p>Use structured test suites (e.g., AiEvaluationDefinition-based tests) covering representative
+                utterances per topic, edge cases outside the agent's scope, and adversarial inputs (attempted
+                prompt injection or out-of-scope requests) — evaluating both whether the right Action was
+                chosen and whether the final response was appropriate.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">14.</span>What metrics would you track to monitor an agent's health in
+                production?</h3>
+            <p>Task completion rate, escalation-to-human rate, action failure rate, average conversation length
+                (unusually long conversations often signal confusion), and user satisfaction/CSAT where
+                available — a rising escalation rate is often the earliest signal something changed upstream
+                (a data issue, a new edge case) that needs investigation.</p>
+        </div>
+
+        <h2>Agent Scope &amp; Instructions</h2>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">15.</span>Why should Topic instructions be specific rather than broad and
+                general?</h3>
+            <p>Vague instructions ("help the customer with their issue") give the LLM too much latitude and
+                lead to inconsistent behavior. Specific instructions ("only discuss order status for orders
+                placed in the last 90 days; for anything else, direct the customer to support") produce far
+                more predictable, testable agent behavior.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">16.</span>What happens if two Topics have overlapping scope, and how do you
+                avoid it?</h3>
+            <p>Overlapping Topics can cause the agent to inconsistently route the same type of request to
+                different topics/actions across conversations, making behavior harder to predict and debug.
+                Avoid it by clearly delineating topic boundaries during design and testing utterances that sit
+                near the boundary between two topics.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">17.</span>How do you handle multi-turn conversations where context from
+                earlier messages matters?</h3>
+            <p>The agent framework maintains conversation state/context across turns automatically, but design
+                still matters — Actions and instructions should be written assuming relevant prior context
+                (like an order number mentioned two turns ago) needs to carry forward, and you should test
+                multi-turn scenarios explicitly, not just single-shot utterances.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">18.</span>What's the difference between an agent's "instructions" and the
+                underlying LLM's system prompt?</h3>
+            <p>Agent instructions are the business-level configuration you author in the platform's authoring
+                tools (Topics, Actions, guidance text). Under the hood, the platform compiles these — along
+                with grounding data and available Action definitions — into the actual system prompt sent to
+                the LLM. As the builder, you generally work at the instructions level, not the raw prompt.</p>
+        </div>
+
+        <h2>Human-in-the-Loop &amp; Change Management</h2>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">19.</span>When should an agent require human approval before completing an
+                action?</h3>
+            <p>For any action with meaningful business, financial, or reputational risk if wrong — refunds
+                above a threshold, contract changes, or anything irreversible — a human-in-the-loop approval
+                step should gate the action rather than letting the agent execute it autonomously.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">20.</span>How do you roll out a new agent to production safely?</h3>
+            <p>Start with a limited pilot (a subset of users, topics, or channels), monitor the health metrics
+                closely, and expand gradually — the same phased-rollout discipline used for any major system
+                change applies to agents, arguably more so given the added unpredictability of LLM-driven
+                behavior.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">21.</span>How do you handle a production incident where an agent gave a
+                clearly wrong or harmful response?</h3>
+            <p>Immediately review the conversation trace to understand what grounding data/instructions led to
+                the response, add a corrective guardrail or instruction update, and add that specific scenario
+                to the regression test suite so the same failure mode is caught automatically before future
+                releases.</p>
+        </div>
+
+        <h2>Change &amp; Adoption for AI Agents</h2>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">22.</span>What organizational change management considerations are unique
+                to deploying an AI agent versus a traditional automation?</h3>
+            <p>Employees and customers may have trust concerns about AI making decisions, so transparency about
+                when they're talking to an agent (versus a human) and a clear, easy escalation path matter more
+                than with invisible backend automation — adoption depends as much on trust-building as on the
+                technology working correctly.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">23.</span>How do you decide which business process is a good first
+                candidate for an Agentforce pilot?</h3>
+            <p>Look for a process with high volume, well-understood variation (so grounding data and topics can
+                be designed confidently), and a low-risk failure mode (a wrong answer is inconvenient, not
+                dangerous) — this lets a team build confidence with agents before tackling higher-stakes
+                processes.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">24.</span>What is the role of a human reviewer during an agent's early
+                production period?</h3>
+            <p>Spot-checking a sample of conversations (or reviewing all escalations) to catch subtle failure
+                patterns that automated metrics alone might miss — human review during the early period is
+                often what surfaces the edge cases that get folded into the next round of instruction/guardrail
+                refinement.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">25.</span>How do you explain the value and limitations of an AI agent to a
+                skeptical business stakeholder?</h3>
+            <p>Be concrete about what the agent reliably handles today (backed by pilot metrics), honest about
+                where it still needs human backup, and frame it as augmenting human capacity on repetitive
+                volume rather than a full replacement — overselling capability erodes trust faster than being
+                candid about current limitations.</p>
+        </div>
+
+        <blockquote>
+            Continue to <a href="ai-qa-part2.html">Part 2: Prompt Engineering &amp; Prompt Builder</a> for
+            questions on prompt template design and prompt engineering techniques.
+        </blockquote>
+
+    </article>
+
+    <div class="article-footer">
+        <div class="author-card">
+            <div class="author-info">
+                <h4>Salesforce Interview Prep</h4>
+                <p>A free, ad-free reference for Salesforce interview candidates</p>
+            </div>
+        </div>
+        <a href="../index.html" class="back-btn">← Back to Portfolio</a>
+    </div>
+
+    <footer>
+        &copy; 2026 Michael George
+    </footer>
+
+</body>
+
+</html>

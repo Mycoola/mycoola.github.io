@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Salesforce AI Interview Q&amp;A — Part 3: LLM/RAG Fundamentals &amp; Trust Layer</title>
+    <meta name="description"
+        content="25 Salesforce AI interview questions and answers on RAG, embeddings, foundation models, and the Einstein Trust Layer's governance and data protection features." />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet" />
+    <link rel="stylesheet" href="qa-style.css" />
+</head>
+
+<body>
+
+    <nav>
+        <a href="../index.html" class="nav-brand">Michael <span>George</span></a>
+        <a href="../index.html#blog" class="back-link">← Back to Portfolio</a>
+    </nav>
+
+    <div class="article-hero">
+        <div class="article-tag">Salesforce · AI</div>
+        <h1 class="article-title">Salesforce AI Interview Q&amp;A — Part 3: LLM/RAG Fundamentals &amp; Trust
+            Layer</h1>
+        <div class="article-meta">Updated August 2026 &nbsp;·&nbsp; Part 3 of 5 &nbsp;·&nbsp; 25 questions</div>
+    </div>
+
+    <article class="article-body">
+
+        <div class="qa-nav">
+            <strong>Salesforce AI Interview Series (125 questions)</strong>
+            <a href="ai-qa-part1.html">Part 1: Agentforce &amp; Agent Design</a>
+            <a href="ai-qa-part2.html">Part 2: Prompt Engineering &amp; Prompt Builder</a>
+            <a href="ai-qa-part3.html">Part 3: LLM/RAG Fundamentals &amp; Trust Layer</a>
+            <a href="ai-qa-part4.html">Part 4: AI Coding Assistants (Claude, Cursor, Copilot)</a>
+            <a href="ai-qa-part5.html">Part 5: Data Cloud AI &amp; Applied Scenarios</a>
+        </div>
+
+        <p>
+            This part covers general LLM/RAG fundamentals that transfer across any AI platform, plus the
+            Einstein Trust Layer's specific approach to enterprise AI governance and data protection.
+        </p>
+
+        <h2>LLM Fundamentals</h2>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">1.</span>What is a foundation model, and how does it differ from a
+                fine-tuned model?</h3>
+            <p>A foundation model is a large, general-purpose model pretrained on broad data, capable of many
+                tasks out of the box via prompting. A fine-tuned model has been further trained on a narrower,
+                task-specific dataset to specialize its behavior — generally more effort/cost but potentially
+                better performance on that narrow task than prompting alone can achieve.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">2.</span>What is the context window of an LLM, and why does it constrain
+                solution design?</h3>
+            <p>The context window is the maximum amount of text (measured in tokens) a model can process in a
+                single call, including both the prompt/instructions and any grounding data. It constrains
+                design because you can't simply dump unlimited data into a prompt — you must select or
+                retrieve only the most relevant context to fit within the limit.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">3.</span>What is a token, and why do LLM providers measure usage in tokens
+                rather than words or characters?</h3>
+            <p>A token is a sub-word unit of text the model actually processes (roughly ¾ of a word on average
+                in English). Providers measure in tokens because that's the model's true unit of computation
+                and cost, and it varies by language/tokenizer — not a simple word count.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">4.</span>What are the main risks of relying on an LLM for a business-critical
+                decision without human review?</h3>
+            <p>Hallucination (confidently stated but incorrect information), inconsistency across similar
+                inputs, and susceptibility to manipulated input — for decisions with real financial, legal, or
+                safety consequences, a human review or approval step is generally still warranted regardless of
+                how capable the model appears in testing.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">5.</span>What does it mean for a model to "hallucinate," and why does it
+                happen?</h3>
+            <p>Hallucination is when a model generates plausible-sounding but factually incorrect or fabricated
+                content, stated with the same confidence as accurate content. It happens because the model is
+                fundamentally predicting likely next tokens based on patterns, not verifying facts against a
+                ground truth — which is exactly why grounding with real data matters so much.</p>
+        </div>
+
+        <h2>Retrieval-Augmented Generation (RAG)</h2>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">6.</span>What is Retrieval-Augmented Generation (RAG), and why is it used
+                instead of fine-tuning?</h3>
+            <p>RAG retrieves relevant information from an external knowledge source at query time and injects it
+                into the prompt as context, rather than baking knowledge into the model's weights via
+                fine-tuning. It's preferred when the underlying knowledge changes frequently (fine-tuning would
+                require expensive retraining) or when you need the model to cite/ground its answer in specific,
+                verifiable source data.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">7.</span>What is a vector embedding, and how does semantic search differ
+                from keyword search?</h3>
+            <p>A vector embedding is a numerical representation of text that captures its semantic meaning,
+                allowing similarity to be measured mathematically (via distance between vectors). Semantic
+                search finds results based on meaning similarity even without exact keyword overlap, while
+                keyword search matches literal terms — semantic search finds "car troubles" when you search
+                "vehicle problems," which keyword search alone would miss.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">8.</span>What is a vector database, and what role does it play in a RAG
+                pipeline?</h3>
+            <p>A vector database stores embeddings and supports fast nearest-neighbor similarity search across
+                potentially millions of vectors. In a RAG pipeline, it's the retrieval component — given a
+                query's embedding, it quickly finds the most semantically similar stored documents/chunks to
+                inject into the prompt as context.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">9.</span>What is "chunking" in a RAG pipeline, and why does chunk size
+                matter?</h3>
+            <p>Chunking splits large source documents into smaller segments before embedding/indexing them,
+                since retrieving an entire document when only one paragraph is relevant wastes context window
+                space. Chunk size is a trade-off — too small loses surrounding context, too large dilutes
+                retrieval precision and wastes tokens.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">10.</span>How do you evaluate whether a RAG system is retrieving the right
+                information?</h3>
+            <p>Test with a representative set of realistic queries and check whether the retrieved chunks
+                actually contain the information needed to answer correctly (retrieval quality), separately
+                from whether the final generated answer was correct (generation quality) — conflating the two
+                makes it harder to diagnose which part of the pipeline is failing.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">11.</span>What is the difference between RAG and simply pasting all
+                relevant documents into the prompt?</h3>
+            <p>RAG selectively retrieves only the most relevant subset of a potentially huge knowledge base,
+                which is necessary once your knowledge base exceeds what fits in a context window (or would be
+                prohibitively expensive/slow to include in full every time) — pasting everything only works for
+                small, static knowledge bases.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">12.</span>How does Salesforce's native grounding (e.g., in Prompt Builder)
+                relate to the general concept of RAG?</h3>
+            <p>It's a purpose-built implementation of the same underlying idea — pulling relevant, current data
+                (records, related objects, Data Cloud data) into a prompt at generation time — but abstracted
+                into declarative tooling rather than requiring you to build the retrieval/embedding
+                infrastructure yourself.</p>
+        </div>
+
+        <h2>Einstein Trust Layer</h2>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">13.</span>What is the Einstein Trust Layer, and what specific risks does it
+                mitigate?</h3>
+            <p>It's Salesforce's trust and governance framework sitting between the platform and any underlying
+                LLM, mitigating risks like sensitive data leaking to a third-party model, ungoverned/unaudited
+                AI usage, and inconsistent data handling across different AI features — providing a consistent
+                security and compliance layer regardless of which model is used underneath.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">14.</span>How does data masking work before a prompt reaches an external
+                LLM?</h3>
+            <p>Sensitive data patterns (e.g., identified as PII) can be automatically detected and masked or
+                replaced with placeholders before the prompt is sent to the model, then the actual values can
+                be restored in the response — reducing the exposure of sensitive data to the underlying model
+                provider.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">15.</span>What audit/logging capability exists for AI-generated content and
+                actions in Salesforce?</h3>
+            <p>Prompts, responses, and agent actions can be logged for audit purposes, giving admins visibility
+                into what was generated, what data was used to ground it, and what actions were taken — critical
+                for troubleshooting issues and demonstrating compliance in regulated industries.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">16.</span>Why does Salesforce support multiple underlying LLM providers
+                rather than a single proprietary model?</h3>
+            <p>It gives customers flexibility to choose a model that fits their cost, performance, or compliance
+                requirements (some industries/regions have restrictions on specific providers), while the Trust
+                Layer provides a consistent governance experience regardless of which model is actually
+                selected underneath.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">17.</span>What does "zero data retention" mean in the context of an LLM
+                provider agreement, and why does it matter for enterprise customers?</h3>
+            <p>It means the LLM provider commits to not storing or using submitted prompts/data to train future
+                models. It matters because enterprise customers need assurance their proprietary or customer
+                data won't leak into a model's future training data or be retained beyond the immediate
+                request.</p>
+        </div>
+
+        <h2>Governance &amp; Compliance</h2>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">18.</span>How do you handle a regulated industry's compliance requirements
+                when enabling generative AI features?</h3>
+            <p>Involve compliance/legal early to identify specific constraints (data residency, specific
+                prohibited use cases, required disclosures to end users), configure the Trust Layer's data
+                masking and model choice accordingly, and maintain audit logs sufficient to demonstrate
+                compliance during a review.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">19.</span>What is a common compliance concern specific to using AI in
+                customer-facing financial or healthcare contexts?</h3>
+            <p>Ensuring the AI doesn't provide advice that legally requires a licensed professional (financial
+                advice, medical diagnosis) without appropriate disclaimers and human oversight, and that
+                sensitive regulated data (health records, financial account details) is handled according to
+                the specific regulatory framework (HIPAA, financial services regulations) governing that data.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">20.</span>How would you design AI feature rollout to satisfy an internal
+                security review before go-live?</h3>
+            <p>Document what data is used for grounding, what model(s) process it, what masking/retention
+                policies apply, what guardrails prevent misuse, and what audit trail exists — treating it as a
+                formal review artifact rather than an informal conversation, similar to any other new system
+                touching sensitive data.</p>
+        </div>
+
+        <h2>Ethical &amp; Responsible AI Considerations</h2>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">21.</span>What is AI bias, and how can it manifest in a business
+                application?</h3>
+            <p>Bias occurs when a model's outputs systematically favor or disadvantage certain groups, often
+                because of patterns in its training data. In a business application this might show up as
+                inconsistent service quality or recommendations across different customer segments — worth
+                actively testing for, not just assuming won't happen.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">22.</span>Why is transparency about AI involvement important in a
+                customer-facing feature?</h3>
+            <p>Customers generally have a right to know when they're interacting with an AI system rather than a
+                human, both as a matter of trust and, in some jurisdictions, as an emerging legal/regulatory
+                requirement — designing this transparency in from the start avoids a costly retrofit later.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">23.</span>How do you balance AI feature velocity (shipping fast) against
+                responsible AI review processes?</h3>
+            <p>Build lightweight, proportionate review gates scaled to actual risk (a low-risk internal tool
+                needs less scrutiny than a customer-facing financial feature) rather than either skipping review
+                entirely or applying the same heavy process to everything regardless of risk level.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">24.</span>What responsibility does a Salesforce architect have when
+                recommending an AI-driven feature to a client?</h3>
+            <p>Being honest about the technology's current limitations (accuracy isn't perfect, some
+                hallucination risk always exists) rather than overselling it, and ensuring the client
+                understands what human oversight/guardrails are still necessary — architects who oversell AI
+                capability set clients up for a trust-damaging failure later.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">25.</span>How do you keep up with the fast pace of change in AI platform
+                capabilities as an architect or developer?</h3>
+            <p>Regularly review release notes for new AI features/model updates, test new capabilities in a
+                sandbox before recommending them to clients, and maintain healthy skepticism toward marketing
+                claims until you've verified behavior yourself against your own realistic test scenarios.</p>
+        </div>
+
+        <blockquote>
+            Continue to <a href="ai-qa-part4.html">Part 4: AI Coding Assistants (Claude, Cursor, Copilot)</a>
+            for questions on using AI pair-programming tools, skills, hooks, subagents, and MCP servers in a
+            professional development workflow.
+        </blockquote>
+
+    </article>
+
+    <div class="article-footer">
+        <div class="author-card">
+            <div class="author-info">
+                <h4>Salesforce Interview Prep</h4>
+                <p>A free, ad-free reference for Salesforce interview candidates</p>
+            </div>
+        </div>
+        <a href="../index.html" class="back-btn">← Back to Portfolio</a>
+    </div>
+
+    <footer>
+        &copy; 2026 Michael George
+    </footer>
+
+</body>
+
+</html>

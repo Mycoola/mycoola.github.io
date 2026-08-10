@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Salesforce AI Interview Q&amp;A — Part 5: Data Cloud AI &amp; Applied Scenarios</title>
+    <meta name="description"
+        content="25 Salesforce AI interview questions and answers on Data Cloud's role in AI grounding, Unified Profile, and applied end-to-end AI feature scenarios." />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet" />
+    <link rel="stylesheet" href="qa-style.css" />
+</head>
+
+<body>
+
+    <nav>
+        <a href="../index.html" class="nav-brand">Michael <span>George</span></a>
+        <a href="../index.html#blog" class="back-link">← Back to Portfolio</a>
+    </nav>
+
+    <div class="article-hero">
+        <div class="article-tag">Salesforce · AI</div>
+        <h1 class="article-title">Salesforce AI Interview Q&amp;A — Part 5: Data Cloud AI &amp; Applied
+            Scenarios</h1>
+        <div class="article-meta">Updated August 2026 &nbsp;·&nbsp; Part 5 of 5 &nbsp;·&nbsp; 25 questions</div>
+    </div>
+
+    <article class="article-body">
+
+        <div class="qa-nav">
+            <strong>Salesforce AI Interview Series (125 questions)</strong>
+            <a href="ai-qa-part1.html">Part 1: Agentforce &amp; Agent Design</a>
+            <a href="ai-qa-part2.html">Part 2: Prompt Engineering &amp; Prompt Builder</a>
+            <a href="ai-qa-part3.html">Part 3: LLM/RAG Fundamentals &amp; Trust Layer</a>
+            <a href="ai-qa-part4.html">Part 4: AI Coding Assistants (Claude, Cursor, Copilot)</a>
+            <a href="ai-qa-part5.html">Part 5: Data Cloud AI &amp; Applied Scenarios</a>
+        </div>
+
+        <p>
+            The final part of the series covers how Data Cloud powers AI grounding at scale, and closes with
+            applied, scenario-based questions that test whether you can connect all the concepts together.
+        </p>
+
+        <h2>Data Cloud + AI Integration</h2>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">1.</span>How does Data Cloud's Unified Profile improve AI grounding
+                quality compared to grounding from a single CRM object?</h3>
+            <p>A Unified Profile resolves and consolidates a customer's data across multiple source systems and
+                objects into one coherent view, so an agent or prompt grounded against it reasons over a
+                complete picture rather than a fragmented one — reducing the risk of an answer that's accurate
+                for one object but misses relevant context from another system entirely.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">2.</span>What is a Calculated Insight, and how might it feed into an
+                AI-driven recommendation?</h3>
+            <p>A Calculated Insight is a pre-aggregated metric computed from Data Cloud data (e.g., a customer's
+                churn risk score or lifetime value). Feeding it into a prompt as grounding data lets an AI
+                feature reason over derived business intelligence directly, rather than trying to compute
+                complex aggregations from raw records within the prompt itself.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">3.</span>Why would you ground a prompt with Data Cloud data instead of
+                querying the source CRM object directly?</h3>
+            <p>When the needed context spans multiple systems or requires identity resolution/harmonization
+                that Data Cloud already performs, querying Data Cloud avoids re-implementing that
+                consolidation logic ad hoc — use direct CRM queries when the context genuinely lives in a
+                single object and no cross-system view is needed.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">4.</span>What is a Data Kit, and how might it relate to packaging AI-related
+                configuration for reuse?</h3>
+            <p>A Data Kit bundles Data Cloud configuration (mappings, DMOs, calculated insights) for
+                repeatable deployment across orgs — relevant to AI work because a well-designed grounding data
+                model (DMOs feeding an agent's context) benefits from the same packaging discipline as any other
+                reusable Data Cloud configuration.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">5.</span>How does vector/semantic search integrate with Data Cloud for AI
+                use cases?</h3>
+            <p>Data Cloud supports indexing unstructured content (documents, knowledge articles) for semantic
+                search, which can then be used as the retrieval step in a RAG-style grounding pipeline —
+                letting an agent pull the most relevant unstructured knowledge alongside structured record data
+                in the same grounding step.</p>
+        </div>
+
+        <h2>Data Quality for AI</h2>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">6.</span>Why does data quality matter more, not less, once you introduce AI
+                features on top of your CRM data?</h3>
+            <p>An AI feature grounded on inconsistent, duplicate, or stale data will confidently produce answers
+                based on that flawed data — amplifying existing data quality problems rather than masking them,
+                since a human reviewing a report might catch an obvious data error that an AI-generated summary
+                could smooth over.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">7.</span>How would you assess whether an org's data is "AI-ready" before
+                greenlighting a generative AI feature?</h3>
+            <p>Audit completeness and consistency of the specific fields/objects that will ground the feature,
+                check for unresolved duplicate records that could confuse identity-dependent grounding, and pilot
+                with real data before wide rollout — an AI feature is only as trustworthy as the data feeding
+                it.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">8.</span>What happens to an AI feature's output quality when the underlying
+                grounding data has duplicate or unmerged customer records?</h3>
+            <p>The agent may retrieve an incomplete or wrong version of the customer's history (missing
+                information that lives on the "other," unmerged duplicate), leading to answers that seem
+                confident but are based on a partial picture — reinforcing why identity resolution matters as
+                much for AI grounding as it does for reporting accuracy.</p>
+        </div>
+
+        <h2>Applied Scenarios</h2>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">9.</span>A client wants an agent to answer customer questions about order
+                status. Walk through your design approach.</h3>
+            <p>Define a narrow Topic scoped specifically to order status, ground it with real-time order data
+                (not stale cached data), design an Action to fetch the specific order by identifiers the
+                customer provides, add a guardrail for orders it shouldn't discuss (e.g., another customer's
+                order), and define a clear escalation path for anything outside status inquiries.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">10.</span>A stakeholder wants an agent to autonomously approve refunds up
+                to $500. What concerns would you raise?</h3>
+            <p>Confirm the business genuinely accepts the risk of occasional incorrect approvals at that
+                threshold, ensure strong grounding/validation logic checks eligibility before approval (not
+                just the LLM's judgment alone), require full audit logging of every auto-approved refund, and
+                propose a phased rollout with human spot-checks before trusting it fully unsupervised.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">11.</span>A client's support team complains an agent gives inconsistent
+                answers to the same question asked different ways. How do you diagnose this?</h3>
+            <p>Check whether the Topic's instructions are specific enough or leave too much interpretive
+                latitude, review whether grounding data is complete/consistent across the different utterance
+                variants tested, and build a regression test suite with paraphrased versions of the same
+                question to catch and fix the inconsistency systematically rather than one complaint at a
+                time.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">12.</span>A regulated healthcare client wants a generative AI feature to
+                draft patient communication. What extra considerations apply?</h3>
+            <p>Strict data masking/handling for PHI before it reaches any model, mandatory human review before
+                any AI-drafted communication is sent (not fully autonomous), clear disclosure that AI assisted
+                in drafting where required by policy/regulation, and thorough audit logging given the
+                heightened compliance stakes of healthcare data.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">13.</span>How would you design a proof of concept to validate an AI feature
+                idea before committing to full build?</h3>
+            <p>Scope a narrow, representative slice of the use case, use realistic (not idealized) test data
+                including known edge cases, define clear success criteria upfront (accuracy threshold,
+                acceptable failure modes), and time-box the POC so the decision to proceed or not is made on
+                evidence rather than momentum.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">14.</span>A team wants to use an AI agent to triage and route incoming
+                support cases. What's your architecture approach?</h3>
+            <p>Ground the agent with case content plus relevant account/product context, define clear routing
+                categories as Actions (assign to queue X, escalate to tier 2), test with a large historical
+                sample of real past cases to validate routing accuracy before going live, and monitor
+                misrouted-case rate post-launch as the key success metric.</p>
+        </div>
+
+        <h2>Interview Wrap-Up Scenarios</h2>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">15.</span>How would you explain the trade-off between agent autonomy and
+                control to a business stakeholder who wants "full automation" immediately?</h3>
+            <p>Explain that autonomy should scale with demonstrated reliability — starting with human oversight
+                on every action, then expanding autonomy incrementally as metrics prove out, rather than
+                granting full unsupervised autonomy on day one where the cost of an undetected failure could be
+                high.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">16.</span>What's the biggest mistake teams make when adopting generative AI
+                features for the first time?</h3>
+            <p>Underestimating the need for structured testing and grounding data quality — treating a
+                generative AI feature like a simple configuration toggle rather than a system that needs the
+                same rigor (test suites, monitoring, incremental rollout) as any other production capability.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">17.</span>How do you decide whether an AI feature request is actually a
+                good fit for generative AI, versus better solved with deterministic logic?</h3>
+            <p>If the task has a single, clearly correct answer computable from known rules, deterministic logic
+                (Apex/Flow) is more reliable and cheaper than an LLM call. Generative AI adds value specifically
+                where the task involves interpreting varied natural language input or producing genuinely
+                free-form content — not for tasks that were always solvable declaratively.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">18.</span>What would you check first if an AI feature's cost suddenly spiked
+                after release?</h3>
+            <p>Review token usage per request (has grounding data grown unexpectedly large, or are prompts being
+                retried excessively due to an error loop), check for any change in request volume, and confirm
+                the model tier being used hasn't inadvertently changed — cost spikes are usually traceable to
+                one of those three causes.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">19.</span>How would you structure a knowledge-sharing session to bring a
+                team up to speed on responsibly using AI tools in their daily work?</h3>
+            <p>Cover concrete dos/don'ts (what data is safe to share with which tools, how to review
+                AI-generated output critically), live-demo both a good and a risky usage pattern, and provide a
+                lightweight reference document the team can return to rather than relying purely on a one-time
+                session.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">20.</span>What's your framework for deciding whether an AI feature is
+                "done" and ready for production?</h3>
+            <p>Passing a defined test suite covering representative and edge-case scenarios, having monitoring
+                and an escalation path in place, having gone through the appropriate compliance/security review
+                for its risk level, and having a rollback plan — the same production-readiness bar as any other
+                feature, with AI-specific additions layered on top.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">21.</span>How do you handle a request for an AI feature you believe is
+                premature given the current data quality in the org?</h3>
+            <p>Present the specific data quality gaps and their likely impact on the AI feature's reliability,
+                propose a data remediation phase as a prerequisite (with a rough scope/timeline), and offer to
+                pilot on a cleaner subset of data first if the business wants to move faster while remediation
+                continues in parallel.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">22.</span>What ongoing maintenance does an AI feature require after
+                go-live, that a traditional automation typically doesn't?</h3>
+            <p>Periodic re-evaluation as the underlying model version changes, ongoing monitoring of quality
+                metrics (not just uptime), and refinement of prompts/instructions as new edge cases surface in
+                production — AI features tend to need more continuous tuning than a deterministic automation
+                that, once correct, generally stays correct.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">23.</span>How would you respond if a customer expressed discomfort about an
+                AI agent handling their request instead of a human?</h3>
+            <p>Respect the preference immediately and offer a clear, frictionless path to a human — forcing a
+                customer to continue with AI interaction against their stated preference damages trust far more
+                than the inefficiency of an earlier handoff.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">24.</span>What's a realistic timeline expectation for taking an AI feature
+                from prototype to reliable production use?</h3>
+            <p>Meaningfully longer than the initial "it works in the demo" moment suggests — expect iterative
+                cycles of testing, grounding data refinement, and instruction tuning based on real edge cases,
+                similar to how a traditional feature needs a hardening period beyond its first working
+                prototype, often more so given the added unpredictability of LLM behavior.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">25.</span>What would you want to know about a candidate's AI project
+                experience if you were interviewing them for a Salesforce AI-focused role?</h3>
+            <p>Whether they can speak concretely about how they tested and validated the AI feature's
+                reliability (not just that they built it), how they handled a failure case or edge case they
+                discovered in production, and whether they understand the governance/compliance dimension —
+                depth of judgment matters more than simply having used the tools.</p>
+        </div>
+
+        <blockquote>
+            That completes the 125-question Salesforce AI interview series. See also the
+            <a href="dev-qa-part1.html">Developer</a>, <a href="consultant-qa-part1.html">Consultant</a>, and
+            <a href="architect-qa-part1.html">Architect</a> series for the broader technical rounds that
+            typically precede an AI-focused round.
+        </blockquote>
+
+    </article>
+
+    <div class="article-footer">
+        <div class="author-card">
+            <div class="author-info">
+                <h4>Salesforce Interview Prep</h4>
+                <p>A free, ad-free reference for Salesforce interview candidates</p>
+            </div>
+        </div>
+        <a href="../index.html" class="back-btn">← Back to Portfolio</a>
+    </div>
+
+    <footer>
+        &copy; 2026 Michael George
+    </footer>
+
+</body>
+
+</html>

@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Salesforce AI Interview Q&amp;A — Part 4: AI Coding Assistants (Claude, Cursor, Copilot)</title>
+    <meta name="description"
+        content="25 interview questions and answers on using AI coding assistants like Claude Code, Cursor, and GitHub Copilot — skills, hooks, subagents, MCP servers, and agentic dev workflows." />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet" />
+    <link rel="stylesheet" href="qa-style.css" />
+</head>
+
+<body>
+
+    <nav>
+        <a href="../index.html" class="nav-brand">Michael <span>George</span></a>
+        <a href="../index.html#blog" class="back-link">← Back to Portfolio</a>
+    </nav>
+
+    <div class="article-hero">
+        <div class="article-tag">Salesforce · AI</div>
+        <h1 class="article-title">Salesforce AI Interview Q&amp;A — Part 4: AI Coding Assistants (Claude, Cursor,
+            Copilot)</h1>
+        <div class="article-meta">Updated August 2026 &nbsp;·&nbsp; Part 4 of 5 &nbsp;·&nbsp; 25 questions</div>
+    </div>
+
+    <article class="article-body">
+
+        <div class="qa-nav">
+            <strong>Salesforce AI Interview Series (125 questions)</strong>
+            <a href="ai-qa-part1.html">Part 1: Agentforce &amp; Agent Design</a>
+            <a href="ai-qa-part2.html">Part 2: Prompt Engineering &amp; Prompt Builder</a>
+            <a href="ai-qa-part3.html">Part 3: LLM/RAG Fundamentals &amp; Trust Layer</a>
+            <a href="ai-qa-part4.html">Part 4: AI Coding Assistants (Claude, Cursor, Copilot)</a>
+            <a href="ai-qa-part5.html">Part 5: Data Cloud AI &amp; Applied Scenarios</a>
+        </div>
+
+        <p>
+            AI-assisted development tools like Claude Code, Cursor, and GitHub Copilot are now a standard part
+            of a Salesforce developer's toolkit — and increasingly a topic in interviews for how effectively a
+            candidate uses them. This part covers the core concepts: skills, hooks, subagents, MCP servers, and
+            how to use these tools responsibly in a professional codebase.
+        </p>
+
+        <h2>Core Concepts</h2>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">1.</span>What is an AI coding assistant, and how does it differ from
+                traditional autocomplete?</h3>
+            <p>Traditional autocomplete suggests the next few tokens based on local syntax patterns. An AI
+                coding assistant (Copilot, Cursor, Claude Code) uses an LLM to understand broader intent —
+                generating whole functions, refactoring across multiple files, explaining unfamiliar code, or
+                autonomously executing multi-step tasks like running tests and fixing failures.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">2.</span>What is "agentic" coding, and how does it differ from simple code
+                completion?</h3>
+            <p>Agentic coding means the assistant can autonomously plan and execute a multi-step task — reading
+                files, making edits across a codebase, running commands, checking results, and iterating — with
+                minimal human intervention per step, rather than just suggesting one line at a time for a human
+                to accept or reject.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">3.</span>What is a "skill" in the context of tools like Claude Code, and
+                why would a team create custom skills?</h3>
+            <p>A skill is a packaged, reusable set of domain-specific instructions and workflow knowledge (often
+                stored as a markdown file with structured guidance) that the assistant can load when a task
+                matches its described trigger conditions. Teams create custom skills to encode
+                project-specific or organization-specific conventions and best practices so every team member's
+                assistant follows the same standards automatically.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">4.</span>How is a skill different from a one-off prompt you type into the
+                assistant?</h3>
+            <p>A one-off prompt is ephemeral and must be re-typed (or remembered) every time. A skill is
+                persistent, discoverable, and automatically triggered based on context/description matching —
+                encoding institutional knowledge once so it's reliably applied across every future relevant
+                task, not just the one conversation where you happened to type it.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">5.</span>What is a hook in an AI coding assistant's configuration, and what
+                problem does it solve?</h3>
+            <p>A hook is a script or command that automatically fires at a defined lifecycle event (e.g., after
+                every file edit, before a tool call, when a session starts). It solves the problem of enforcing
+                consistent side effects — like auto-running a linter after every edit, or logging every command
+                for audit — without relying on the assistant remembering to do it every time.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">6.</span>Give an example of a practical hook you might set up for a
+                Salesforce development workflow.</h3>
+            <p>A post-edit hook that automatically runs a static code scanner (e.g., for CRUD/FLS violations) on
+                any modified Apex class, surfacing issues immediately rather than waiting for a separate manual
+                review step or a CI pipeline failure much later in the process.</p>
+        </div>
+
+        <h2>Subagents &amp; Orchestration</h2>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">7.</span>What is a subagent, and why would you delegate a task to one
+                instead of handling it in the main conversation?</h3>
+            <p>A subagent is a separate, often more narrowly-scoped instance of the assistant invoked to handle a
+                specific sub-task — useful for research-heavy or exploratory work (like searching a large
+                codebase) that would otherwise consume a large amount of the main conversation's context, or for
+                giving a task a different, more specialized system prompt/toolset.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">8.</span>What is context window management, and why does it matter when
+                working on a large codebase with an AI assistant?</h3>
+            <p>The assistant can only "see" a limited amount of text at once (its context window), so on a large
+                codebase you must be deliberate about what files/history are included in that window — irrelevant
+                content crowds out useful context and can degrade output quality, which is part of why
+                techniques like subagents and targeted file reads exist.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">9.</span>What is an MCP (Model Context Protocol) server, and what problem
+                does it solve?</h3>
+            <p>MCP is a standardized protocol that lets an AI assistant connect to external tools and data
+                sources (a database, an issue tracker, an internal API) through a consistent interface, rather
+                than each tool needing a bespoke, one-off integration for every assistant. It solves the
+                fragmentation problem of "every AI tool needs its own custom connector for every external
+                system."</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">10.</span>Give an example of an MCP server that would be useful in a
+                Salesforce development context.</h3>
+            <p>An MCP server exposing Salesforce CLI operations (querying org data, deploying metadata,
+                describing objects) so the assistant can directly interact with a connected org during a
+                conversation — for example, querying real record data to help debug a reported issue without
+                the developer manually copy-pasting query results back and forth.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">11.</span>What is the difference between a tool and an MCP server from the
+                assistant's perspective?</h3>
+            <p>A tool is any individual capability the assistant can invoke (read a file, run a command, query
+                an API). An MCP server is a way of exposing a whole set of related tools (often backed by a
+                specific external system) through one standardized connection — so "MCP server" describes the
+                integration mechanism, while "tool" describes an individual capability it provides.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">12.</span>How do custom agent modes (sometimes called "chat modes" or
+                specialized personas) differ from the default assistant behavior?</h3>
+            <p>A custom agent mode configures a specific system prompt, tool access, and behavior profile suited
+                to a narrower purpose (e.g., a "code reviewer" mode restricted to read-only analysis, versus a
+                default mode with full edit/execute capability) — letting teams create safer or more focused
+                variants of the assistant for specific recurring workflows.</p>
+        </div>
+
+        <h2>Comparing Tools</h2>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">13.</span>What's the core philosophical difference between an IDE-integrated
+                assistant (like Copilot or Cursor) and a terminal/CLI-based agent (like Claude Code)?</h3>
+            <p>IDE-integrated tools are generally optimized for inline, in-editor suggestions and chat alongside
+                your code. CLI/terminal-based agents are typically built for more autonomous, long-running
+                multi-step tasks (running builds, executing tests, making multi-file changes) with less
+                per-step human intervention — the right choice depends on how much autonomy you want to grant
+                for a given task.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">14.</span>What is "YOLO mode" or auto-approval in an agentic coding tool,
+                and what's the risk of enabling it broadly?</h3>
+            <p>It's a setting that lets the assistant execute file edits and commands without requiring approval
+                for each individual action. The risk is that a misinterpreted instruction or a subtle bug in
+                the assistant's reasoning can cause unintended, potentially destructive changes to run
+                unchecked — safer to scope auto-approval narrowly (e.g., only for read-only or clearly
+                reversible actions) rather than enabling it universally.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">15.</span>How do you evaluate which AI coding assistant is the right fit for
+                a given team or project?</h3>
+            <p>Consider the team's existing IDE/workflow (does it need to integrate seamlessly, or is a
+                separate CLI tool acceptable), the complexity of tasks you want to delegate autonomously,
+                available integrations (MCP servers, existing skill libraries), and cost model — there's rarely
+                a single universally "best" tool independent of the team's actual working context.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">16.</span>What is "vibe coding," and what are its risks in a professional
+                setting?</h3>
+            <p>Vibe coding refers to accepting AI-generated code with minimal review, based on it "seeming"
+                correct, rather than rigorously verifying it. In a professional setting the risk is shipping
+                subtle bugs, security vulnerabilities, or code that violates project conventions — AI-generated
+                code still requires the same review discipline as human-written code, arguably more given its
+                tendency to produce plausible-looking but sometimes subtly wrong output.</p>
+        </div>
+
+        <h2>Responsible &amp; Effective Use</h2>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">17.</span>How do you review AI-generated code before merging it, and how
+                does that differ from reviewing human-written code?</h3>
+            <p>The same fundamentals apply — correctness, security, adherence to conventions, test coverage —
+                but you should be specifically alert to AI-typical failure modes: plausible-but-wrong logic,
+                subtly incorrect edge-case handling, or code that looks idiomatic but doesn't actually match the
+                project's established patterns, since the model optimizes for plausibility, not verified
+                correctness.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">18.</span>What guardrails should exist around an AI assistant having write
+                access to a production system or codebase?</h3>
+            <p>Require human review/approval before any change reaches production, restrict the assistant's
+                available tools/scope to what's actually needed for the task, and maintain the same code review
+                and CI/CD gates for AI-authored changes as for any human-authored change — AI assistance
+                doesn't remove the need for the safety processes that already exist.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">19.</span>How do you prevent sensitive data (API keys, customer PII) from
+                being exposed to an AI coding assistant during a session?</h3>
+            <p>Avoid pasting secrets directly into prompts, use environment variables/secret managers rather than
+                hardcoded values the assistant might read from a file, and be aware of what data a given tool
+                sends to its backend model provider (and under what data retention terms) before granting it
+                broad file-system access.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">20.</span>What is prompt injection risk in the context of an AI coding
+                assistant reading untrusted content (e.g., a webpage or an issue description)?</h3>
+            <p>If the assistant reads external, untrusted content as part of a task, that content could contain
+                text specifically crafted to manipulate the assistant into taking unintended actions (like
+                exfiltrating data or running a malicious command) — the same prompt injection risk that applies
+                to any LLM-driven system, so untrusted content sources should be treated with appropriate
+                caution, especially when the assistant has tool-execution capability.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">21.</span>How do you measure whether an AI coding assistant is actually
+                improving your team's productivity?</h3>
+            <p>Look beyond raw lines-of-code generated (a weak/misleading metric) toward outcomes like cycle time
+                for typical tasks, defect rates in AI-assisted vs. non-assisted changes, and developer-reported
+                friction — productivity gains that come with a hidden increase in bugs or rework aren't real
+                gains.</p>
+        </div>
+
+        <h2>Practical Workflows</h2>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">22.</span>How would you use an AI coding assistant to help understand an
+                unfamiliar, undocumented codebase?</h3>
+            <p>Ask it to summarize the architecture and key entry points, trace how a specific feature flows
+                through the code, or explain a confusing function — treating it as an accelerant for
+                exploration and comprehension, while still verifying its explanations against the actual code
+                rather than accepting them uncritically.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">23.</span>How would you use an AI assistant to help write test coverage for
+                an existing, undertested class?</h3>
+            <p>Provide the class and ask it to identify untested branches/edge cases first, then generate tests
+                incrementally, reviewing each for meaningful assertions (not just coverage percentage) — an
+                assistant can quickly draft boilerplate test structure, but the reviewer still needs to confirm
+                the assertions are actually verifying correct behavior.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">24.</span>What's an effective strategy for using an AI assistant on a large
+                refactoring task spanning many files?</h3>
+            <p>Break the refactor into clearly scoped, independently verifiable steps rather than asking for
+                one enormous multi-file change at once, review and test after each step, and use the
+                assistant's ability to search/list usages first to understand the full blast radius before
+                making changes.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">25.</span>How do you decide when a task is better done manually rather
+                than delegated to an AI coding assistant?</h3>
+            <p>Tasks requiring deep, nuanced business context the assistant doesn't have access to, decisions
+                with high consequences for being subtly wrong, or highly creative architectural judgment calls
+                are often better done (or at least closely driven) by a human — the assistant is most valuable
+                for well-scoped, verifiable, and time-consuming mechanical work.</p>
+        </div>
+
+        <blockquote>
+            Continue to <a href="ai-qa-part5.html">Part 5: Data Cloud AI &amp; Applied Scenarios</a> for
+            questions on how Data Cloud powers AI grounding and end-to-end applied case studies.
+        </blockquote>
+
+    </article>
+
+    <div class="article-footer">
+        <div class="author-card">
+            <div class="author-info">
+                <h4>Salesforce Interview Prep</h4>
+                <p>A free, ad-free reference for Salesforce interview candidates</p>
+            </div>
+        </div>
+        <a href="../index.html" class="back-btn">← Back to Portfolio</a>
+    </div>
+
+    <footer>
+        &copy; 2026 Michael George
+    </footer>
+
+</body>
+
+</html>
