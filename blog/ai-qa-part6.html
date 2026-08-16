@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Salesforce AI Interview Q&amp;A — Part 6: AI Fluency &amp; Human-AI Collaboration</title>
+    <meta name="description"
+        content="25 Salesforce AI interview questions and answers on AI fluency, delegation, and responsible human-AI collaboration practices." />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet" />
+    <link rel="stylesheet" href="qa-style.css" />
+</head>
+
+<body>
+
+    <nav>
+        <a href="../index.html" class="nav-brand">Michael <span>George</span></a>
+        <a href="../index.html#blog" class="back-link">← Back to Portfolio</a>
+    </nav>
+
+    <div class="article-hero">
+        <div class="article-tag">Salesforce · AI</div>
+        <h1 class="article-title">Salesforce AI Interview Q&amp;A — Part 6: AI Fluency &amp; Human-AI
+            Collaboration</h1>
+        <div class="article-meta">Updated August 2026 &nbsp;·&nbsp; Part 6 of 6 &nbsp;·&nbsp; 25 questions</div>
+    </div>
+
+    <article class="article-body">
+
+        <div class="qa-nav">
+            <strong>Salesforce AI Interview Series (150 questions)</strong>
+            <a href="ai-qa-part1.html">Part 1: Agentforce &amp; Agent Design</a>
+            <a href="ai-qa-part2.html">Part 2: Prompt Engineering &amp; Prompt Builder</a>
+            <a href="ai-qa-part3.html">Part 3: LLM/RAG Fundamentals &amp; Trust Layer</a>
+            <a href="ai-qa-part4.html">Part 4: AI Coding Assistants (Claude, Cursor, Copilot)</a>
+            <a href="ai-qa-part5.html">Part 5: Data Cloud AI &amp; Applied Scenarios</a>
+            <a href="ai-qa-part6.html">Part 6: AI Fluency &amp; Human-AI Collaboration</a>
+        </div>
+
+        <p>
+            The AI-focused interview round increasingly probes not just platform knowledge but how a candidate
+            actually works with AI day to day. This part covers AI fluency and the softer, judgment-based side of
+            human-AI collaboration.
+        </p>
+
+        <h2>Delegation</h2>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">1.</span>What factors determine whether a task is a good candidate to
+                delegate to an AI system?</h3>
+            <p>How well-defined the task is, how easy the output is to verify, and how costly a mistake would be
+                — well-scoped, low-risk, easily-checked tasks are strong candidates, while ambiguous or
+                high-stakes work needs tighter human control.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">2.</span>How should the level of AI autonomy scale with task risk?</h3>
+            <p>As risk and ambiguity increase, autonomy should decrease — low-stakes, well-defined tasks can run
+                largely unsupervised, while high-stakes or ambiguous ones need explicit human checkpoints before
+                anything is finalized.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">3.</span>What's a common mistake teams make when first delegating work to AI
+                tools?</h3>
+            <p>Treating delegation as all-or-nothing — either avoiding AI entirely or handing over a task fully
+                without any review step — instead of calibrating the right amount of oversight to the task at
+                hand.</p>
+        </div>
+
+        <h2>Description</h2>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">4.</span>Why does a vague request to an AI system usually produce a vague or
+                wrong result?</h3>
+            <p>Because the model fills in missing context with assumptions rather than asking clarifying
+                questions by default, so ambiguity in the request becomes ambiguity (or confident incorrectness)
+                in the output.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">5.</span>What elements make a task description effective for an AI system?
+            </h3>
+            <p>Clear context, explicit constraints, the desired output format, and a definition of what "done"
+                looks like — the same elements that make a request effective for a human collaborator.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">6.</span>How is "description" as a skill different from "prompt
+                engineering"?</h3>
+            <p>Prompt engineering often implies finding clever phrasing tricks for a specific model; description
+                is the broader, more durable skill of communicating intent clearly — it transfers across models
+                and tools rather than being tied to one system's quirks.</p>
+        </div>
+
+        <h2>Discernment</h2>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">7.</span>What is discernment in the context of AI-assisted work?</h3>
+            <p>The practice of critically evaluating AI output for accuracy, completeness, and fit before relying
+                on it, rather than accepting it because it reads fluently.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">8.</span>Why can confident, well-written AI output still be wrong?</h3>
+            <p>Language models optimize for plausible, fluent text, not for verified truth — polish and
+                confidence in the output are not evidence of correctness, which is why independent verification
+                still matters.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">9.</span>What practical habits build stronger discernment over time?</h3>
+            <p>Spot-checking factual claims against a trusted source, testing generated code rather than reading
+                it and assuming it works, and noticing when an answer subtly ignores part of your original
+                request.</p>
+        </div>
+
+        <h2>Diligence</h2>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">10.</span>What does diligence mean when working with AI-generated output?
+            </h3>
+            <p>Taking ownership of the final result — verifying it before it's used, disclosing what was
+                AI-assisted, and remaining accountable for outcomes rather than treating the AI as a scapegoat
+                for mistakes.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">11.</span>Who is responsible when AI-assisted work produces a costly
+                error?</h3>
+            <p>The person or team that delegated and approved the work — AI systems don't bear accountability,
+                so diligence on the human side is what prevents delegation from becoming a liability.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">12.</span>Why is transparency about AI use part of diligence, not just an
+                ethical nicety?</h3>
+            <p>Because reviewers, teammates, and stakeholders need to know which parts of a deliverable came from
+                an AI system in order to apply the right level of scrutiny to it — hiding that removes a
+                necessary verification signal.</p>
+        </div>
+
+        <h2>The Description–Discernment Feedback Loop</h2>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">13.</span>How do description and discernment reinforce each other in
+                practice?</h3>
+            <p>You describe a task, evaluate the result with discernment, then use what you learned from that
+                evaluation to refine the next description — repeating the loop until the output actually meets
+                the need, rather than accepting the first response.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">14.</span>What's a sign that someone is stuck in an unproductive prompting
+                loop rather than iterating effectively?</h3>
+            <p>Re-running similar prompts hoping for a different result without changing the underlying
+                description, instead of diagnosing specifically what was missing or wrong and adjusting the
+                request accordingly.</p>
+        </div>
+
+        <h2>Applying AI Fluency on Salesforce Projects</h2>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">15.</span>How would you apply the delegation principle when deciding whether
+                an Agentforce agent should handle a request autonomously?</h3>
+            <p>Assess the request's risk and ambiguity the same way you would for any AI delegation decision —
+                low-risk, well-scoped requests can be fully automated, while anything with real business impact
+                should route to human-in-the-loop approval.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">16.</span>How does "description" apply to writing Agentforce Topic
+                instructions?</h3>
+            <p>The same principles apply — specific, unambiguous instructions with clear scope and success
+                criteria produce far more predictable agent behavior than vague, general guidance.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">17.</span>How does discernment apply when reviewing AI-generated Apex code
+                from a coding assistant?</h3>
+            <p>Don't accept generated code on the basis that it looks idiomatic — run it, test edge cases and
+                bulk scenarios, and check it against governor limits and security requirements just as you would
+                code from a junior developer.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">18.</span>How does diligence apply when using an AI coding assistant to
+                generate a data migration script?</h3>
+            <p>Review and test the script against a sandbox before running it in production, and take
+                responsibility for the outcome — a migration error caused by unreviewed AI-generated code is
+                still the engineer's error to own.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">19.</span>Why is AI fluency becoming a relevant interview topic even for
+                roles that aren't AI-specialist positions?</h3>
+            <p>Because AI-assisted tools (coding assistants, Agentforce, Prompt Builder) are becoming part of
+                everyday Salesforce delivery work, so the ability to delegate, describe, evaluate, and stay
+                accountable is now a baseline professional skill, not a specialization.</p>
+        </div>
+
+        <h2>Ethics &amp; Safety</h2>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">20.</span>What does it mean to use AI "ethically" in a professional
+                context?</h3>
+            <p>Respecting accuracy (not passing off unverified AI output as fact), attribution (being honest
+                about what was AI-assisted), and impact on others (considering who is affected by an
+                AI-influenced decision).</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">21.</span>What does it mean to use AI "safely"?</h3>
+            <p>Understanding the boundaries of what a system can be trusted to do unsupervised, and putting
+                appropriate guardrails and review steps around anything outside those boundaries.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">22.</span>How would you coach a team member who over-trusts AI output
+                without verifying it?</h3>
+            <p>Show concrete examples where confident-sounding output was factually wrong, then build a habit of
+                spot-checking specific categories of claims (numbers, API behavior, business rules) before they
+                reach a deliverable.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">23.</span>How would you coach a team member who under-uses AI out of distrust,
+                slowing the team down?</h3>
+            <p>Start with low-risk, easily-verified tasks to build confidence in what the tool reliably handles,
+                and pair that with a clear checklist for verification so trust is built on evidence rather than
+                blind adoption.</p>
+        </div>
+
+        <h2>Interview Framing</h2>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">24.</span>How would you summarize the 4D Framework (Delegation, Description,
+                Discernment, Diligence) in an interview answer?</h3>
+            <p>Frame it as a discipline for AI collaboration: decide deliberately what to hand off (Delegation),
+                communicate intent precisely (Description), evaluate output critically (Discernment), and stay
+                accountable for the result (Diligence) — four skills that apply regardless of which AI tool is
+                being used.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">25.</span>What's a concrete example that demonstrates AI fluency rather than
+                just AI usage?</h3>
+            <p>Describing a specific instance where you scoped a task appropriately for AI delegation, refined
+                your prompt after spotting a gap in the first response, caught an inaccuracy before it shipped,
+                and took ownership of the final verified result — usage alone is just running prompts; fluency is
+                the judgment applied around it.</p>
+        </div>
+
+        <blockquote>
+            This concludes the Salesforce AI Interview Q&amp;A series. Revisit
+            <a href="ai-qa-part1.html">Part 1</a> for Agentforce fundamentals or
+            <a href="ai-qa-part4.html">Part 4</a> for AI coding assistant practices.
+        </blockquote>
+
+    </article>
+
+    <div class="article-footer">
+        <div class="author-card">
+            <div class="author-info">
+                <h4>Salesforce Interview Prep</h4>
+                <p>A free, ad-free reference for Salesforce interview candidates</p>
+            </div>
+        </div>
+        <a href="../index.html" class="back-btn">← Back to Portfolio</a>
+    </div>
+
+    <footer>
+        &copy; 2026 Michael George
+    </footer>
+
+</body>
+
+</html>
