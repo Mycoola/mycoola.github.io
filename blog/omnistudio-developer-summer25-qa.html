@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>OmniStudio Developer — Summer '25 Maintenance Q&amp;A</title>
+    <meta name="description"
+        content="14 Q&amp;A covering the OmniStudio Developer Summer '25 maintenance module: Standard Designer, OmniOut, Node.js updates, AngularJS deprecation, Connect APIs, and more." />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet" />
+    <link rel="stylesheet" href="qa-style.css" />
+</head>
+
+<body>
+
+    <nav>
+        <a href="../index.html" class="nav-brand">Michael <span>George</span></a>
+        <a href="../index.html#blog" class="back-link">← Back to Portfolio</a>
+    </nav>
+
+    <div class="article-hero">
+        <div class="article-tag">Salesforce · OmniStudio</div>
+        <h1 class="article-title">OmniStudio Developer — Summer '25 Maintenance Q&amp;A</h1>
+        <div class="article-meta">Updated August 2026 &nbsp;·&nbsp; 14 questions</div>
+    </div>
+
+    <article class="article-body">
+
+        <p>
+            This Q&amp;A covers the Summer '25 OmniStudio Developer certification maintenance module. Topics include
+            the Standard Designer, OmniOut deployment, Node.js version updates, AngularJS deprecation, Connect APIs,
+            the Navigate Action element, and enhanced Apex permission checks.
+        </p>
+
+        <h2>Standard Designer &amp; List View</h2>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">1.</span>What is the OmniStudio Standard Designer and how does it differ from the previous experience?</h3>
+            <p>The Standard Designer is OmniStudio's updated authoring environment built on Lightning Web Components.
+                It replaces the older Angular-based experience with a unified interface for building Omniscripts,
+                Flexcards, Integration Procedures, and DataMappers — using the same design language as the rest of
+                Salesforce Setup, which reduces context-switching for developers.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">2.</span>How does the OmniStudio list view help manage components at scale?</h3>
+            <p>The list view lets you search, filter, and sort all OmniStudio component records (Omniscripts,
+                Flexcards, Integration Procedures, DataMappers) from a single screen. You can filter by type,
+                status, or owner without opening each component, which makes auditing and bulk management much
+                faster in large orgs with hundreds of components.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">3.</span>Where can the Lightning Rich Text Editor be used in OmniStudio?</h3>
+            <p>The Lightning Rich Text Editor is available as an element inside Omniscripts and as a card action
+                inside Flexcards. It allows end users to enter formatted text at runtime — including bold, italic,
+                lists, and links — without the developer needing to build a custom LWC for that input type.</p>
+        </div>
+
+        <h2>Connect APIs &amp; Integration</h2>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">4.</span>What are OmniStudio Connect APIs and why do they improve Apex integration?</h3>
+            <p>Connect APIs expose OmniStudio component execution (Omniscripts, Integration Procedures, DataMappers)
+                as standard REST endpoints. They let Apex code invoke OmniStudio logic directly via HTTP without
+                custom wiring, which decouples the Apex layer from OmniStudio internals and makes the integration
+                easier to test and maintain independently.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">5.</span>How does error logging work in Integration Procedures and how do you enable it?</h3>
+            <p>Error logging captures the inputs, outputs, and error messages of Integration Procedure executions
+                into platform log records. You enable it by turning on the error logging flag on the Integration
+                Procedure record itself. Once enabled, failed executions produce queryable log entries that let you
+                diagnose exactly which action element failed and what the runtime data looked like.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">6.</span>How do you configure a DataMapper Load to use an external data source?</h3>
+            <p>In the DataMapper Load configuration, you set the target to an External Object or use an HTTP Action
+                to push data to an external system instead of Salesforce objects. The DataMapper handles field
+                mapping and transformation; the external data source connection is defined via Named Credentials or
+                External Services, keeping credentials out of the component configuration.</p>
+        </div>
+
+        <h2>OmniOut &amp; Node.js</h2>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">7.</span>What is OmniOut and what problem does it solve?</h3>
+            <p>OmniOut is the OmniStudio toolset for deploying Omniscripts and Flexcards outside of Salesforce —
+                for example, on a public-facing website or a non-Salesforce portal. It compiles OmniStudio
+                components into standalone LWC bundles that can run without a Salesforce session, enabling
+                self-service experiences for unauthenticated users.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">8.</span>Why did Summer '25 update the Node.js version requirement for OmniOut?</h3>
+            <p>Node.js 18 reached end-of-life, so OmniOut now requires Node.js 20 or 22 (specifically 22.11.0+
+                for the latest LTS). Running on an unsupported Node.js version exposes the build environment to
+                unpatched security vulnerabilities and can cause incompatibilities with updated build tooling.
+                Upgrading ensures the OmniOut build pipeline remains secure and receives continued upstream
+                support.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">9.</span>What other tool version requirements changed alongside Node.js in the OmniOut build environment?</h3>
+            <p>The OmniStudio Build Tool was updated to version 1.17.11 or higher, and Puppeteer was upgraded to
+                version 21.11.0. Puppeteer is used by the build tool to render and snapshot components during the
+                compilation process, so keeping it current ensures compatibility with the updated Chromium engine
+                it depends on.</p>
+        </div>
+
+        <h2>AngularJS Deprecation</h2>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">10.</span>Why are AngularJS-based Omniscripts being deprecated?</h3>
+            <p>AngularJS reached end-of-life in December 2021 and is no longer maintained by Google, meaning no
+                security patches or updates. Salesforce deprecated AngularJS-based Omniscripts to move the entire
+                OmniStudio component model to the LWC framework, which is the Salesforce-supported standard and
+                aligns with the broader platform direction away from third-party JavaScript frameworks.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">11.</span>What is the migration path from AngularJS-based Omniscripts to the LWC framework?</h3>
+            <p>Salesforce provides a migration tool that converts existing AngularJS Omniscripts to LWC-based
+                equivalents. Developers should audit their org for any active AngularJS Omniscripts, run the
+                migration utility, test the converted components in a sandbox, and promote them through their
+                deployment pipeline before the deprecation deadline removes AngularJS rendering support.</p>
+        </div>
+
+        <h2>Apex Permission Checks &amp; Navigate Action</h2>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">12.</span>What is the enhanced Apex class permission check in OmniStudio and why does it improve security?</h3>
+            <p>OmniStudio now performs stricter checks on which Apex classes a running user has access to before
+                executing them via Integration Procedures or Omniscripts. The <code>PerformAdvancedCheck</code>
+                flag enables validation against the user's Permission Sets and Permission Set Groups rather than
+                relying solely on profile-level class access. This closes a gap where users could previously
+                trigger Apex execution they weren't explicitly granted access to.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">13.</span>What changed in the Navigate Action element's behavior in Omniscripts?</h3>
+            <p>The Navigate Action element was updated to support more precise navigation between steps, including
+                the ability to target a specific step by name rather than only moving forward or backward
+                sequentially. This enables conditional navigation flows — for example, skipping a step based on
+                user input — without requiring a custom LWC or JavaScript workaround.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">14.</span>How does the Navigate Action change affect existing Omniscript designs that relied on the old behavior?</h3>
+            <p>Existing Omniscripts that use Navigate Action elements should be tested after upgrading to confirm
+                that step targeting still resolves as expected. If a script relied on implicit sequential
+                navigation, the new named-step targeting is additive and won't break existing behavior — but any
+                script using step names for navigation should be validated to ensure names haven't changed during
+                migration to the Standard Designer.</p>
+        </div>
+
+    </article>
+
+</body>
+
+</html>

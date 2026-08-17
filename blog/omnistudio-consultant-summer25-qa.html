@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>OmniStudio Consultant — Summer '25 Maintenance Q&amp;A</title>
+    <meta name="description"
+        content="14 Q&amp;A covering the OmniStudio Consultant Summer '25 maintenance module: Standard Designer, Design Assistant, SLDS 2, AngularJS migration, built-in translations, and Apex permission checks." />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet" />
+    <link rel="stylesheet" href="qa-style.css" />
+</head>
+
+<body>
+
+    <nav>
+        <a href="../index.html" class="nav-brand">Michael <span>George</span></a>
+        <a href="../index.html#blog" class="back-link">← Back to Portfolio</a>
+    </nav>
+
+    <div class="article-hero">
+        <div class="article-tag">Salesforce · OmniStudio</div>
+        <h1 class="article-title">OmniStudio Consultant — Summer '25 Maintenance Q&amp;A</h1>
+        <div class="article-meta">Updated August 2026 &nbsp;·&nbsp; 14 questions</div>
+    </div>
+
+    <article class="article-body">
+
+        <p>
+            This Q&amp;A covers the Summer '25 OmniStudio Consultant certification maintenance module. Topics include
+            the Standard Designer and Design Assistant, SLDS 2 runtime theming, built-in translations, AngularJS
+            deprecation and LWC migration, the Advanced Apex Class Permission Checker, and updated documentation naming.
+        </p>
+
+        <h2>Standard Designer &amp; Design Assistant</h2>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">1.</span>How does the OmniStudio Standard Designer help consultants build components faster?</h3>
+            <p>The Standard Designer provides a unified drag-and-drop authoring interface built on Lightning Web
+                Components that replaces the older Angular-based experience. It consolidates Omniscript, Flexcard,
+                Integration Procedure, and DataMapper authoring into one consistent environment, reducing the learning
+                curve for new team members and eliminating the context-switching between different design surfaces.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">2.</span>What is the OmniStudio Design Assistant and what problem does it solve?</h3>
+            <p>Design Assistant is a health-monitoring tool built into the Standard Designer that proactively flags
+                issues in Flexcards and Omniscripts — such as broken data sources, deprecated elements, or performance
+                concerns — before they affect end users. It lets consultants audit component health across an org
+                without manually opening each component, making it practical to govern large OmniStudio implementations.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">3.</span>What does "monitoring and managing component health" mean in practice with the Design Assistant?</h3>
+            <p>Design Assistant surfaces warnings and errors at the component level — for example, identifying an
+                Omniscript that references a deleted Integration Procedure or a Flexcard with a misconfigured data
+                source. Consultants can review flagged components from a centralized dashboard and prioritize fixes
+                before a release, rather than discovering issues through user-reported bugs.</p>
+        </div>
+
+        <h2>SLDS 2 &amp; Runtime Experience</h2>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">4.</span>What is the OmniStudio SLDS 2 theme and how does it enhance the runtime user experience?</h3>
+            <p>SLDS 2 is Salesforce's updated Lightning Design System with a refreshed visual language — updated
+                typography, spacing, and component styles. When applied to OmniStudio apps, it gives Omniscripts and
+                Flexcards a modern, accessible look that matches the rest of the Summer '25 Lightning UI without
+                requiring custom CSS. It also improves accessibility compliance out of the box.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">5.</span>What accessibility change replaced the Read-Only property for input elements in OmniStudio?</h3>
+            <p>The <code>Disabled</code> property replaces <code>Read-Only</code> for input elements in Omniscripts
+                and Flexcards. The change aligns OmniStudio's field behavior with SLDS 2 accessibility standards —
+                <code>Disabled</code> is correctly communicated to screen readers and assistive technology, whereas
+                <code>Read-Only</code> was not handled consistently across browsers and input types.</p>
+        </div>
+
+        <h2>Built-In Translations &amp; Localization</h2>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">6.</span>How does the built-in translation feature localize single-language Omniscripts and Flexcards?</h3>
+            <p>OmniStudio can now automatically localize label text in single-language components based on the
+                running user's locale setting, without requiring separate translated versions of each component.
+                The platform looks up the user's locale and applies the appropriate translations from a centralized
+                translation workbench entry, so one Omniscript can serve users in multiple languages without
+                duplicating the component.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">7.</span>What is the difference between a single-language and a multi-language OmniStudio component, and when does locale-based translation apply?</h3>
+            <p>A single-language component was built with labels in one locale (e.g., English) without explicit
+                translation records for other locales. Built-in translation applies to these by deriving translations
+                from Translation Workbench at runtime. Multi-language components already have explicit translation
+                records per language — those continue to work as before, and the new locale-based fallback is
+                additive, not a replacement.</p>
+        </div>
+
+        <h2>AngularJS Deprecation &amp; LWC Migration</h2>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">8.</span>What is the consultant's role in migrating AngularJS-based Omniscripts to LWC?</h3>
+            <p>Consultants need to inventory all active AngularJS Omniscripts in the org, communicate the deprecation
+                timeline and business impact to stakeholders, coordinate the migration effort using Salesforce's
+                migration tooling, and validate that business logic behaves identically after conversion. The
+                migration is a conversion, not a rebuild — but post-migration UAT is essential because some custom
+                JavaScript behaviors may need to be re-expressed as LWC patterns.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">9.</span>Why does Salesforce deprecate AngularJS-based Omniscripts rather than continuing to support both frameworks?</h3>
+            <p>AngularJS reached end-of-life in December 2021 and receives no security patches, making it a
+                long-term liability in a multi-tenant platform. Maintaining two rendering engines (AngularJS and LWC)
+                indefinitely doubles the testing surface for every OmniStudio release and prevents Salesforce from
+                delivering LWC-only innovations — such as SLDS 2 and Experience Cloud LWR site support — to the
+                full component catalog.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">10.</span>Which deployment targets require LWC-based Omniscripts that AngularJS versions cannot support?</h3>
+            <p>Experience Cloud LWR (Lightning Web Runtime) sites require LWC components and cannot render
+                AngularJS-based Omniscripts. Agentforce integrations similarly depend on LWC-compatible components.
+                Migrating to LWC Omniscripts is therefore a prerequisite for clients who want to embed OmniStudio
+                experiences in modern Experience Cloud sites or extend them into Agentforce workflows.</p>
+        </div>
+
+        <h2>Advanced Apex Class Permission Checker</h2>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">11.</span>What is the Advanced Apex Class Permission Checker and how does it affect OmniStudio security?</h3>
+            <p>The Advanced Apex Class Permission Checker validates that a running user's Permission Sets or
+                Permission Set Groups explicitly grant access to any Apex class invoked by an Integration Procedure
+                or Omniscript. Previously, OmniStudio relied primarily on profile-level class access, which could
+                allow Apex execution that wasn't intentionally granted. Enabling this checker closes that gap and
+                aligns OmniStudio with least-privilege security principles.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">12.</span>What does a consultant need to do before enabling the Advanced Apex Class Permission Checker in a production org?</h3>
+            <p>Before enabling it, audit all Integration Procedures and Omniscripts that invoke Apex classes and
+                verify that every user group running those components has the required Apex class access granted via
+                Permission Sets — not just via their profile. Enabling the checker without this audit can cause
+                runtime errors for users whose profiles had implicit Apex access that their Permission Sets do not
+                explicitly replicate.</p>
+        </div>
+
+        <h2>Documentation &amp; Product Naming</h2>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">13.</span>What documentation naming change did Salesforce introduce and why does it matter for consultants?</h3>
+            <p>Salesforce renamed the OmniStudio documentation guides to distinguish between the standard product
+                ("OmniStudio") and the managed package version ("OmniStudio for Managed Packages"). Consultants
+                need to reference the correct guide for their org's deployment model — implementations using the
+                managed package have different upgrade paths, feature availability timelines, and configuration
+                steps than standard OmniStudio orgs.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">14.</span>When would a consultant recommend OmniStudio for Managed Packages vs. standard OmniStudio?</h3>
+            <p>OmniStudio for Managed Packages is used when OmniStudio components are distributed as part of an
+                ISV managed package — for example, an industry cloud solution or a partner app. Standard OmniStudio
+                is for orgs building their own implementations directly. The key differences are release cadence
+                (managed packages are pinned to a package version), upgrade control (the ISV controls when
+                components update), and documentation (separate guides cover each model).</p>
+        </div>
+
+    </article>
+
+</body>
+
+</html>
