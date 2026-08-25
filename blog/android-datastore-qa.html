@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Android Preferences DataStore Q&amp;A - Michael George</title>
+    <meta name="description"
+        content="Original Q&A notes on Android's Preferences DataStore for local key-value storage, and the JCenter shutdown's impact on dependency hosting." />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet" />
+    <link rel="stylesheet" href="qa-style.css" />
+</head>
+
+<body>
+
+    <nav>
+        <a href="../index.html" class="nav-brand">Michael <span>George</span></a>
+        <a href="../index.html#reading" class="back-link">&larr; Back to Portfolio</a>
+    </nav>
+
+    <div class="article-hero">
+        <div class="article-tag">Web Dev · Android</div>
+        <h1 class="article-title">Android Preferences DataStore Q&amp;A</h1>
+        <div class="article-meta">August 2026 &nbsp;·&nbsp; Original notes based on Android Developers
+            documentation</div>
+    </div>
+
+    <article class="article-body">
+
+        <p>
+            Notes from Android's Preferences DataStore codelab, plus a related note on the JCenter shutdown — a
+            reminder that even stable-looking dependency infrastructure can be retired and needs a migration plan.
+        </p>
+
+        <h2>Preferences DataStore</h2>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">1.</span>What problem does Preferences DataStore solve on Android?</h3>
+            <p>It provides a way to persist small amounts of key-value data — such as settings or flags — using
+                Kotlin coroutines and Flow, replacing the older SharedPreferences API with an asynchronous,
+                type-safer approach that avoids blocking the main thread.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">2.</span>Why does DataStore expose data as a Flow instead of a synchronous
+                getter?</h3>
+            <p>Reading from disk is inherently asynchronous work. Exposing the value as a Flow lets the UI observe
+                changes reactively and update automatically when the underlying preference changes, instead of
+                requiring the caller to poll or manually refresh.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">3.</span>What is the difference between Preferences DataStore and Proto
+                DataStore?</h3>
+            <p>Preferences DataStore stores untyped key-value pairs similar to a dictionary, with no built-in schema.
+                Proto DataStore stores strongly typed objects defined with protocol buffers, which trades some setup
+                overhead for compile-time safety and structured data.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">4.</span>Why does migrating away from SharedPreferences require care rather than
+                a simple search-and-replace?</h3>
+            <p>SharedPreferences reads are synchronous and often called directly on the main thread, while DataStore
+                reads are asynchronous. A safe migration has to account for every call site's threading assumptions,
+                not just swap the storage API.</p>
+        </div>
+
+        <h2>Dependency Infrastructure</h2>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">5.</span>Why did the JCenter shutdown matter to Android projects that never
+                intentionally used it?</h3>
+            <p>Many projects depended on JCenter indirectly through transitive dependencies or default repository
+                configuration inherited from older project templates, so the shutdown could break a build even for
+                teams who believed they had already migrated to Maven Central or Google's Maven repository.</p>
+        </div>
+
+        <blockquote>
+            Source reference: <a href="https://developer.android.com/codelabs/android-preferences-datastore"
+                target="_blank" rel="noopener">Working with Preferences DataStore</a> and
+            <a href="https://developer.android.com/studio/build/jcenter-migration" target="_blank"
+                rel="noopener">JCenter service update</a> (Android Developers). These are original notes and
+            summaries, not reproduced source material.
+        </blockquote>
+
+    </article>
+
+    <div class="article-footer">
+        <div class="author-card">
+            <div class="author-info">
+                <h4>Michael George</h4>
+                <p>13x Salesforce Certified · Principal Developer &amp; Architect</p>
+            </div>
+        </div>
+        <a href="../index.html#reading" class="back-btn">&larr; Back to Portfolio</a>
+    </div>
+
+    <footer>
+        &copy; 2026 Michael George
+    </footer>
+
+</body>
+
+</html>
