@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Salesforce Flow Interview Q&amp;A — Part 1: Branching Elements &amp; Decision Logic</title>
+    <meta name="description"
+        content="25 Salesforce Flow interview questions and answers on Decision, Split by Field Value, Split by Date, and branching logic design." />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet" />
+    <link rel="stylesheet" href="qa-style.css" />
+</head>
+
+<body>
+
+    <nav>
+        <a href="../index.html" class="nav-brand">Michael <span>George</span></a>
+        <a href="../index.html#blog" class="back-link">← Back to Portfolio</a>
+    </nav>
+
+    <div class="article-hero">
+        <div class="article-tag">Salesforce · Flow</div>
+        <h1 class="article-title">Salesforce Flow Interview Q&amp;A — Part 1: Branching Elements &amp; Decision
+            Logic</h1>
+        <div class="article-meta">Updated August 2026 &nbsp;·&nbsp; Part 1 of 1 &nbsp;·&nbsp; 25 questions</div>
+    </div>
+
+    <article class="article-body">
+
+        <div class="qa-nav">
+            <strong>Salesforce Flow Interview Series (25 questions)</strong>
+            <a href="flow-qa-part1.html">Part 1: Branching Elements &amp; Decision Logic</a>
+        </div>
+
+        <p>
+            Flow Builder questions increasingly come up in both Developer and Consultant rounds as declarative
+            automation takes on more of the logic that used to live in Apex triggers. This part covers the
+            branching elements — Decision, and the newer Split by Field Value and Split by Date elements — and
+            the design judgment behind choosing between them.
+        </p>
+
+        <h2>Decision Element Fundamentals</h2>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">1.</span>What is the Decision element used for in Flow Builder?</h3>
+            <p>It branches a flow's execution path based on one or more conditions, evaluating each configured
+                outcome in order and routing to the first one whose criteria are met, or to the default outcome
+                if none match.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">2.</span>Can a single Decision outcome test multiple conditions at once?</h3>
+            <p>Yes — a Decision outcome supports compound criteria combined with AND/OR logic, which is what
+                distinguishes it from the newer single-condition Split elements.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">3.</span>In what order does a Decision element evaluate its outcomes?</h3>
+            <p>Top to bottom as configured — the flow routes to the first outcome whose conditions evaluate to
+                true, so outcome order matters when criteria could overlap.</p>
+        </div>
+
+        <h2>Split by Field Value</h2>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">4.</span>What problem does the Split by Field Value element solve?</h3>
+            <p>It gives a simpler, more readable way to branch on the possible values of a single field or
+                resource, without needing to configure a full Decision element for what is fundamentally a
+                single-condition branch.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">5.</span>How does Split by Field Value handle values that don't match any
+                configured path?</h3>
+            <p>It routes them down a built-in Default Path, similar in concept to a Decision element's default
+                outcome.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">6.</span>Can the Default Path in Split by Field Value be renamed?</h3>
+            <p>No — unlike the other configured paths, the default outcome's name is fixed and can't be
+                customized.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">7.</span>What convenience feature does Split by Field Value offer for
+                configuring many similar paths?</h3>
+            <p>A Clone button, which duplicates an existing path so you can quickly adjust it for a new value
+                rather than building each path from scratch.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">8.</span>What is the core limitation of Split by Field Value versus
+                Decision?</h3>
+            <p>It only supports evaluating a single field or resource per path — it can't combine multiple
+                criteria within one path the way a Decision outcome can.</p>
+        </div>
+
+        <h2>Split by Date</h2>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">9.</span>What release introduced the Split by Date element?</h3>
+            <p>Winter '27, alongside Split by Field Value.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">10.</span>What comparison operators does Split by Date support?</h3>
+            <p>Before, Between, After, and Is On.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">11.</span>How does Split by Date compare to Split by Field Value in terms of
+                resource flexibility?</h3>
+            <p>It's more flexible — each path can compare against a different date value or resource, whereas
+                Split by Field Value is scoped to evaluating a single field or resource across its paths.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">12.</span>What's a good real-world scenario for Split by Date?</h3>
+            <p>Branching on SLA deadlines, contract renewal windows, or record aging — any logic where the only
+                deciding factor is how a date relates to today or another date value.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">13.</span>Does Split by Date allow combining a date condition with another
+                unrelated condition in the same path?</h3>
+            <p>No — like Split by Field Value, each path only evaluates the one condition it's built for; a
+                second, independent condition requires the Decision element instead.</p>
+        </div>
+
+        <h2>Choosing the Right Element</h2>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">14.</span>When should you reach for a Split element instead of Decision?
+            </h3>
+            <p>When the branch is genuinely single-condition — one field's value or one date comparison — since
+                Split elements make that intent clearer on the canvas than a Decision element configured with a
+                single criterion per outcome.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">15.</span>When must you use Decision instead of a Split element?</h3>
+            <p>As soon as a single path needs more than one condition to be true simultaneously — Split
+                elements have no mechanism for compound, multi-criteria logic within a path.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">16.</span>Is it possible to migrate an existing Decision element to a Split
+                element?</h3>
+            <p>Not automatically — since Split elements can only express single-condition branches, migration is
+                only viable if every outcome in the existing Decision is already based on one field or one date
+                condition; otherwise the logic must stay in Decision.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">17.</span>How do Split elements affect flow readability for other
+                maintainers?</h3>
+            <p>By making single-condition intent explicit in the element's name and configuration, a maintainer
+                can tell at a glance that a branch is simple, without having to open a Decision element and read
+                through its criteria to confirm there's no compound logic hiding inside it.</p>
+        </div>
+
+        <h2>Design &amp; Governance</h2>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">18.</span>Why might a team standardize on using Split elements wherever
+                possible?</h3>
+            <p>To keep flows self-documenting — a Split element signals "single condition" by design, reducing
+                the chance that a reviewer misses a compound condition buried inside what looks like simple
+                branching logic in a Decision element.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">19.</span>What risk exists if a team overuses Decision elements for
+                simple, single-field branches?</h3>
+            <p>Flows become harder to scan quickly, since every branch requires opening the Decision element's
+                configuration to confirm whether it's actually simple or hiding additional criteria — a
+                consistency and maintainability cost as the org's flow library grows.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">20.</span>How would you explain the trade-off between Split elements and
+                Decision to a junior flow builder?</h3>
+            <p>Split elements trade flexibility for clarity — they can express less, but what they do express is
+                immediately obvious; Decision can express anything, but that power comes at the cost of needing
+                to actually inspect the configuration to know what it's doing.</p>
+        </div>
+
+        <h2>Practical Scenarios</h2>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">21.</span>You need to branch a flow based on whether an Opportunity's Stage
+                is one of five values. Which element fits best?</h3>
+            <p>Split by Field Value — a single field with several possible values, and no compound condition
+                needed per branch, is exactly the case it was built for.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">22.</span>You need to branch based on whether a Case's Due Date is overdue,
+                due today, or due later. Which element fits best?</h3>
+            <p>Split by Date, using Before/Is On/After comparisons against today's date across the three paths.
+            </p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">23.</span>You need to branch based on whether an Account's Industry is
+                "Healthcare" and its Annual Revenue exceeds a threshold. Which element fits best?</h3>
+            <p>Decision — this requires two conditions combined within the same path, which neither Split
+                element supports.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">24.</span>A flow currently uses a Decision element with five outcomes, each
+                testing only one picklist value. Would you refactor it?</h3>
+            <p>It's a reasonable candidate to refactor into Split by Field Value, since every outcome is already
+                single-condition — the refactor would improve readability without losing any logic.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">25.</span>How would you justify introducing Split elements to a team that's
+                comfortable with Decision and sees no need to change?</h3>
+            <p>Frame it as a readability and code-review improvement, not a capability upgrade — Split elements
+                don't do anything Decision can't already do for single-condition branches, but they make that
+                simplicity visible at a glance, which reduces review time and the chance of a maintainer missing
+                hidden compound logic later.</p>
+        </div>
+
+        <blockquote>
+            That completes the Salesforce Flow interview Q&amp;A on branching elements. See also the
+            <a href="consultant-qa-part3.html">Consultant Automation &amp; Integration</a> series for the
+            broader Flow vs. Apex decision framework.
+        </blockquote>
+
+    </article>
+
+    <div class="article-footer">
+        <div class="author-card">
+            <div class="author-info">
+                <h4>Salesforce Interview Prep</h4>
+                <p>A free, ad-free reference for Salesforce interview candidates</p>
+            </div>
+        </div>
+        <a href="../index.html" class="back-btn">← Back to Portfolio</a>
+    </div>
+
+    <footer>
+        &copy; 2026 Michael George
+    </footer>
+
+</body>
+
+</html>
