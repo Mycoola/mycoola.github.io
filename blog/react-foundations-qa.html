@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>React Foundations Q&amp;A - Michael George</title>
+    <meta name="description"
+        content="Original Q&A notes on React and Next.js fundamentals: rendering UI, updating UI with JavaScript, and how the two frameworks relate." />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet" />
+    <link rel="stylesheet" href="qa-style.css" />
+</head>
+
+<body>
+
+    <nav>
+        <a href="../index.html" class="nav-brand">Michael <span>George</span></a>
+        <a href="../index.html#reading" class="back-link">&larr; Back to Portfolio</a>
+    </nav>
+
+    <div class="article-hero">
+        <div class="article-tag">Web Dev · React</div>
+        <h1 class="article-title">React Foundations Q&amp;A</h1>
+        <div class="article-meta">August 2026 &nbsp;·&nbsp; Original notes based on Next.js's React Foundations
+            course</div>
+    </div>
+
+    <article class="article-body">
+
+        <p>
+            Notes from the introductory chapters of Next.js's React Foundations course: how the browser renders a
+            page, how JavaScript can update it imperatively versus declaratively, and what React and Next.js each
+            contribute on top of that foundation.
+        </p>
+
+        <h2>Rendering and Updating the UI</h2>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">1.</span>What does a browser actually do to turn HTML into a visible page?</h3>
+            <p>The browser parses HTML and CSS into the DOM and CSSOM, combines them into a render tree, then computes
+                layout and paints pixels. Understanding this pipeline explains why changing the DOM after load
+                triggers the browser to redo some or all of that work.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">2.</span>What is the difference between imperative and declarative UI
+                updates?</h3>
+            <p>Imperative code tells the browser the exact steps to change the DOM — select an element, then mutate
+                it. Declarative code describes what the UI should look like for a given state, and the framework
+                figures out the steps needed to get there.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">3.</span>Why does manually updating the DOM with plain JavaScript get harder as
+                an app grows?</h3>
+            <p>Each direct DOM mutation is another place that has to stay in sync with the current state. As more
+                elements depend on more pieces of state, the number of manual update paths grows faster than the
+                app's actual complexity, making bugs from missed updates more likely.</p>
+        </div>
+
+        <h2>React and Next.js</h2>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">4.</span>What problem does React solve that plain declarative HTML/CSS cannot on
+                its own?</h3>
+            <p>React lets a UI be described declaratively in JavaScript, with components that automatically re-render
+                when their state or props change, so the browser's DOM diffing and updates are handled by the library
+                instead of by hand-written imperative code.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">5.</span>What does Next.js add on top of React?</h3>
+            <p>Next.js is a framework built on React that adds application-level concerns React itself does not
+                define, such as file-based routing, server rendering strategies, and build tooling — letting a
+                developer focus on components while the framework handles the surrounding structure.</p>
+        </div>
+
+        <blockquote>
+            Source reference: <a href="https://nextjs.org/learn/react-foundations" target="_blank"
+                rel="noopener">Next.js — React Foundations</a>. These are original notes and summaries, not
+            reproduced source material.
+        </blockquote>
+
+    </article>
+
+    <div class="article-footer">
+        <div class="author-card">
+            <div class="author-info">
+                <h4>Michael George</h4>
+                <p>13x Salesforce Certified · Principal Developer &amp; Architect</p>
+            </div>
+        </div>
+        <a href="../index.html#reading" class="back-btn">&larr; Back to Portfolio</a>
+    </div>
+
+    <footer>
+        &copy; 2026 Michael George
+    </footer>
+
+</body>
+
+</html>
