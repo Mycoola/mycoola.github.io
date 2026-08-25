@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>JavaScript Fundamentals Q&amp;A - Michael George</title>
+    <meta name="description"
+        content="Original Q&A notes on JavaScript fundamentals based on the MDN Web Docs learning and reference materials." />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet" />
+    <link rel="stylesheet" href="qa-style.css" />
+</head>
+
+<body>
+
+    <nav>
+        <a href="../index.html" class="nav-brand">Michael <span>George</span></a>
+        <a href="../index.html#reading" class="back-link">&larr; Back to Portfolio</a>
+    </nav>
+
+    <div class="article-hero">
+        <div class="article-tag">Web Dev · JavaScript</div>
+        <h1 class="article-title">JavaScript Fundamentals Q&amp;A</h1>
+        <div class="article-meta">August 2026 &nbsp;·&nbsp; Original notes based on MDN Web Docs</div>
+    </div>
+
+    <article class="article-body">
+
+        <p>
+            A compact set of original study notes for the JavaScript language: values and types, expressions,
+            control flow, functions, collections, objects, classes, strings, promises, and regular expressions.
+            The MDN pages are the references; the questions and explanations below are written as practical reminders.
+        </p>
+
+        <h2>Language Foundations</h2>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">1.</span>What is JavaScript responsible for in a web application?</h3>
+            <p>JavaScript supplies behavior and application logic. HTML describes structure, CSS describes presentation,
+                and JavaScript can read or change both through the DOM, respond to events, communicate with services,
+                and coordinate state changes in the browser.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">2.</span>What is the difference between a primitive value and an object?</h3>
+            <p>Primitive values represent indivisible data such as strings, numbers, booleans, bigints, symbols, null,
+                and undefined. Objects are collections of properties and behavior. This distinction affects identity,
+                mutation, comparison, and how values are passed through code.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">3.</span>Why should expressions be kept easy to read?</h3>
+            <p>An expression combines values, operators, and calls to produce a value. Dense expressions may be valid
+                but hide precedence, coercion, or side effects. Clear grouping and descriptive intermediate variables
+                make the intended result easier to review and test.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">4.</span>How should a developer choose between let, const, and var?</h3>
+            <p>Prefer const when a binding will not be reassigned and let when it will. Both are block-scoped and make
+                lifetime easier to reason about. var has older function-scoping and hoisting behavior, so it is usually
+                reserved for maintaining legacy code.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">5.</span>Why are template literals useful?</h3>
+            <p>Template literals make interpolated strings and multi-line text readable. They also support tagged
+                templates, which let a function process the literal parts and inserted values for specialized tasks
+                such as formatting or safe query construction.</p>
+        </div>
+
+        <h2>Control Flow and Functions</h2>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">6.</span>When is an if/else chain a poor choice?</h3>
+            <p>It becomes difficult to scan when many branches compare the same value or combine unrelated conditions.
+                A switch, lookup object, or separate strategy function can make the cases and their default behavior
+                more explicit. The best choice depends on whether the logic is data selection or complex computation.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">7.</span>What is the purpose of exception handling?</h3>
+            <p>Exception handling separates expected recovery from the normal path. A try/catch block can translate a
+                low-level failure into a useful application response, while finally can release resources. Catching
+                errors without recording or handling them merely hides defects.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">8.</span>What makes a function a useful unit of design?</h3>
+            <p>A function gives a behavior a name, input contract, and return contract. Small functions with focused
+                responsibilities are easier to test and compose. They should make side effects obvious and avoid
+                depending on mutable state that callers cannot see.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">9.</span>What is a closure?</h3>
+            <p>A closure is a function together with access to variables from its surrounding lexical environment.
+                Closures are useful for factories, callbacks, and private state, but long-lived closures can also retain
+                objects longer than intended, so their lifetime matters.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">10.</span>How do loops and iteration differ conceptually?</h3>
+            <p>A loop describes repeated control flow; iteration describes visiting values from an iterable. Use the
+                simplest form that expresses the need: a classic loop for precise control, or an iterator and array
+                method when the operation is naturally mapping, filtering, reducing, or searching.</p>
+        </div>
+
+        <h2>Collections and Objects</h2>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">11.</span>When is an array the right collection?</h3>
+            <p>Use an array for an ordered sequence whose items are naturally accessed or processed in order. Array
+                methods such as map, filter, find, and reduce communicate intent, while direct index manipulation is
+                appropriate when positional updates are the actual requirement.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">12.</span>What problem do Map and Set solve?</h3>
+            <p>Map stores key-value associations with keys of any value type, while Set stores unique values. They are
+                clearer than using an object as a general-purpose dictionary or an array for uniqueness checks, and they
+                provide operations designed around their respective data models.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">13.</span>What is the difference between an object's property and its prototype?</h3>
+            <p>A property belongs directly to an object or is resolved through its prototype chain. Prototypes allow
+                objects to share behavior without copying every method onto each instance. Code should be explicit about
+                ownership when checking or modifying properties.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">14.</span>When do classes improve JavaScript code?</h3>
+            <p>Classes provide familiar syntax for constructing related objects, defining methods, and expressing
+                inheritance. They help when a domain has stable instances and behavior; they do not automatically make
+                a design better than functions and composition.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">15.</span>Why should string operations account for more than ASCII?</h3>
+            <p>JavaScript strings use UTF-16 code units, so a visible character may occupy more than one code unit.
+                Operations based only on indexes or length can therefore split or count some Unicode characters
+                incorrectly. Use APIs appropriate to the text and locale requirements.</p>
+        </div>
+
+        <h2>Asynchronous and Pattern-Based Code</h2>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">16.</span>What problem do promises solve?</h3>
+            <p>A promise represents the eventual result or failure of an asynchronous operation. It lets code compose
+                dependent work with then/catch/finally or async/await, keeping success and failure paths visible instead
+                of nesting callbacks for every step.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">17.</span>Why should promise failures be handled deliberately?</h3>
+            <p>An unhandled rejection can leave the UI or workflow in an incomplete state. Each asynchronous boundary
+                should decide whether to recover, show a user-facing error, retry, or propagate the failure to a layer
+                that owns the response.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">18.</span>What are regular expressions good at?</h3>
+            <p>Regular expressions are useful for recognizing or extracting text patterns, such as a constrained token
+                or a simple delimiter structure. They become fragile for nested or grammar-heavy formats, where a
+                parser gives clearer rules and better error reporting.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">19.</span>How should errors be handled in reusable JavaScript code?</h3>
+            <p>Define which failures are expected, preserve useful context, and expose a predictable contract to callers.
+                Validate inputs at boundaries, use meaningful error types where helpful, and avoid returning a mixture of
+                unrelated sentinel values and thrown exceptions for the same operation.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">20.</span>What is the broadest lesson from the JavaScript reference?</h3>
+            <p>Choose language features according to the data and control flow you actually have. Clear scope, explicit
+                state transitions, appropriate collections, and visible asynchronous boundaries make JavaScript easier
+                to maintain than clever syntax used without a clear contract.</p>
+        </div>
+
+        <blockquote>
+            Source reference: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript" target="_blank"
+                rel="noopener">MDN Web Docs JavaScript</a> and its linked JavaScript guide/reference pages. These are
+            original notes and summaries, not reproduced source material.
+        </blockquote>
+
+    </article>
+
+    <div class="article-footer">
+        <div class="author-card">
+            <div class="author-info">
+                <h4>Michael George</h4>
+                <p>13x Salesforce Certified · Principal Developer &amp; Architect</p>
+            </div>
+        </div>
+        <a href="../index.html#reading" class="back-btn">&larr; Back to Portfolio</a>
+    </div>
+
+    <footer>
+        &copy; 2026 Michael George
+    </footer>
+
+</body>
+
+</html>
