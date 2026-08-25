@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Architecture Principles Q&amp;A - Michael George</title>
+    <meta name="description"
+        content="Original Q&A on agile data governance, Salesforce security architecture, automation, continuous delivery, DevOps, AI platforms, and Scrum." />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet" />
+    <link rel="stylesheet" href="qa-style.css" />
+</head>
+
+<body>
+
+    <nav>
+        <a href="../index.html" class="nav-brand">Michael <span>George</span></a>
+        <a href="../index.html#reading" class="back-link">&larr; Back to Portfolio</a>
+    </nav>
+
+    <div class="article-hero">
+        <div class="article-tag">Architecture</div>
+        <h1 class="article-title">Architecture Principles Q&amp;A</h1>
+        <div class="article-meta">August 2026 &nbsp;·&nbsp; Data, security, delivery, and product architecture</div>
+    </div>
+
+    <article class="article-body">
+
+        <p>
+            A practical set of notes from reading about agile data governance, Salesforce sharing and security,
+            record-triggered automation, continuous delivery, DevOps, AI platforms, and Scrum. The common thread is
+            architectural feedback: make important rules visible, testable, and close to the work that depends on them.
+        </p>
+
+        <h2>Data and Platform Architecture</h2>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">1.</span>What makes data governance agile rather than bureaucratic?</h3>
+            <p>Agile governance gives teams useful guardrails while keeping decisions close to the people building and
+                using the data. It favors shared standards, embedded data expertise, automation, and feedback from
+                real usage over a distant approval committee that reviews every change.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">2.</span>Why should governance be treated as part of delivery?</h3>
+            <p>Data quality, privacy, retention, and access are delivery concerns because they affect how a feature
+                behaves in production. When those rules are explicit and automated in the delivery workflow, teams can
+                detect violations early instead of discovering them after adoption.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">3.</span>What is the purpose of a Salesforce sharing architecture?</h3>
+            <p>Sharing architecture defines who can access which records and why. It combines organization-wide
+                defaults, role hierarchy, sharing rules, teams, manual sharing, and programmatic mechanisms so access
+                follows business responsibility without making every object broadly visible.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">4.</span>Why should record access and field access be designed separately?</h3>
+            <p>A user may need to find a record without being allowed to see every field on it. Record-level sharing
+                answers which records are visible; object and field permissions answer which data can be read or
+                changed. Separating the layers makes least-privilege decisions easier to reason about.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">5.</span>What does a defense-in-depth security model add?</h3>
+            <p>Defense in depth assumes that one control can be misconfigured or bypassed. Identity, permissions,
+                record sharing, field security, secure coding, monitoring, and operational review each reduce a
+                different part of the risk, so a failure in one layer does not expose everything.</p>
+        </div>
+
+        <h2>Automation and Delivery</h2>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">6.</span>What should be checked before choosing a record-triggered flow design?</h3>
+            <p>Start with timing and transaction boundaries: whether the change must happen before save, after save, or
+                asynchronously. Then check entry criteria, recursion, bulk behavior, related-record updates, fault
+                handling, and whether the automation remains understandable when the object gains more rules.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">7.</span>Why are entry conditions important for record-triggered automation?</h3>
+            <p>Entry conditions prevent an automation from running for records and changes that do not matter. That
+                reduces unnecessary work, lowers the chance of recursion, and makes the business event that starts the
+                flow explicit to future maintainers.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">8.</span>What is continuous delivery?</h3>
+            <p>Continuous delivery is the capability to keep software in a releasable state through an automated,
+                repeatable path from change to validation to deployment. It does not require releasing every commit;
+                it requires making release a low-risk, well-practiced operation.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">9.</span>How is continuous delivery different from continuous deployment?</h3>
+            <p>Continuous delivery prepares and validates changes so a release can happen on demand, often with a
+                human approval step. Continuous deployment goes further by automatically releasing changes that pass
+                the required checks. Both depend on reliable tests and deployment automation.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">10.</span>What architectural habits make DevOps effective?</h3>
+            <p>DevOps works when teams share ownership of delivery and operations, shorten feedback loops, automate
+                repeatable work, measure outcomes, and design for observability. Tools help, but the central change is
+                treating build, release, reliability, and learning as one system.</p>
+        </div>
+
+        <h2>Product and Organizational Architecture</h2>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">11.</span>What should an AI-agent platform provide beyond a language model?</h3>
+            <p>An agent platform needs reliable access to business context, tools, permissions, action boundaries,
+                observability, and evaluation. The model supplies reasoning and language generation, but the platform
+                determines what the agent can know, do, and safely explain.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">12.</span>Why do agent architectures need explicit trust boundaries?</h3>
+            <p>An agent may combine user instructions, retrieved data, tool results, and generated plans. Explicit trust
+                boundaries define which inputs are authoritative, which actions require confirmation, and how sensitive
+                data is handled before an agent can affect a system of record.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">13.</span>Why does an organization's structure matter to architecture?</h3>
+            <p>Architecture follows communication paths and decision rights. Team boundaries, ownership, and reporting
+                relationships influence how quickly information travels and how easily a design can evolve, so an
+                architecture that ignores organization often creates coordination bottlenecks.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">14.</span>How do Scrum goals improve technical decision-making?</h3>
+            <p>A clear product goal gives the team a durable direction, while a sprint goal creates a short-term focus.
+                Together they help the team evaluate tradeoffs by asking whether a technical choice advances the
+                outcome, rather than merely increasing activity or scope.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">15.</span>What principle connects governance, security, delivery, and Scrum?</h3>
+            <p>Make intent visible and feedback fast. A good architecture states who owns a decision, what constraints
+                apply, how a change will be tested, and what signal shows success. This keeps control from becoming
+                paperwork and keeps flexibility from becoming guesswork.</p>
+        </div>
+
+        <blockquote>
+            Reading references: Agile Data, Salesforce Architects, Automation Hour, Continuous Delivery, DevOps.com,
+            SalesforceDevops.net, and Scrum.org. The questions and explanations above are original notes and summaries,
+            not reproduced source material.
+        </blockquote>
+
+    </article>
+
+    <div class="article-footer">
+        <div class="author-card">
+            <div class="author-info">
+                <h4>Michael George</h4>
+                <p>13x Salesforce Certified · Principal Developer &amp; Architect</p>
+            </div>
+        </div>
+        <a href="../index.html#reading" class="back-btn">&larr; Back to Portfolio</a>
+    </div>
+
+    <footer>
+        &copy; 2026 Michael George
+    </footer>
+
+</body>
+
+</html>
