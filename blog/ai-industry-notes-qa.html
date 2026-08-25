@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>AI Industry Notes Q&amp;A - Michael George</title>
+    <meta name="description" content="Original Q&A notes on AI coding culture, agentic AI in enterprise software, generative vs. predictive AI, and AI ethics." />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="qa-style.css" />
+</head>
+
+<body>
+
+    <nav>
+        <a href="../index.html" class="nav-brand">Michael <span>George</span></a>
+        <a href="../index.html#reading" class="back-link">&larr; Back to Portfolio</a>
+    </nav>
+
+    <div class="article-hero">
+        <div class="article-tag">General · AI Industry</div>
+        <h1 class="article-title">AI Industry Notes Q&amp;A</h1>
+        <div class="article-meta">August 2026 &nbsp;·&nbsp; Original notes from a mix of industry articles</div>
+    </div>
+
+    <article class="article-body">
+        <p>Notes on the current wave of AI industry coverage: concerns about "vibe coding," agentic AI showing up
+            in enterprise software, the AI Agent SDK pattern, and how ethics and terminology fit into the bigger
+            picture.</p>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">1.</span>What is the concern behind the "vibe coding" criticism?</h3>
+            <p>The worry is that developers who rely entirely on AI-generated code without understanding it lose
+                the underlying skills needed to debug, review, or extend that code independently — producing
+                output that works today but leaves the developer unable to maintain it tomorrow.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">2.</span>How does Salesforce's CoAct-1 represent a shift from earlier
+                "AI assistant" patterns?</h3>
+            <p>Rather than only suggesting UI clicks or text, CoAct-1 is described as writing and executing its own
+                code to accomplish tasks — a shift from an assistant guiding a human's actions to an agent
+                performing the actions itself.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">3.</span>What is a "headless" product architecture, and why would Salesforce
+                position one around AI?</h3>
+            <p>Headless architecture separates the underlying data/logic layer from any specific front-end UI. For
+                an AI-oriented product, that separation lets an agent interact directly with business logic and
+                data, without requiring a traditional browser-based UI as an intermediary.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">4.</span>What does an Agent SDK provide that a chatbot API alone doesn't?</h3>
+            <p>An Agent SDK gives developers building blocks for tool use, memory, planning, and permission
+                boundaries around a model — the scaffolding needed to build a custom autonomous agent, rather than
+                just a single request/response chat interface.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">5.</span>Why are engineers building their own "harnesses" around agent
+                SDKs?</h3>
+            <p>A harness wraps an SDK with project-specific guardrails — logging, approval steps, sandboxing — that
+                the raw SDK doesn't provide out of the box, letting a team control exactly how much autonomy an
+                agent has within their own systems.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">6.</span>What is the core distinction between generative AI and predictive
+                AI?</h3>
+            <p>Predictive AI estimates an outcome from existing patterns — a probability, a classification, a
+                forecast. Generative AI produces new content — text, images, or code — modeled on the patterns it
+                learned, rather than just labeling or scoring existing input.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">7.</span>Why do organizations like UNESCO focus on AI ethics rather than
+                leaving it to individual companies?</h3>
+            <p>AI systems can affect rights, employment, and safety across borders and industries, so a shared
+                ethical framework aims to set baseline expectations (fairness, transparency, accountability) that
+                apply regardless of which company built a given system.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">8.</span>What kinds of scenarios tend to appear in AI ethics case studies?</h3>
+            <p>Common cases include biased decision-making in hiring or lending algorithms, surveillance overreach,
+                autonomous systems making high-stakes decisions without human oversight, and unclear accountability
+                when an AI system causes harm — situations where the technology's capability outpaces existing
+                governance.</p>
+        </div>
+
+        <blockquote>
+            Source reference: HackerNoon, VentureBeat, eWEEK, Udacity, LinkedIn, and UNESCO. These are original
+            notes and summaries, not reproduced source material.
+        </blockquote>
+    </article>
+
+    <div class="article-footer">
+        <div class="author-card">
+            <div class="author-info">
+                <h4>Michael George</h4>
+                <p>13x Salesforce Certified · Principal Developer &amp; Architect</p>
+            </div>
+        </div>
+        <a href="../index.html#reading" class="back-btn">&larr; Back to Portfolio</a>
+    </div>
+
+    <footer>&copy; 2026 Michael George</footer>
+
+</body>
+
+</html>
