@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>JavaScript Syntax Basics Q&amp;A - Michael George</title>
+    <meta name="description"
+        content="Original Q&A notes on JavaScript syntax fundamentals, statements, output, comments, and array sorting, based on W3Schools." />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet" />
+    <link rel="stylesheet" href="qa-style.css" />
+</head>
+
+<body>
+
+    <nav>
+        <a href="../index.html" class="nav-brand">Michael <span>George</span></a>
+        <a href="../index.html#reading" class="back-link">&larr; Back to Portfolio</a>
+    </nav>
+
+    <div class="article-hero">
+        <div class="article-tag">Web Dev · JavaScript</div>
+        <h1 class="article-title">JavaScript Syntax Basics Q&amp;A</h1>
+        <div class="article-meta">August 2026 &nbsp;·&nbsp; Original notes based on W3Schools</div>
+    </div>
+
+    <article class="article-body">
+
+        <p>
+            Foundational notes on JavaScript syntax: how statements are written, how output is produced, how variables
+            and comments work, and how the built-in array sort method behaves — a set of basics that everything else in
+            the language builds on.
+        </p>
+
+        <h2>Statements, Syntax, and Output</h2>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">1.</span>What is a JavaScript statement, and why does statement order matter?</h3>
+            <p>A statement is an instruction executed by the browser or runtime, and statements normally execute in the
+                order they are written, top to bottom. Understanding that sequence is what makes it possible to predict
+                a script's behavior before running it.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">2.</span>Why do consistent syntax conventions matter even though JavaScript is
+                often forgiving?</h3>
+            <p>JavaScript tolerates some inconsistency, such as optional semicolons in many cases, but relying on that
+                tolerance makes code harder to read and more prone to subtle bugs. Consistent formatting communicates
+                intent and reduces the chance of a parser interpreting a line differently than expected.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">3.</span>What are the different ways a script can produce output, and why does
+                the choice matter?</h3>
+            <p>Output can go to an element's content, a dialog, the console, or be written directly into the document
+                during parsing. Console output is best for debugging; user-facing output belongs in the page itself, so
+                mixing the two approaches in production code creates a poor experience.</p>
+        </div>
+
+        <h2>Comments and Variables</h2>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">4.</span>What is the purpose of a comment that just restates the code below
+                it?</h3>
+            <p>A comment that repeats what a line already shows adds noise rather than value. Useful comments explain
+                why a decision was made or clarify a non-obvious constraint, not what a simple statement is already
+                doing.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">5.</span>Why is declaring a variable before using it a good habit, even though
+                JavaScript sometimes allows undeclared assignment?</h3>
+            <p>An explicit declaration states the variable's scope and existence up front, which prevents accidental
+                globals and makes it clear to a reader (and to strict-mode checks) that the variable is intentional
+                rather than a typo.</p>
+        </div>
+
+        <h2>Arrays</h2>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">6.</span>What does Array.prototype.sort do by default, and why does that surprise
+                people sorting numbers?</h3>
+            <p>By default, sort converts elements to strings and compares them in Unicode order, so numeric values sort
+                as text unless a comparison function is supplied. Sorting `[10, 1, 2]` without a comparator gives
+                `[1, 10, 2]`, not the numeric order most people expect.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">7.</span>How does a comparison function change sort's behavior?</h3>
+            <p>Passing a function such as `(a, b) => a - b` tells sort to use the function's return value to decide
+                order: negative means a comes first, positive means b comes first, and zero means their order is left
+                unchanged relative to each other. This makes numeric and custom ordering possible.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">8.</span>Why does it matter that sort mutates the original array?</h3>
+            <p>sort reorders the array in place and also returns it, so code that needs to preserve the original order
+                elsewhere must copy the array first. Relying on the return value alone while ignoring the mutation can
+                introduce bugs where a shared array changes unexpectedly.</p>
+        </div>
+
+        <blockquote>
+            Source reference: <a href="https://www.w3schools.com/js/default.asp" target="_blank"
+                rel="noopener">W3Schools
+                JavaScript Tutorial</a>. These are original notes and summaries, not reproduced source material.
+        </blockquote>
+
+    </article>
+
+    <div class="article-footer">
+        <div class="author-card">
+            <div class="author-info">
+                <h4>Michael George</h4>
+                <p>13x Salesforce Certified · Principal Developer &amp; Architect</p>
+            </div>
+        </div>
+        <a href="../index.html#reading" class="back-btn">&larr; Back to Portfolio</a>
+    </div>
+
+    <footer>
+        &copy; 2026 Michael George
+    </footer>
+
+</body>
+
+</html>
