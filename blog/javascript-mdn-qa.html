@@ -77,7 +77,8 @@
             <h3><span class="qa-num">6.</span>When is an if/else chain a poor choice?</h3>
             <p>It becomes difficult to scan when many branches compare the same value or combine unrelated conditions.
                 A switch, lookup object, or separate strategy function can make the cases and their default behavior
-                more explicit. The best choice depends on whether the logic is data selection or complex computation.</p>
+                more explicit. The best choice depends on whether the logic is data selection or complex computation.
+            </p>
         </div>
 
         <div class="qa-item">
@@ -125,7 +126,8 @@
         </div>
 
         <div class="qa-item">
-            <h3><span class="qa-num">13.</span>What is the difference between an object's property and its prototype?</h3>
+            <h3><span class="qa-num">13.</span>What is the difference between an object's property and its prototype?
+            </h3>
             <p>A property belongs directly to an object or is resolved through its prototype chain. Prototypes allow
                 objects to share behavior without copying every method onto each instance. Code should be explicit about
                 ownership when checking or modifying properties.</p>
@@ -170,8 +172,10 @@
 
         <div class="qa-item">
             <h3><span class="qa-num">19.</span>How should errors be handled in reusable JavaScript code?</h3>
-            <p>Define which failures are expected, preserve useful context, and expose a predictable contract to callers.
-                Validate inputs at boundaries, use meaningful error types where helpful, and avoid returning a mixture of
+            <p>Define which failures are expected, preserve useful context, and expose a predictable contract to
+                callers.
+                Validate inputs at boundaries, use meaningful error types where helpful, and avoid returning a mixture
+                of
                 unrelated sentinel values and thrown exceptions for the same operation.</p>
         </div>
 

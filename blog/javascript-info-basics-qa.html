@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>JavaScript Getting Started Q&amp;A - Michael George</title>
+    <meta name="description"
+        content="Original Q&A notes on getting started with JavaScript development, based on javascript.info's introductory lessons." />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet" />
+    <link rel="stylesheet" href="qa-style.css" />
+</head>
+
+<body>
+
+    <nav>
+        <a href="../index.html" class="nav-brand">Michael <span>George</span></a>
+        <a href="../index.html#reading" class="back-link">&larr; Back to Portfolio</a>
+    </nav>
+
+    <div class="article-hero">
+        <div class="article-tag">Web Dev · JavaScript</div>
+        <h1 class="article-title">JavaScript Getting Started Q&amp;A</h1>
+        <div class="article-meta">August 2026 &nbsp;·&nbsp; Original notes based on javascript.info</div>
+    </div>
+
+    <article class="article-body">
+
+        <p>
+            Notes from javascript.info's introductory chapters: what JavaScript is, how to set up an editor and use
+            browser devtools, where to find authoritative documentation, and the two building blocks every script
+            starts with — data types and variables.
+        </p>
+
+        <h2>Setting Up to Write JavaScript</h2>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">1.</span>What is JavaScript, and where does it run?</h3>
+            <p>JavaScript is a scripting language originally built to add interactivity to web pages. It now runs in
+                every major browser and, outside the browser, in server-side and tooling environments such as Node.js —
+                the same core language, embedded in different hosts with different available APIs.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">2.</span>Why does the choice of code editor matter for learning a language?</h3>
+            <p>A good editor provides syntax highlighting, inline error detection, and debugging support, which turns
+                many mistakes into immediate feedback instead of confusing runtime failures. That faster feedback loop
+                matters more when a language's rules are still unfamiliar.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">3.</span>What is the browser developer console used for?</h3>
+            <p>The console lets a developer run JavaScript directly against the current page, inspect errors, and print
+                debug output. It is the fastest way to experiment with a small snippet or check a variable's value
+                without editing and reloading a full script.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">4.</span>Why is it useful to know where the official language specification
+                lives?</h3>
+            <p>Tutorials simplify and sometimes go out of date. The ECMA-262 specification and the MDN reference define
+                exact behavior, which matters when a tutorial's explanation and an edge case in real code disagree.
+                Knowing where to check removes guesswork.</p>
+        </div>
+
+        <h2>Values, Types, and Variables</h2>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">5.</span>Why does JavaScript being dynamically typed matter in practice?</h3>
+            <p>A variable is not locked to one type; it holds whatever value was last assigned to it. This gives
+                flexibility but also means the type of a value can only be verified at the point it's used, so relying
+                on incidental type consistency is risky without validation.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">6.</span>What is the practical difference between primitive types and the rest of
+                a program's data?</h3>
+            <p>Numbers, strings, booleans, bigint, symbol, null, and undefined are primitive: simple, immutable values
+                compared by their content. Everything else built from them, such as objects and arrays, is compared by
+                reference, which changes how equality and copying behave.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">7.</span>Why should a variable's name communicate intent?</h3>
+            <p>A variable is just a labeled storage location, but the label is the main thing another reader has to go
+                on. A name that states what the value represents (rather than its type or a generic placeholder) makes
+                the surrounding logic easier to follow without extra comments.</p>
+        </div>
+
+        <blockquote>
+            Source reference: <a href="https://javascript.info/" target="_blank" rel="noopener">javascript.info</a> —
+            "The Modern JavaScript Tutorial." These are original notes and summaries, not reproduced source material.
+        </blockquote>
+
+    </article>
+
+    <div class="article-footer">
+        <div class="author-card">
+            <div class="author-info">
+                <h4>Michael George</h4>
+                <p>13x Salesforce Certified · Principal Developer &amp; Architect</p>
+            </div>
+        </div>
+        <a href="../index.html#reading" class="back-btn">&larr; Back to Portfolio</a>
+    </div>
+
+    <footer>
+        &copy; 2026 Michael George
+    </footer>
+
+</body>
+
+</html>
