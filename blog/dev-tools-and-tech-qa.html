@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Dev Tools &amp; Emerging Tech Q&amp;A - Michael George</title>
+    <meta name="description"
+        content="Original Q&A notes on VS Code setup, prompt engineering, MCP in Visual Studio, TensorFlow Lite/LiteRT, web.dev HTML basics, DevOps language choice, and display technology." />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet" />
+    <link rel="stylesheet" href="qa-style.css" />
+</head>
+
+<body>
+
+    <nav>
+        <a href="../index.html" class="nav-brand">Michael <span>George</span></a>
+        <a href="../index.html#reading" class="back-link">&larr; Back to Portfolio</a>
+    </nav>
+
+    <div class="article-hero">
+        <div class="article-tag">Web Dev · Tools &amp; Tech</div>
+        <h1 class="article-title">Dev Tools &amp; Emerging Tech Q&amp;A</h1>
+        <div class="article-meta">August 2026 &nbsp;·&nbsp; Original notes from a mixed set of developer-tooling
+            and tech articles</div>
+    </div>
+
+    <article class="article-body">
+        <p>A grab-bag of shorter notes: editor setup, prompt engineering fundamentals from two more sources, an
+            AI-assisted coding feature, a mobile ML runtime rename, choosing a DevOps scripting language, HTML
+            basics, a podcast retrospective, and two hardware notes on modern laptops and displays.</p>
+
+        <h2>Editors and AI-Assisted Coding</h2>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">1.</span>What is the first thing worth configuring in a new VS Code
+                setup?</h3>
+            <p>Beyond installing the editor, the highest-value early steps are choosing language-specific
+                extensions, a consistent formatter, and source control integration — the pieces that shape daily
+                workflow far more than default settings do.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">2.</span>What does "agent mode" add to an editor's AI assistance beyond
+                autocomplete?</h3>
+            <p>Agent mode lets the assistant plan and execute multi-step changes — editing multiple files, running
+                terminal commands, and iterating on its own output — rather than only suggesting the next few
+                tokens at the cursor.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">3.</span>Why does MCP (Model Context Protocol) support matter for an editor's
+                agent mode?</h3>
+            <p>MCP standardizes how an AI agent connects to external tools and data sources. Support for it means an
+                editor's agent isn't limited to a fixed built-in toolset — it can reach project-specific or
+                third-party tools through a common protocol instead of custom one-off integrations.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">4.</span>What does a dedicated SOQL extension add over writing queries as plain
+                strings in Apex?</h3>
+            <p>A SOQL-aware extension provides syntax highlighting, autocomplete against the org's actual schema, and
+                a way to run and preview query results directly in the editor — catching field-name typos and query
+                errors before deployment instead of at runtime.</p>
+        </div>
+
+        <h2>Prompt Engineering, Two More Views</h2>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">5.</span>How does a cloud vendor's framing of prompt engineering differ from a
+                general tutorial?</h3>
+            <p>A vendor's guide typically ties the same core techniques (clear instructions, examples, constraints)
+                to its own model APIs and tooling, which is useful once a specific platform has been chosen but adds
+                platform-specific assumptions on top of the underlying technique.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">6.</span>Why do best-practice lists for prompting tend to converge across
+                sources?</h3>
+            <p>The underlying mechanism — a model predicting likely continuations from its input — doesn't change
+                between vendors, so techniques like being specific, providing examples, and constraining output
+                format work for the same underlying reasons regardless of which guide states them.</p>
+        </div>
+
+        <h2>ML Runtimes and Naming Changes</h2>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">7.</span>Why would a mature project like TensorFlow Lite get renamed rather
+                than simply updated?</h3>
+            <p>A rename to LiteRT signals a broader mandate — supporting multiple frameworks beyond TensorFlow
+                models on-device — rather than a version bump. It's a sign the tool's scope changed enough that the
+                old name no longer described what it does.</p>
+        </div>
+
+        <h2>Language Choice and Web Fundamentals</h2>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">8.</span>What should drive the choice of scripting language for DevOps
+                automation?</h3>
+            <p>Team familiarity, the target platform's native tooling (PowerShell on Windows, Bash on Linux), and
+                the ecosystem of existing automation matter more than a language's general popularity — consistency
+                with what the team already maintains reduces long-term operational risk.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">9.</span>Why start web development with HTML rather than CSS or JavaScript
+                first?</h3>
+            <p>HTML defines the structure and semantics of a page — headings, lists, forms, and landmarks. Both
+                styling and behavior are applied to that structure, so understanding it first makes CSS selectors
+                and JavaScript DOM manipulation easier to reason about later.</p>
+        </div>
+
+        <h2>Retrospectives and Hardware</h2>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">10.</span>What value does a long-running podcast's retrospective provide beyond
+                nostalgia?</h3>
+            <p>A retrospective across hundreds of episodes surfaces which topics and guests proved durable versus
+                which were tied to a passing trend, giving a compressed view of how a field's priorities shifted
+                over the life of the show.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">11.</span>Why does a laptop's chipset (like a new Snapdragon variant) matter
+                beyond raw benchmark numbers?</h3>
+            <p>Chipset choice affects battery life, thermal behavior under sustained load, and software
+                compatibility (native vs. emulated apps) — factors that matter more for daily use than peak
+                benchmark scores that are rarely sustained in practice.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">12.</span>Why is "OLED burn-in is overblown" not the same claim as "OLED has no
+                downsides versus IPS"?</h3>
+            <p>Burn-in risk on modern OLED panels is much lower than older marketing fears suggested, but IPS still
+                wins on other axes such as static-content longevity and cost — the two panel types have different
+                tradeoffs, and dismissing one concern doesn't erase the others.</p>
+        </div>
+
+        <blockquote>
+            Sources: AWS, Visual Studio Blog, Google for Developers, Google Developers Blog, cs.fyi, web.dev,
+            Talk Python, and XDA Developers. These are original notes and summaries, not reproduced source
+            material.
+        </blockquote>
+    </article>
+
+    <div class="article-footer">
+        <div class="author-card">
+            <div class="author-info">
+                <h4>Michael George</h4>
+                <p>13x Salesforce Certified · Principal Developer &amp; Architect</p>
+            </div>
+        </div>
+        <a href="../index.html#reading" class="back-btn">&larr; Back to Portfolio</a>
+    </div>
+
+    <footer>&copy; 2026 Michael George</footer>
+
+</body>
+
+</html>
