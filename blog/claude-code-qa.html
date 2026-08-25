@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Claude Code Q&amp;A — Setup, Context, Hooks &amp; the Agent SDK</title>
+    <meta name="description"
+        content="Q&A on Claude Code: installation, project setup, context control, custom commands, hooks, the Agent SDK, and GitHub integration." />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet" />
+    <link rel="stylesheet" href="qa-style.css" />
+</head>
+
+<body>
+
+    <nav>
+        <a href="../index.html" class="nav-brand">Michael <span>George</span></a>
+        <a href="../index.html#reading" class="back-link">← Back to Portfolio</a>
+    </nav>
+
+    <div class="article-hero">
+        <div class="article-tag">AI · Coding Assistants</div>
+        <h1 class="article-title">Claude Code Q&amp;A — Setup, Context, Hooks &amp; the Agent SDK</h1>
+        <div class="article-meta">August 2026 &nbsp;·&nbsp; Based on Anthropic's Claude 101 and "Claude Code in
+            Action" courses, plus the official Claude Code docs</div>
+    </div>
+
+    <article class="article-body">
+
+        <p>
+            Notes from Anthropic's <a href="https://anthropic.skilljar.com/claude-101" target="_blank"
+                rel="noopener">Claude 101</a> and <a href="https://anthropic.skilljar.com/claude-code-in-action"
+                target="_blank" rel="noopener">Claude Code in Action</a> courses, plus the
+            <a href="https://code.claude.com/docs/en/overview" target="_blank" rel="noopener">official Claude Code
+                docs</a>. Covers going from a first Claude conversation to running longer, less-supervised Claude
+            Code sessions with hooks and the Agent SDK.
+        </p>
+
+        <h2>Getting Started</h2>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">1.</span>What is Claude, at a basic level?</h3>
+            <p>Claude is Anthropic's AI assistant — a large language model you converse with in natural language to
+                get help with writing, research, analysis, and (via Claude Code) software development tasks.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">2.</span>What is Claude Code, and how is it different from asking Claude a
+                question in a chat window?</h3>
+            <p>Claude Code is an agentic coding tool: instead of just answering questions, it reads your actual
+                codebase, edits files, runs terminal commands, and iterates — available in the terminal, VS Code,
+                JetBrains, a desktop app, and the web, all sharing the same underlying engine.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">3.</span>What are the main ways to install Claude Code?</h3>
+            <p>A native installer (curl script on macOS/Linux/WSL, PowerShell on Windows), Homebrew (
+                <code>brew install --cask claude-code</code>), WinGet, or Linux package managers (apt/dnf/apk) —
+                native installs auto-update in the background, while Homebrew and WinGet require a manual upgrade
+                command.
+            </p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">4.</span>What is involved in "project setup" before using Claude Code on a
+                repo?</h3>
+            <p>Making sure Claude Code can orient itself in the project — this includes having a clean git state,
+                relevant docs available, and optionally a <code>CLAUDE.md</code> file with project-specific
+                conventions so Claude behaves consistently across sessions.</p>
+        </div>
+
+        <h2>Working With Claude Code Day-to-Day</h2>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">5.</span>How does Claude Code actually make changes to a codebase?</h3>
+            <p>It plans an approach, edits files directly, and shows you the diff — you review the change and can
+                ask for adjustments before accepting, similar to reviewing a colleague's pull request rather than
+                writing the code yourself line by line.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">6.</span>What does "controlling context" mean in a Claude Code session, and
+                why does it matter for long sessions?</h3>
+            <p>It means scoping what Claude works on (e.g., with plan mode) and managing how conversation history is
+                compacted as a session runs long, so summaries retain what matters instead of losing important
+                earlier decisions as the context window fills up.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">7.</span>What's the practical difference between "adding context" and
+                "controlling context"?</h3>
+            <p>Adding context is proactively giving Claude Code the right inputs (files, docs, instructions) up
+                front for a specific task; controlling context is managing the accumulated conversation/session
+                state over time so a long-running session stays focused and doesn't drift.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">8.</span>What are custom commands (skills) in Claude Code, and when should you
+                create one?</h3>
+            <p>Custom commands package a repeated procedure — like <code>/review-pr</code> or
+                <code>/deploy-staging</code> — into a reusable, on-demand action. Create one whenever you find
+                yourself typing the same multi-step instructions to Claude Code repeatedly.
+            </p>
+        </div>
+
+        <h2>Extending Claude Code: MCP, Hooks &amp; GitHub</h2>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">9.</span>What is MCP, and why would you connect an MCP server to Claude
+                Code?</h3>
+            <p>The Model Context Protocol is an open standard for connecting AI tools to external data sources and
+                systems — connecting an MCP server lets Claude Code read design docs, update tickets, pull chat
+                history, or call custom internal tooling directly from a session.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">10.</span>What is a Claude Code hook, and what problem does it solve?</h3>
+            <p>A hook is a shell command that runs automatically before or after a Claude Code action (like a file
+                edit) to enforce a rule that must never be skipped — for example, auto-formatting after every edit
+                or blocking a commit until tests pass.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">11.</span>How does a hook actually control whether Claude Code's action is
+                allowed to proceed?</h3>
+            <p>Hooks communicate back to Claude Code via a permission-decision JSON payload and process exit codes —
+                a non-zero exit (or a "deny" decision) blocks the action and can feed an explanation back into the
+                loop so Claude can self-correct.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">12.</span>What's a good first hook to implement, and why?</h3>
+            <p>A verification hook that checks Claude's own work — e.g., running the test suite or a linter after
+                an edit — because it directly demonstrates the value of hooks: catching problems automatically
+                instead of relying on a human to remember to check.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">13.</span>What's a common "gotcha" to watch for when writing Claude Code
+                hooks?</h3>
+            <p>Hooks that are too aggressive or too slow can block legitimate work or make sessions feel unusable —
+                it's easy to over-constrain a hook (denying too much) or under-constrain it (allowing the exact
+                thing it was meant to prevent) if the trigger conditions aren't tested carefully.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">14.</span>What does Claude Code's GitHub integration let you automate?</h3>
+            <p>The managed GitHub Action wires Claude into pull requests for automated code review and can respond
+                to issues or PR comments, letting review feedback happen without a human manually invoking Claude
+                Code each time.</p>
+        </div>
+
+        <h2>Going Further: The Agent SDK</h2>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">15.</span>What is the Claude Code Agent SDK, and who is it for?</h3>
+            <p>It's a toolkit for developers who want to build fully custom agents powered by Claude Code's
+                underlying tools and permission model, rather than using the CLI/IDE surfaces directly — useful
+                when you need a bespoke agent embedded in your own product or pipeline.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">16.</span>Why would a team choose to build on the Agent SDK instead of just
+                scripting the Claude Code CLI?</h3>
+            <p>The SDK exposes finer-grained control over orchestration, tool access, and permissions than
+                shelling out to the CLI, which matters when an agent needs to be embedded in a larger automated
+                system rather than run interactively by a human.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">17.</span>What are the different surfaces Claude Code can run on, and why does
+                that matter?</h3>
+            <p>Terminal, VS Code, JetBrains, a standalone desktop app, and the web — all sharing the same engine,
+                so a project's <code>CLAUDE.md</code>, settings, and MCP servers work identically no matter which
+                surface a session runs on, letting you move a task from your laptop to your phone mid-session.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">18.</span>What's the VS Code extension specifically good for that the CLI
+                alone isn't?</h3>
+            <p>It surfaces Claude Code inline in the editor — inline diffs, @-mentions of files, plan review, and
+                conversation history — so you can review and steer changes visually instead of reading a terminal
+                transcript.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">19.</span>How would you summarize the overall skill progression this course
+                content teaches, from "Claude 101" to "Claude Code in Action"?</h3>
+            <p>Start with basic conversational use of Claude (101), then move to using Claude Code for real edits
+                on a real repo, then to controlling and extending long sessions with context management and hooks,
+                and finally to building fully custom agents on the SDK for unattended, automated workflows.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">20.</span>Why does Anthropic include a knowledge-check quiz partway through
+                the "Claude Code in Action" course?</h3>
+            <p>To reinforce the setup/context/making-changes fundamentals before introducing hooks and the SDK —
+                those later, more powerful features assume you're already comfortable with the basic
+                edit-review-iterate loop.</p>
+        </div>
+
+        <blockquote>
+            Sources: <a href="https://anthropic.skilljar.com/claude-101" target="_blank" rel="noopener">Claude
+                101</a>, <a href="https://anthropic.skilljar.com/claude-code-in-action" target="_blank"
+                rel="noopener">Claude Code in Action</a> (Anthropic), and the
+            <a href="https://code.claude.com/docs/en/overview" target="_blank" rel="noopener">official Claude Code
+                docs</a>.
+        </blockquote>
+
+    </article>
+
+    <div class="article-footer">
+        <div class="author-card">
+            <div class="author-info">
+                <h4>Michael George</h4>
+                <p>13× Salesforce Certified · Principal Developer &amp; Architect</p>
+            </div>
+        </div>
+        <a href="../index.html#reading" class="back-btn">← Back to Portfolio</a>
+    </div>
+
+    <footer>
+        &copy; 2026 Michael George
+    </footer>
+
+</body>
+
+</html>
