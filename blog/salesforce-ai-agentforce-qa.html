@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Salesforce AI &amp; Agentforce Q&amp;A - Michael George</title>
+    <meta name="description"
+        content="Original Q&A on Einstein, Agentforce, generative AI, and AI agents within the Salesforce platform." />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet" />
+    <link rel="stylesheet" href="qa-style.css" />
+</head>
+
+<body>
+    <nav>
+        <a href="../index.html" class="nav-brand">Michael <span>George</span></a>
+        <a href="../index.html#reading" class="back-link">&larr; Back to Portfolio</a>
+    </nav>
+    <div class="article-hero">
+        <div class="article-tag">Salesforce · AI &amp; Agentforce</div>
+        <h1 class="article-title">Salesforce AI &amp; Agentforce Q&amp;A</h1>
+        <div class="article-meta">August 2026 &nbsp;·&nbsp; Original notes based on Salesforce Trailhead and
+            developer documentation</div>
+    </div>
+    <article class="article-body">
+        <p>Notes on Salesforce's AI capabilities: the evolution from Einstein to Agentforce, generative AI features,
+            and how autonomous agents fit into the CRM platform.</p>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">1.</span>What is the difference between Einstein's predictive AI features and
+                Agentforce's agentic capabilities?</h3>
+            <p>Einstein's earlier predictive features score or classify existing data (lead scoring, opportunity
+                insights). Agentforce introduces autonomous agents that can take multi-step actions — answering
+                questions, updating records, executing workflows — with defined guardrails.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">2.</span>What is the Agent API, and why would a developer use it instead of
+                the standard Agentforce builder UI?</h3>
+            <p>The Agent API lets developers programmatically create and interact with custom AI agents outside
+                the point-and-click builder, useful when an agent needs to be embedded in a custom application or
+                requires logic beyond what the declarative builder supports.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">3.</span>Why does grounding matter for an Agentforce agent's reliability?</h3>
+            <p>Grounding ties an agent's responses to real, trusted data (CRM records, knowledge articles) rather
+                than relying purely on a language model's generated text, reducing the risk of the agent stating
+                inaccurate or fabricated information.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">4.</span>What role does natural language processing play beneath a
+                conversational agent feature?</h3>
+            <p>NLP is what lets the agent interpret varied phrasings of the same user intent (a support question, a
+                data lookup request) and map them to structured actions — without it, the agent would need rigid,
+                exact-match input rather than flexible conversation.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">5.</span>Why are Agentforce Sales agents scoped differently from general
+                Agentforce agents?</h3>
+            <p>Sales-specific agents are pre-configured around sales workflows (lead qualification, pipeline
+                updates) with relevant actions and data access built in, reducing setup effort compared to building
+                an equivalent capability from a general-purpose agent template.</p>
+        </div>
+
+        <blockquote>
+            Sources: Salesforce Trailhead AI modules and developer documentation. These are original notes and
+            summaries, not reproduced source material.
+        </blockquote>
+    </article>
+    <div class="article-footer">
+        <div class="author-card">
+            <div class="author-info">
+                <h4>Michael George</h4>
+                <p>13x Salesforce Certified · Principal Developer &amp; Architect</p>
+            </div>
+        </div>
+        <a href="../index.html#reading" class="back-btn">&larr; Back to Portfolio</a>
+    </div>
+    <footer>&copy; 2026 Michael George</footer>
+</body>
+
+</html>

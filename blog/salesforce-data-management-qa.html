@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Salesforce Data Management Q&amp;A - Michael George</title>
+    <meta name="description"
+        content="Original Q&A on Data Loader, data quality, large data volumes, and duplicate management in Salesforce." />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet" />
+    <link rel="stylesheet" href="qa-style.css" />
+</head>
+
+<body>
+    <nav>
+        <a href="../index.html" class="nav-brand">Michael <span>George</span></a>
+        <a href="../index.html#reading" class="back-link">&larr; Back to Portfolio</a>
+    </nav>
+    <div class="article-hero">
+        <div class="article-tag">Salesforce · Data Management</div>
+        <h1 class="article-title">Salesforce Data Management Q&amp;A</h1>
+        <div class="article-meta">August 2026 &nbsp;·&nbsp; Original notes based on Salesforce developer and
+            help documentation</div>
+    </div>
+    <article class="article-body">
+        <p>Notes on managing data at scale in Salesforce: loading data efficiently, keeping it clean, and
+            structuring a data model that stays performant as record volumes grow.</p>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">1.</span>Why would you use Data Loader instead of the standard Import
+                Wizard?</h3>
+            <p>Data Loader supports larger volumes, scheduled/automated loads, and all standard and custom objects,
+                while the Import Wizard is a simpler UI tool limited to a smaller set of objects and manual,
+                one-off imports.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">2.</span>What is PK Chunking, and when is it needed for extracting data?</h3>
+            <p>PK Chunking splits a very large extract query into smaller chunks based on record ID ranges,
+                preventing timeouts when pulling large data volumes (tens of millions of records) that a single
+                query couldn't process within normal limits.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">3.</span>Why does a well-tuned data model matter before a large data load
+                rather than after?</h3>
+            <p>Indexes, relationship structure, and sharing settings affect how efficiently large volumes of
+                records can be loaded and later queried. Fixing model issues before a load avoids costly rework and
+                potential data cleanup once millions of records are already in place.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">4.</span>Why is duplicate management treated as an ongoing process rather
+                than a one-time cleanup?</h3>
+            <p>New duplicates enter continuously through manual entry, imports, and integrations. Matching and
+                duplicate rules that run at the point of entry (rather than only a periodic cleanup job) are
+                needed to prevent the problem from recurring.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">5.</span>Why does a cross-object formula field have limitations compared to
+                a same-object formula?</h3>
+            <p>A cross-object formula can only traverse specific relationship types (typically lookup/master-detail
+                upward), and changes in the referenced object don't always propagate as immediately as same-object
+                fields — a limitation to plan around when designing calculated fields.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">6.</span>What does an exchange rate field manage, and why is it relevant to
+                data management specifically?</h3>
+            <p>Exchange rate fields let multi-currency orgs report on financial data consistently across
+                currencies — a data-quality concern because inconsistent or stale exchange rates would produce
+                inaccurate reporting even if the underlying transactional data is correct.</p>
+        </div>
+
+        <blockquote>
+            Sources: Salesforce Data Loader Guide, Bulk API documentation, and related help articles. These are
+            original notes and summaries, not reproduced source material.
+        </blockquote>
+    </article>
+    <div class="article-footer">
+        <div class="author-card">
+            <div class="author-info">
+                <h4>Michael George</h4>
+                <p>13x Salesforce Certified · Principal Developer &amp; Architect</p>
+            </div>
+        </div>
+        <a href="../index.html#reading" class="back-btn">&larr; Back to Portfolio</a>
+    </div>
+    <footer>&copy; 2026 Michael George</footer>
+</body>
+
+</html>

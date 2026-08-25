@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Salesforce Flow &amp; Automation Q&amp;A - Michael George</title>
+    <meta name="description"
+        content="Original Q&A on Flow Builder, record-triggered flows, decision logic, and declarative automation design, based on Salesforce documentation." />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet" />
+    <link rel="stylesheet" href="qa-style.css" />
+</head>
+
+<body>
+    <nav>
+        <a href="../index.html" class="nav-brand">Michael <span>George</span></a>
+        <a href="../index.html#reading" class="back-link">&larr; Back to Portfolio</a>
+    </nav>
+
+    <div class="article-hero">
+        <div class="article-tag">Salesforce · Flow &amp; Automation</div>
+        <h1 class="article-title">Salesforce Flow &amp; Automation Q&amp;A</h1>
+        <div class="article-meta">August 2026 &nbsp;·&nbsp; Original notes based on Salesforce documentation</div>
+    </div>
+
+    <article class="article-body">
+        <p>Notes on declarative automation: Flow Builder's building blocks, record-triggered flows, decision logic
+            (including decision tables and matrices), and how to choose the right automation tool for a given
+            requirement.</p>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">1.</span>How should you decide between a record-triggered flow, a screen
+                flow, and Apex?</h3>
+            <p>Record-triggered flows suit backend automation reacting to data changes; screen flows suit guided
+                user interactions; Apex suits logic too complex, performance-sensitive, or programmatically
+                testable for declarative tools. The decision hinges on who initiates the process and how complex
+                the logic is.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">2.</span>What is the difference between a before-save and an after-save
+                record-triggered flow?</h3>
+            <p>A before-save flow can update the triggering record's own fields without a second save operation,
+                making it faster for simple field updates. An after-save flow can update related records and
+                trigger further automation, needed for anything beyond the current record.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">3.</span>Why do entry conditions matter as much as the flow's actual
+                logic?</h3>
+            <p>Entry conditions determine whether the flow runs at all. Loose or missing entry conditions cause a
+                flow to fire for irrelevant changes, wasting resources and increasing the risk of recursion or
+                unintended side effects on unrelated updates.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">4.</span>What is the purpose of a subflow?</h3>
+            <p>A subflow lets one flow call another, reusable flow — similar to calling a function. This avoids
+                duplicating the same logic across multiple parent flows and centralizes maintenance to one place
+                when that shared logic changes.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">5.</span>How do loops in Flow differ from loops in Apex in terms of risk?</h3>
+            <p>A loop in Flow that contains a DML or query element inside it can hit governor limits just as easily
+                as un-bulkified Apex — Flow doesn't automatically bulkify DML placed inside a loop, so the same
+                "collect first, then act once" discipline applies.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">6.</span>What problem do decision tables and decision matrices solve compared
+                to a long chain of Decision elements?</h3>
+            <p>They let you express many condition/outcome combinations as structured rows rather than a nested
+                tree of if/else branches, which is easier to read, maintain, and update (including via CSV import)
+                as the number of business rules grows.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">7.</span>Why does the order in which automations run matter for a single
+                object?</h3>
+            <p>If multiple flows, validation rules, and triggers act on the same object, execution order determines
+                what data each one sees. Salesforce documents a specific save order, and designs that assume a
+                different order can produce inconsistent results.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">8.</span>What is the value of using Flow features like Get/Update/Create
+                Records versus writing equivalent Apex?</h3>
+            <p>These elements let admins and lower-code developers implement CRUD-style automation without writing
+                or maintaining code, at the cost of some flexibility and performance control compared to
+                hand-written, bulk-optimized Apex.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">9.</span>Why should automation documentation matter as much as the automation
+                itself?</h3>
+            <p>Flows built by different people over time can silently interact. Clear naming, descriptions, and
+                documented entry conditions make it possible for someone new to the org to understand what will
+                fire and why before making a change that could conflict with existing automation.</p>
+        </div>
+
+        <blockquote>
+            Sources: Salesforce Flow documentation, Salesforce Admins blog, and related Automate This! posts.
+            These are original notes and summaries, not reproduced source material.
+        </blockquote>
+    </article>
+
+    <div class="article-footer">
+        <div class="author-card">
+            <div class="author-info">
+                <h4>Michael George</h4>
+                <p>13x Salesforce Certified · Principal Developer &amp; Architect</p>
+            </div>
+        </div>
+        <a href="../index.html#reading" class="back-btn">&larr; Back to Portfolio</a>
+    </div>
+
+    <footer>&copy; 2026 Michael George</footer>
+</body>
+
+</html>

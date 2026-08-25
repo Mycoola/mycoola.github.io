@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Lightning Web Components Q&amp;A - Michael George</title>
+    <meta name="description"
+        content="Original Q&A on Lightning Web Components fundamentals, compared with Aura and Visualforce." />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet" />
+    <link rel="stylesheet" href="qa-style.css" />
+</head>
+
+<body>
+    <nav>
+        <a href="../index.html" class="nav-brand">Michael <span>George</span></a>
+        <a href="../index.html#reading" class="back-link">&larr; Back to Portfolio</a>
+    </nav>
+    <div class="article-hero">
+        <div class="article-tag">Salesforce · Lightning Web Components</div>
+        <h1 class="article-title">Lightning Web Components Q&amp;A</h1>
+        <div class="article-meta">August 2026 &nbsp;·&nbsp; Original notes based on Salesforce developer
+            documentation</div>
+    </div>
+    <article class="article-body">
+        <p>Notes on Lightning Web Components (LWC): what they are, how they compare to Aura and Visualforce, and
+            the core patterns for building and testing them.</p>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">1.</span>Why did Salesforce introduce LWC alongside Aura instead of
+                replacing it outright?</h3>
+            <p>LWC is built on native web standards (Web Components, ES6+) and interoperates with existing Aura
+                components, letting orgs adopt it incrementally in new components while keeping working Aura
+                components running rather than forcing an all-or-nothing rewrite.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">2.</span>What is the role of the meta.xml configuration file in an LWC
+                bundle?</h3>
+            <p>It declares where a component can be used (record pages, app pages, Flow screens, etc.), its
+                exposed properties, and API version — the platform-facing contract that determines how and where
+                the component appears in the builder tools.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">3.</span>What is the difference between a public property and a getter in an
+                LWC's JavaScript file?</h3>
+            <p>A public (`@api`) property is set directly by a parent component or the page. A getter computes a
+                derived value from other reactive state each time it's accessed — useful for formatted or combined
+                values that shouldn't be stored redundantly.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">4.</span>Why does Lightning Web Components: Open Source matter for developers
+                outside Salesforce orgs?</h3>
+            <p>The open-source LWC engine lets developers build and run LWC-style components outside a Salesforce
+                org entirely, which both broadens the skill's applicability and helps clarify which parts of LWC
+                are platform-specific versus general web standards.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">5.</span>What should a component's tests focus on, beyond just "does it
+                render"?</h3>
+            <p>Good LWC tests should verify behavior in response to user interaction and prop/state changes —
+                button clicks triggering the right event, computed getters updating correctly — not just that the
+                markup exists in the DOM.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">6.</span>Why does choosing "Lightning Web Components or Aura" still come up
+                as a real decision?</h3>
+            <p>Some legacy functionality and certain older UI extension points remain Aura-specific, so a team
+                maintaining an established org may still need Aura knowledge even while defaulting to LWC for all
+                new development.</p>
+        </div>
+
+        <blockquote>
+            Sources: Salesforce Lightning Component Library documentation. These are original notes and
+            summaries, not reproduced source material.
+        </blockquote>
+    </article>
+    <div class="article-footer">
+        <div class="author-card">
+            <div class="author-info">
+                <h4>Michael George</h4>
+                <p>13x Salesforce Certified · Principal Developer &amp; Architect</p>
+            </div>
+        </div>
+        <a href="../index.html#reading" class="back-btn">&larr; Back to Portfolio</a>
+    </div>
+    <footer>&copy; 2026 Michael George</footer>
+</body>
+
+</html>

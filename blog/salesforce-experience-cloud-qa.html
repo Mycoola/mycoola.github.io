@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Salesforce Experience Cloud Q&amp;A - Michael George</title>
+    <meta name="description"
+        content="Original Q&A on Experience Cloud sites, LWR sites, digital identity, and org-level branding." />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet" />
+    <link rel="stylesheet" href="qa-style.css" />
+</head>
+
+<body>
+    <nav>
+        <a href="../index.html" class="nav-brand">Michael <span>George</span></a>
+        <a href="../index.html#reading" class="back-link">&larr; Back to Portfolio</a>
+    </nav>
+    <div class="article-hero">
+        <div class="article-tag">Salesforce · Experience Cloud</div>
+        <h1 class="article-title">Salesforce Experience Cloud Q&amp;A</h1>
+        <div class="article-meta">August 2026 &nbsp;·&nbsp; Original notes based on Salesforce developer
+            documentation</div>
+    </div>
+    <article class="article-body">
+        <p>Notes on building external-facing sites and portals with Experience Cloud, including the newer
+            LWR (Lightning Web Runtime) site type and identity considerations.</p>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">1.</span>What is an LWR site, and how does it differ from a standard
+                Aura-based Experience Cloud site?</h3>
+            <p>LWR sites are built on Lightning Web Components for faster performance and simpler theming, aimed
+                at public-facing sites where load speed matters more than deep Aura component compatibility that
+                older Experience Cloud templates supported.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">2.</span>Why would a team choose an LWR site over an existing Aura-based
+                template for a new build?</h3>
+            <p>New builds generally favor LWR for its performance profile and alignment with LWC as the platform's
+                primary component model, reserving Aura-based templates mainly for maintaining sites that already
+                depend on components not yet available in LWR.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">3.</span>What role does Salesforce Identity play for an Experience Cloud
+                site's external users?</h3>
+            <p>Identity manages authentication, registration, and login for external community/portal users
+                separately from internal employee licenses — letting an org expose a controlled slice of
+                functionality to customers or partners without granting full internal access.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">4.</span>Why does branding an org in Lightning Experience matter beyond
+                visual polish?</h3>
+            <p>Consistent branding across internal and external-facing surfaces reinforces trust and reduces user
+                confusion, especially when internal employees and external community users interact with related
+                but differently-themed instances of the same org.</p>
+        </div>
+
+        <blockquote>
+            Sources: Salesforce Developers documentation (LWR Sites for Experience Cloud, Salesforce Identity).
+            These are original notes and summaries, not reproduced source material.
+        </blockquote>
+    </article>
+    <div class="article-footer">
+        <div class="author-card">
+            <div class="author-info">
+                <h4>Michael George</h4>
+                <p>13x Salesforce Certified · Principal Developer &amp; Architect</p>
+            </div>
+        </div>
+        <a href="../index.html#reading" class="back-btn">&larr; Back to Portfolio</a>
+    </div>
+    <footer>&copy; 2026 Michael George</footer>
+</body>
+
+</html>

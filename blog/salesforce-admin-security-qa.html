@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Salesforce Admin, Security &amp; Data Access Q&amp;A - Michael George</title>
+    <meta name="description"
+        content="Original Q&A on Salesforce administration, security settings, permissions, record access, sharing, and territory management." />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet" />
+    <link rel="stylesheet" href="qa-style.css" />
+</head>
+
+<body>
+    <nav>
+        <a href="../index.html" class="nav-brand">Michael <span>George</span></a>
+        <a href="../index.html#reading" class="back-link">&larr; Back to Portfolio</a>
+    </nav>
+    <div class="article-hero">
+        <div class="article-tag">Salesforce · Admin &amp; Security</div>
+        <h1 class="article-title">Salesforce Admin, Security &amp; Data Access Q&amp;A</h1>
+        <div class="article-meta">August 2026 &nbsp;·&nbsp; Original notes based on Salesforce Help and Admins
+            documentation</div>
+    </div>
+    <article class="article-body">
+        <p>Notes on core administration topics: permissions, record-level access, sharing and locking at scale,
+            account/contact relationships, territory management, and everyday org objects like Activities and
+            Campaigns.</p>
+
+        <h2>Permissions and Access</h2>
+        <div class="qa-item">
+            <h3><span class="qa-num">1.</span>What is the difference between a profile and a permission set?</h3>
+            <p>Every user has exactly one profile, which sets a baseline of permissions and access. Permission
+                sets add extra permissions on top of that baseline without changing the profile, letting admins
+                grant narrow, specific access to a subset of users without cloning entire profiles.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">2.</span>Why does field-level security need to be checked in addition to
+                record sharing?</h3>
+            <p>Sharing determines whether a user can see a record at all. Field-level security determines which
+                fields on that visible record they can read or edit — a user might see a record but not every
+                field on it, so both layers have to align with the intended access model.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">3.</span>What is masking used for in a Salesforce org?</h3>
+            <p>Data masking obscures sensitive field values (like SSNs or financial data) for users or environments
+                that don't need to see the real values — commonly used in sandboxes so realistic test data doesn't
+                expose production-sensitive information.</p>
+        </div>
+
+        <h2>Record Access at Scale</h2>
+        <div class="qa-item">
+            <h3><span class="qa-num">4.</span>What is data skew, and why does it cause performance problems?</h3>
+            <p>Data skew happens when too many child records point to one parent (or too many records are owned by
+                one user/group). Sharing recalculation and record locking become expensive when a single parent or
+                owner has an outsized number of associated records.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">5.</span>What causes a "group membership operation already in progress"
+                error, and why is it treated as a locking issue?</h3>
+            <p>Group membership changes (adding/removing users from roles, groups, or territories) trigger sharing
+                recalculation, which locks related records during processing. Concurrent membership changes on
+                overlapping groups can collide, producing this lock-contention error.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">6.</span>What is the difference between original and enterprise territory
+                management?</h3>
+            <p>Enterprise Territory Management is the newer, more flexible model supporting multiple territory
+                hierarchies and more granular assignment rules, while original Territory Management is the legacy,
+                simpler model — new implementations default to the enterprise version.</p>
+        </div>
+
+        <h2>Everyday Objects and Setup</h2>
+        <div class="qa-item">
+            <h3><span class="qa-num">7.</span>What is an account team, and when is it useful beyond standard
+                account ownership?</h3>
+            <p>An account team lets multiple users collaborate on a single account with individually defined roles
+                and access levels, useful when more than one person (sales rep, support contact, executive sponsor)
+                needs tailored visibility into the same account.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">8.</span>Why does "who has access to campaigns" need its own documentation
+                rather than following standard sharing rules?</h3>
+            <p>Campaign access has its own visibility model separate from the standard sharing model, tied to
+                marketing user permissions — a common point of confusion since it doesn't behave like sharing rules
+                on typical custom or standard objects.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">9.</span>What determines when automation rules execute relative to each
+                other?</h3>
+            <p>Salesforce defines a specific save order for validation rules, workflow rules, flows, and triggers.
+                Understanding this order is necessary to predict which automation sees which version of a record's
+                data during a single save operation.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">10.</span>Why would an org need multiple Salesforce user license types?</h3>
+            <p>Different license types (Full user, Platform, Chatter Free, etc.) grant different feature access at
+                different cost points — matching license type to actual job function keeps licensing costs aligned
+                with what each user role actually needs.</p>
+        </div>
+
+        <blockquote>
+            Sources: Salesforce Help documentation and Designing Record Access for Enterprise Scale (Salesforce
+            Developers). These are original notes and summaries, not reproduced source material.
+        </blockquote>
+    </article>
+    <div class="article-footer">
+        <div class="author-card">
+            <div class="author-info">
+                <h4>Michael George</h4>
+                <p>13x Salesforce Certified · Principal Developer &amp; Architect</p>
+            </div>
+        </div>
+        <a href="../index.html#reading" class="back-btn">&larr; Back to Portfolio</a>
+    </div>
+    <footer>&copy; 2026 Michael George</footer>
+</body>
+
+</html>

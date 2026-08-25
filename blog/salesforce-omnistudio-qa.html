@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Salesforce OmniStudio Q&amp;A - Michael George</title>
+    <meta name="description"
+        content="Original Q&A on OmniStudio (formerly Vlocity): OmniScripts, FlexCards, Integration Procedures, and Data Mappers." />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet" />
+    <link rel="stylesheet" href="qa-style.css" />
+</head>
+
+<body>
+    <nav>
+        <a href="../index.html" class="nav-brand">Michael <span>George</span></a>
+        <a href="../index.html#reading" class="back-link">&larr; Back to Portfolio</a>
+    </nav>
+    <div class="article-hero">
+        <div class="article-tag">Salesforce · OmniStudio</div>
+        <h1 class="article-title">Salesforce OmniStudio Q&amp;A</h1>
+        <div class="article-meta">August 2026 &nbsp;·&nbsp; Original notes based on Salesforce Help
+            documentation</div>
+    </div>
+    <article class="article-body">
+        <p>Notes on OmniStudio (formerly Vlocity): its component model, and how it compares to building the same
+            functionality with custom Salesforce development.</p>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">1.</span>What is the core value proposition of OmniStudio versus building
+                equivalent functionality in custom Apex and LWC?</h3>
+            <p>OmniStudio provides a declarative toolkit (OmniScripts, FlexCards, Integration Procedures) for
+                building guided processes and UI without extensive custom code, trading some flexibility for faster
+                configuration and easier maintenance by admins/architects rather than developers.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">2.</span>What is an OmniScript, at a conceptual level?</h3>
+            <p>An OmniScript is a configurable, multi-step guided process (similar in spirit to a screen flow) that
+                can call Integration Procedures and Data Mappers to orchestrate complex business processes through
+                a step-by-step UI.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">3.</span>What problem does an Integration Procedure solve that an OmniScript
+                alone doesn't?</h3>
+            <p>Integration Procedures handle server-side orchestration — calling Data Mappers, Apex actions, and
+                external services — separately from the UI-focused OmniScript, keeping data orchestration logic
+                reusable across multiple OmniScripts or FlexCards.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">4.</span>Why does knowing which OmniStudio version an org has matter before
+                building new components?</h3>
+            <p>OmniStudio has evolved through different packaging and licensing models (managed package vs. Core
+                platform features), and available capabilities/UI can differ meaningfully between versions —
+                building against the wrong assumptions can produce components that don't work as expected.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">5.</span>How does a FlexCard integrate with Knowledge or other data
+                sources?</h3>
+            <p>A FlexCard's data source configuration typically points to an Integration Procedure or Data Mapper
+                that retrieves the underlying records (including Knowledge articles), letting the card render live
+                data without embedding query logic directly in the card's display configuration.</p>
+        </div>
+
+        <blockquote>
+            Sources: Salesforce Help documentation (OmniStudio/OmniScript guides) and Salesforce Ben. These are
+            original notes and summaries, not reproduced source material.
+        </blockquote>
+    </article>
+    <div class="article-footer">
+        <div class="author-card">
+            <div class="author-info">
+                <h4>Michael George</h4>
+                <p>13x Salesforce Certified · Principal Developer &amp; Architect</p>
+            </div>
+        </div>
+        <a href="../index.html#reading" class="back-btn">&larr; Back to Portfolio</a>
+    </div>
+    <footer>&copy; 2026 Michael George</footer>
+</body>
+
+</html>

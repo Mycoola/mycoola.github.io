@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Salesforce Mobile Development Q&amp;A - Michael George</title>
+    <meta name="description"
+        content="Original Q&A on Salesforce Mobile SDK, the Salesforce mobile app, and offline mobile development." />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet" />
+    <link rel="stylesheet" href="qa-style.css" />
+</head>
+
+<body>
+    <nav>
+        <a href="../index.html" class="nav-brand">Michael <span>George</span></a>
+        <a href="../index.html#reading" class="back-link">&larr; Back to Portfolio</a>
+    </nav>
+    <div class="article-hero">
+        <div class="article-tag">Salesforce · Mobile</div>
+        <h1 class="article-title">Salesforce Mobile Development Q&amp;A</h1>
+        <div class="article-meta">August 2026 &nbsp;·&nbsp; Original notes based on Salesforce Mobile SDK
+            documentation</div>
+    </div>
+    <article class="article-body">
+        <p>Notes on building for Salesforce on mobile: the Salesforce mobile app itself, custom native/hybrid apps
+            via Mobile SDK, and offline data access with SmartStore.</p>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">1.</span>What is the difference between using the standard Salesforce mobile
+                app and building a custom app with Mobile SDK?</h3>
+            <p>The standard app gives immediate, configurable access to an org's data via pages and layouts. Mobile
+                SDK is for building fully custom native or hybrid apps with bespoke UI and behavior beyond what the
+                standard app's configuration options support.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">2.</span>Why does offline access matter enough to warrant a dedicated
+                SmartStore component?</h3>
+            <p>Field-based users (sales reps, technicians) often lose connectivity. SmartStore caches data locally
+                so the app remains usable offline, syncing changes back to Salesforce once connectivity returns,
+                rather than the app simply failing without a network connection.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">3.</span>What is a "soup" in the context of SmartStore, and why the unusual
+                terminology?</h3>
+            <p>A soup is SmartStore's term for a named local data store (similar to a table), holding structured
+                JSON documents with defined indexes — the term is specific to the SDK's API but the concept maps to
+                a familiar local database table.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">4.</span>Why does mobile push notification setup require registering with
+                both Salesforce and the device OS vendor?</h3>
+            <p>Delivering a push notification requires the OS vendor's push service (Apple/Google) to route the
+                message to the device, and Salesforce to originate and target the notification — both halves of the
+                pipeline need proper registration and configuration to work end-to-end.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">5.</span>What should be considered before adding SmartStore to an existing
+                Android or iOS app rather than starting a new Mobile SDK project?</h3>
+            <p>Retrofitting offline storage into an app not designed for it requires reconciling existing data flow
+                and state management with SmartStore's local-first model — a bigger structural change than adding
+                offline support from the start of a new project.</p>
+        </div>
+
+        <blockquote>
+            Sources: Salesforce Mobile SDK Development Guide. These are original notes and summaries, not
+            reproduced source material.
+        </blockquote>
+    </article>
+    <div class="article-footer">
+        <div class="author-card">
+            <div class="author-info">
+                <h4>Michael George</h4>
+                <p>13x Salesforce Certified · Principal Developer &amp; Architect</p>
+            </div>
+        </div>
+        <a href="../index.html#reading" class="back-btn">&larr; Back to Portfolio</a>
+    </div>
+    <footer>&copy; 2026 Michael George</footer>
+</body>
+
+</html>

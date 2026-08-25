@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Salesforce DevOps &amp; Developer Tooling Q&amp;A - Michael George</title>
+    <meta name="description"
+        content="Original Q&A on Salesforce DX, sf CLI, packaging, sandboxes, VS Code tooling, and code quality tools." />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet" />
+    <link rel="stylesheet" href="qa-style.css" />
+</head>
+
+<body>
+    <nav>
+        <a href="../index.html" class="nav-brand">Michael <span>George</span></a>
+        <a href="../index.html#reading" class="back-link">&larr; Back to Portfolio</a>
+    </nav>
+    <div class="article-hero">
+        <div class="article-tag">Salesforce · DevOps &amp; Tooling</div>
+        <h1 class="article-title">Salesforce DevOps &amp; Developer Tooling Q&amp;A</h1>
+        <div class="article-meta">August 2026 &nbsp;·&nbsp; Original notes based on Salesforce Developers
+            documentation</div>
+    </div>
+    <article class="article-body">
+        <p>Notes on the Salesforce development lifecycle: source-driven development, packaging, sandboxes, the
+            retirement of legacy migration tools, and the VS Code extension ecosystem.</p>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">1.</span>Why did Salesforce move teams from the Ant Migration Tool to the sf
+                CLI?</h3>
+            <p>The sf CLI supports source-driven development with modern package-based deployment, scratch orgs,
+                and CI/CD integration, whereas the Ant Migration Tool was built around older change-set style
+                deployment — the shift reflects the platform's move toward standard software delivery practices.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">2.</span>What is the practical difference between a scratch org and a
+                sandbox?</h3>
+            <p>A scratch org is a temporary, source-defined org spun up from a definition file for short-lived
+                development/testing — cheap and disposable. A sandbox is a longer-lived copy of an existing org
+                (with varying levels of data/config), suited to ongoing testing against realistic org state.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">3.</span>Why does package-based development change how a team thinks about
+                metadata?</h3>
+            <p>Instead of deploying loose metadata directly, package-based development organizes functionality
+                into versioned, installable packages — making dependencies explicit and enabling safer incremental
+                upgrades across orgs that install the same package.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">4.</span>What's the difference between an unlocked package and a managed
+                package?</h3>
+            <p>Unlocked packages are typically used for internal, org-specific modularization with fully visible,
+                editable source after install. Managed packages (used by ISVs) protect intellectual property and
+                support formal versioned upgrades for external distribution.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">5.</span>Why does an org-dependent unlocked package exist as a separate
+                concept from a regular unlocked package?</h3>
+            <p>An org-dependent unlocked package can reference metadata that already exists in the target org
+                (rather than being fully self-contained), useful for large legacy orgs incrementally adopting
+                package-based development without extracting every dependency first.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">6.</span>What value does Salesforce Code Analyzer add beyond manual code
+                review?</h3>
+            <p>Code Analyzer runs automated static analysis (via PMD, ESLint, and other engines) to catch security
+                and quality issues consistently across a codebase, catching classes of bugs that are easy to miss
+                in ad hoc manual review, especially at scale.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">7.</span>Why would a team invest in VS Code extensions rather than the
+                built-in Setup UI for development?</h3>
+            <p>The Salesforce Extensions for VS Code provide source control integration, local testing, debugging,
+                and metadata deployment workflows that support proper software engineering practices — version
+                history, code review, and repeatable deployments — that Setup UI editing doesn't provide.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">8.</span>What is Code Builder, and why would a developer choose it over a
+                local VS Code install?</h3>
+            <p>Code Builder is a browser-based IDE running entirely in the cloud, useful when a developer needs a
+                consistent environment without local setup — for example, working from a restricted or shared
+                machine where installing local tools isn't practical.</p>
+        </div>
+
+        <blockquote>
+            Sources: Salesforce Developers Blog and Salesforce DX Developer Guide. These are original notes and
+            summaries, not reproduced source material.
+        </blockquote>
+    </article>
+    <div class="article-footer">
+        <div class="author-card">
+            <div class="author-info">
+                <h4>Michael George</h4>
+                <p>13x Salesforce Certified · Principal Developer &amp; Architect</p>
+            </div>
+        </div>
+        <a href="../index.html#reading" class="back-btn">&larr; Back to Portfolio</a>
+    </div>
+    <footer>&copy; 2026 Michael George</footer>
+</body>
+
+</html>

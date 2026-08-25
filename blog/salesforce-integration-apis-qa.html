@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Salesforce Integration &amp; APIs Q&amp;A - Michael George</title>
+    <meta name="description"
+        content="Original Q&A on Salesforce REST/Bulk APIs, platform events, named credentials, and Salesforce Connect." />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet" />
+    <link rel="stylesheet" href="qa-style.css" />
+</head>
+
+<body>
+    <nav>
+        <a href="../index.html" class="nav-brand">Michael <span>George</span></a>
+        <a href="../index.html#reading" class="back-link">&larr; Back to Portfolio</a>
+    </nav>
+    <div class="article-hero">
+        <div class="article-tag">Salesforce · Integration &amp; APIs</div>
+        <h1 class="article-title">Salesforce Integration &amp; APIs Q&amp;A</h1>
+        <div class="article-meta">August 2026 &nbsp;·&nbsp; Original notes based on Salesforce developer
+            documentation</div>
+    </div>
+    <article class="article-body">
+        <p>Notes on connecting Salesforce to the outside world: choosing between REST and Bulk APIs, platform
+            events, Salesforce Connect, and secure authentication for callouts.</p>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">1.</span>When should Bulk API be used instead of the standard REST API?</h3>
+            <p>Bulk API is optimized for very large data volumes processed asynchronously — bulk loads, exports,
+                or updates of thousands of records — while REST API suits smaller, synchronous, real-time
+                operations where an immediate response is needed.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">2.</span>What is the practical difference between Bulk API and Bulk API
+                2.0?</h3>
+            <p>Bulk API 2.0 simplifies the workflow by removing the need to manually manage batches — you submit
+                data and let Salesforce handle batching internally — reducing the client-side complexity that the
+                original Bulk API required.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">3.</span>What problem do platform events solve compared to polling for
+                changes?</h3>
+            <p>Platform events let external systems and Salesforce automation subscribe to near-real-time
+                notifications of business events, avoiding the latency and wasted requests of a system repeatedly
+                polling Salesforce to check for changes.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">4.</span>Why would an integration use Salesforce Connect instead of
+                importing external data into Salesforce objects?</h3>
+            <p>Salesforce Connect surfaces external data as virtual objects in real time without copying and
+                syncing it into Salesforce storage — useful when the external system is the source of truth and
+                duplicating the data would create staleness or storage cost.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">5.</span>Why is the Client Credentials Flow considered easier for
+                server-to-server API authentication than other OAuth flows?</h3>
+            <p>It skips user-interactive login steps entirely, authenticating as a pre-configured integration user
+                — appropriate for trusted backend-to-backend integrations where no human is present to complete a
+                login prompt.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">6.</span>Why is a named credential preferred over hardcoding endpoint URLs
+                and auth details in Apex?</h3>
+            <p>Named credentials centralize endpoint and authentication configuration outside the code, so
+                credentials can be rotated or the target environment changed without modifying and redeploying
+                Apex — separating configuration from logic.</p>
+        </div>
+
+        <blockquote>
+            Sources: Salesforce Developers documentation (REST API, Bulk API, Platform Events, Salesforce
+            Connect guides). These are original notes and summaries, not reproduced source material.
+        </blockquote>
+    </article>
+    <div class="article-footer">
+        <div class="author-card">
+            <div class="author-info">
+                <h4>Michael George</h4>
+                <p>13x Salesforce Certified · Principal Developer &amp; Architect</p>
+            </div>
+        </div>
+        <a href="../index.html#reading" class="back-btn">&larr; Back to Portfolio</a>
+    </div>
+    <footer>&copy; 2026 Michael George</footer>
+</body>
+
+</html>

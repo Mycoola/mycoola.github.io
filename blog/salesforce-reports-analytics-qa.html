@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Salesforce Reports &amp; Analytics Q&amp;A - Michael George</title>
+    <meta name="description" content="Original Q&A on Salesforce reports, dashboards, and CRM Analytics." />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet" />
+    <link rel="stylesheet" href="qa-style.css" />
+</head>
+
+<body>
+    <nav>
+        <a href="../index.html" class="nav-brand">Michael <span>George</span></a>
+        <a href="../index.html#reading" class="back-link">&larr; Back to Portfolio</a>
+    </nav>
+    <div class="article-hero">
+        <div class="article-tag">Salesforce · Reports &amp; Analytics</div>
+        <h1 class="article-title">Salesforce Reports &amp; Analytics Q&amp;A</h1>
+        <div class="article-meta">August 2026 &nbsp;·&nbsp; Original notes based on Salesforce documentation</div>
+    </div>
+    <article class="article-body">
+        <p>Notes on turning Salesforce data into insight: standard reports and dashboards versus CRM Analytics, and
+            what drives the choice between them.</p>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">1.</span>When do standard Salesforce reports stop being sufficient, pushing a
+                team toward CRM Analytics?</h3>
+            <p>Standard reports handle straightforward filtering, grouping, and summarization well. CRM Analytics
+                becomes valuable when a team needs to blend data from multiple sources, build predictive models, or
+                interact with very large datasets beyond what report-builder performance comfortably supports.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">2.</span>What is the difference between a report and a dashboard?</h3>
+            <p>A report is a detailed, filterable list or summary of records. A dashboard visualizes one or more
+                reports as charts/metrics for at-a-glance monitoring — a dashboard is a presentation layer over
+                underlying report data, not a replacement for the report itself.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">3.</span>Why does dashboard refresh frequency matter for how it's used
+                operationally?</h3>
+            <p>A dashboard that refreshes daily is fine for trend review but unsuitable for real-time operational
+                monitoring (like live case queue volume), where a more frequent or on-demand refresh is needed to
+                reflect current conditions accurately.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">4.</span>What consideration matters most when deciding report/dashboard
+                sharing and folder access?</h3>
+            <p>Reports can expose sensitive aggregated data even to users who can't see individual records
+                directly, so folder-level sharing needs to be reviewed independently from object-level security —
+                aggregation can leak information that row-level rules alone wouldn't.</p>
+        </div>
+
+        <blockquote>
+            Sources: Salesforce Help documentation (Reports &amp; Dashboards, CRM Analytics). These are original
+            notes and summaries, not reproduced source material.
+        </blockquote>
+    </article>
+    <div class="article-footer">
+        <div class="author-card">
+            <div class="author-info">
+                <h4>Michael George</h4>
+                <p>13x Salesforce Certified · Principal Developer &amp; Architect</p>
+            </div>
+        </div>
+        <a href="../index.html#reading" class="back-btn">&larr; Back to Portfolio</a>
+    </div>
+    <footer>&copy; 2026 Michael George</footer>
+</body>
+
+</html>

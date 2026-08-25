@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Salesforce Service Cloud Q&amp;A - Michael George</title>
+    <meta name="description"
+        content="Original Q&A on Case Management, Omni-Channel, Messaging, Knowledge, and Incident Management in Service Cloud." />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet" />
+    <link rel="stylesheet" href="qa-style.css" />
+</head>
+
+<body>
+    <nav>
+        <a href="../index.html" class="nav-brand">Michael <span>George</span></a>
+        <a href="../index.html#reading" class="back-link">&larr; Back to Portfolio</a>
+    </nav>
+    <div class="article-hero">
+        <div class="article-tag">Salesforce · Service Cloud</div>
+        <h1 class="article-title">Salesforce Service Cloud Q&amp;A</h1>
+        <div class="article-meta">August 2026 &nbsp;·&nbsp; Original notes based on Salesforce Help
+            documentation</div>
+    </div>
+    <article class="article-body">
+        <p>Notes on customer support tooling: case handling and swarming, Omni-Channel routing, the shift from
+            Chat to Messaging, Knowledge, and Incident Management.</p>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">1.</span>What is case swarming, and how does it differ from traditional case
+                escalation?</h3>
+            <p>Case swarming brings together the right experts across teams to collaboratively resolve a complex
+                case in real time (often via Slack), rather than escalating it up a single-owner chain, aiming for
+                faster resolution on hard problems through parallel expertise.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">2.</span>How does skills-based routing improve on simple round-robin case
+                assignment?</h3>
+            <p>Skills-based routing matches a case to the agent whose skills best fit its requirements, rather than
+                assigning cases in a fixed rotation regardless of agent expertise — improving first-contact
+                resolution rates for specialized issues.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">3.</span>Why did Salesforce migrate customers from Chat to Messaging for
+                In-App and Web?</h3>
+            <p>Messaging supports asynchronous, persistent conversations (a customer can leave and return without
+                losing context), whereas Chat was built around a synchronous, session-based model — Messaging
+                better matches how customers actually expect to communicate across channels today.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">4.</span>What is the purpose of Knowledge Data Categories, and why do they
+                matter for a large article library?</h3>
+            <p>Data categories let articles be organized and filtered along multiple dimensions (product, region,
+                audience), so agents and customers searching Knowledge can narrow results meaningfully instead of
+                scanning an undifferentiated list of articles.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">5.</span>Why is Incident Management treated as distinct from regular case
+                management?</h3>
+            <p>An incident typically represents a broader service disruption affecting multiple customers at once.
+                Incident Management links related cases to one incident record and supports broadcast
+                communications, rather than requiring an agent to solve each affected case independently.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">6.</span>What should be considered before replacing Chat with Messaging in an
+                existing org?</h3>
+            <p>Existing automation, reports, and agent workflows built around Chat's session model may need
+                rework, since Messaging's asynchronous, multi-channel structure doesn't map one-to-one onto Chat's
+                synchronous session concept.</p>
+        </div>
+
+        <blockquote>
+            Sources: Salesforce Help documentation (Service Cloud, Messaging, Knowledge, Incident Management).
+            These are original notes and summaries, not reproduced source material.
+        </blockquote>
+    </article>
+    <div class="article-footer">
+        <div class="author-card">
+            <div class="author-info">
+                <h4>Michael George</h4>
+                <p>13x Salesforce Certified · Principal Developer &amp; Architect</p>
+            </div>
+        </div>
+        <a href="../index.html#reading" class="back-btn">&larr; Back to Portfolio</a>
+    </div>
+    <footer>&copy; 2026 Michael George</footer>
+</body>
+
+</html>

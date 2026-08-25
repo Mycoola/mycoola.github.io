@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Salesforce Platform Notes Q&amp;A - Michael George</title>
+    <meta name="description"
+        content="Original Q&A on a broad mix of Salesforce Help articles, developer blog posts, and platform reference material." />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet" />
+    <link rel="stylesheet" href="qa-style.css" />
+</head>
+
+<body>
+    <nav>
+        <a href="../index.html" class="nav-brand">Michael <span>George</span></a>
+        <a href="../index.html#reading" class="back-link">&larr; Back to Portfolio</a>
+    </nav>
+    <div class="article-hero">
+        <div class="article-tag">Salesforce · Platform Notes</div>
+        <h1 class="article-title">Salesforce Platform Notes Q&amp;A</h1>
+        <div class="article-meta">August 2026 &nbsp;·&nbsp; Original notes from a broad mix of Salesforce Help,
+            developer blog, and reference material</div>
+    </div>
+    <article class="article-body">
+        <p>A wide-ranging set of shorter notes covering setup articles, developer blog retrospectives, org
+            configuration topics, and general platform history that didn't fit neatly into one narrower category —
+            useful as a quick-reference grab bag for day-to-day Salesforce work.</p>
+
+        <h2>Setup and Configuration</h2>
+        <div class="qa-item">
+            <h3><span class="qa-num">1.</span>Why does Salesforce document individual "how do I" setup articles
+                (like adding buttons to a list view) rather than relying only on broad guides?</h3>
+            <p>Task-specific articles answer a narrow, common question directly, which is faster for an admin
+                mid-task than searching through a long conceptual guide — Salesforce Help balances both formats for
+                different kinds of user needs.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">2.</span>What is a "Gack" in Salesforce engineering terminology, and why
+                does it have its own explainer?</h3>
+            <p>A Gack is Salesforce's internal term for an unhandled server-side exception surfaced to the user.
+                Salesforce documents it publicly because customers occasionally see the term in error messages and
+                need context for what it means and what to do next.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">3.</span>Why would Salesforce publish a public explainer on Hyperforce?</h3>
+            <p>Hyperforce represents a fundamental infrastructure change (moving off Salesforce's own data centers
+                to public cloud infrastructure), and customers reasonably want to understand data residency,
+                compliance, and performance implications before or after their org migrates.</p>
+        </div>
+
+        <h2>Developer Culture and History</h2>
+        <div class="qa-item">
+            <h3><span class="qa-num">4.</span>What is the value of engineering blog posts like "Salesforce
+                Anti-Patterns: A Cautionary Tale" compared to formal documentation?</h3>
+            <p>Narrative engineering posts share hard-won lessons from real incidents in a memorable story format,
+                which often sticks better than an abstract best-practices list and helps readers recognize similar
+                mistakes in their own orgs.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">5.</span>Why would Salesforce document quirky projects like "Visualizing
+                Salesforce Data in Minecraft"?</h3>
+            <p>These posts demonstrate the platform's API flexibility in a memorable, low-stakes way, showing
+                developers that Salesforce data isn't confined to Salesforce UI — useful both as inspiration and as
+                informal evidence of how open the platform's APIs really are.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">6.</span>Why does understanding "what is a subflow" or "what is a Gack"
+                matter even for experienced admins?</h3>
+            <p>Platform terminology evolves, and even experienced practitioners encounter unfamiliar terms in new
+                features or error messages — quick-reference explainer articles fill that gap without requiring a
+                deep dive into full documentation.</p>
+        </div>
+
+        <h2>Security and Compliance Context</h2>
+        <div class="qa-item">
+            <h3><span class="qa-num">7.</span>Why would a Salesforce-focused reading list include general
+                security industry content, like (ISC)² blog posts on continuous monitoring?</h3>
+            <p>Salesforce security features (event monitoring, shield, security health check) implement the same
+                underlying principles that broader security frameworks describe — understanding the general
+                principle makes it easier to correctly configure and justify the platform-specific tooling.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">8.</span>What should influence how quickly an org tests and adopts newly
+                delivered IdeaExchange features (like dynamic forms enhancements)?</h3>
+            <p>Features delivered via IdeaExchange were requested by the community, but "requested by someone" is
+                different from "needed by this org" — testing against actual org workflows before wide rollout
+                avoids adopting a feature that doesn't fit the org's specific configuration.</p>
+        </div>
+
+        <blockquote>
+            Sources: Salesforce Help articles, Salesforce Developers Blog, and related community/engineering
+            writing. These are original notes and summaries, not reproduced source material.
+        </blockquote>
+    </article>
+    <div class="article-footer">
+        <div class="author-card">
+            <div class="author-info">
+                <h4>Michael George</h4>
+                <p>13x Salesforce Certified · Principal Developer &amp; Architect</p>
+            </div>
+        </div>
+        <a href="../index.html#reading" class="back-btn">&larr; Back to Portfolio</a>
+    </div>
+    <footer>&copy; 2026 Michael George</footer>
+</body>
+
+</html>

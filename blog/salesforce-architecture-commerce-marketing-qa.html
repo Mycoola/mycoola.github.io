@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Salesforce Architecture, Commerce &amp; Marketing Q&amp;A - Michael George</title>
+    <meta name="description"
+        content="Original Q&A on Salesforce Well-Architected patterns, Commerce Cloud, and Marketing Cloud." />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet" />
+    <link rel="stylesheet" href="qa-style.css" />
+</head>
+
+<body>
+    <nav>
+        <a href="../index.html" class="nav-brand">Michael <span>George</span></a>
+        <a href="../index.html#reading" class="back-link">&larr; Back to Portfolio</a>
+    </nav>
+    <div class="article-hero">
+        <div class="article-tag">Salesforce · Architecture, Commerce &amp; Marketing</div>
+        <h1 class="article-title">Salesforce Architecture, Commerce &amp; Marketing Q&amp;A</h1>
+        <div class="article-meta">August 2026 &nbsp;·&nbsp; Original notes based on Salesforce documentation</div>
+    </div>
+    <article class="article-body">
+        <p>A combined set of notes on three smaller topic areas: Salesforce's Well-Architected design guidance,
+            Commerce Cloud fundamentals, and Marketing Cloud/Pardot basics.</p>
+
+        <h2>Architecture</h2>
+        <div class="qa-item">
+            <h3><span class="qa-num">1.</span>What is the purpose of the Salesforce Well-Architected framework?</h3>
+            <p>It codifies proven patterns and anti-patterns across trust, ease, and adaptability so architects
+                have a shared vocabulary and checklist for evaluating design decisions, rather than each project
+                reinventing architectural judgment from scratch.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">2.</span>Why does a design pattern need an explicit anti-pattern
+                counterpart to be useful?</h3>
+            <p>Naming the anti-pattern makes a bad design recognizable in code review or architecture discussions
+                — a positive pattern description alone doesn't always make it obvious when a real implementation
+                has quietly drifted into the problematic version.</p>
+        </div>
+
+        <h2>Commerce</h2>
+        <div class="qa-item">
+            <h3><span class="qa-num">3.</span>What is the core difference between B2B and B2C commerce
+                configurations on the platform?</h3>
+            <p>B2B commerce typically involves negotiated pricing, account-based buying, and approval workflows for
+                bulk orders, while B2C is oriented around individual consumer self-service checkout — the
+                underlying platform differs in how pricing, accounts, and order flow are modeled.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">4.</span>Why would a company evaluate Commerce Cloud instead of a
+                general-purpose e-commerce platform?</h3>
+            <p>Using Commerce Cloud on the same platform as CRM data keeps customer, order, and service data
+                unified without needing a separate integration layer between a standalone e-commerce system and
+                Salesforce — a tradeoff of platform lock-in for integration simplicity.</p>
+        </div>
+
+        <h2>Marketing</h2>
+        <div class="qa-item">
+            <h3><span class="qa-num">5.</span>What is the relationship between Marketing Cloud and the core
+                Salesforce CRM?</h3>
+            <p>Marketing Cloud can operate somewhat independently for campaign execution but delivers the most
+                value when synced with CRM data (leads, contacts) so marketing engagement informs sales follow-up
+                and vice versa, rather than the two systems working from disconnected audiences.</p>
+        </div>
+
+        <blockquote>
+            Sources: architect.salesforce.com Well-Architected guides, Salesforce Commerce and Marketing Cloud
+            documentation. These are original notes and summaries, not reproduced source material.
+        </blockquote>
+    </article>
+    <div class="article-footer">
+        <div class="author-card">
+            <div class="author-info">
+                <h4>Michael George</h4>
+                <p>13x Salesforce Certified · Principal Developer &amp; Architect</p>
+            </div>
+        </div>
+        <a href="../index.html#reading" class="back-btn">&larr; Back to Portfolio</a>
+    </div>
+    <footer>&copy; 2026 Michael George</footer>
+</body>
+
+</html>

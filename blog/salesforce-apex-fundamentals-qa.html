@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Salesforce Apex Fundamentals Q&amp;A - Michael George</title>
+    <meta name="description"
+        content="Original Q&A on Apex language basics, SOQL/SOSL, triggers, DML, governor limits, and sharing keywords, based on Salesforce developer documentation." />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet" />
+    <link rel="stylesheet" href="qa-style.css" />
+</head>
+
+<body>
+    <nav>
+        <a href="../index.html" class="nav-brand">Michael <span>George</span></a>
+        <a href="../index.html#reading" class="back-link">&larr; Back to Portfolio</a>
+    </nav>
+
+    <div class="article-hero">
+        <div class="article-tag">Salesforce · Apex</div>
+        <h1 class="article-title">Salesforce Apex Fundamentals Q&amp;A</h1>
+        <div class="article-meta">August 2026 &nbsp;·&nbsp; Original notes based on Salesforce developer
+            documentation</div>
+    </div>
+
+    <article class="article-body">
+        <p>Core Apex concepts drawn from a large set of Salesforce developer documentation, blog posts, and
+            tutorials: the language itself, querying with SOQL/SOSL, triggers, DML, governor limits, and
+            sharing keywords.</p>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">1.</span>What is Apex, and when should it be used instead of declarative
+                tools?</h3>
+            <p>Apex is Salesforce's strongly typed, on-platform programming language. It's used when logic is too
+                complex for Flow (deep loops, complex transaction control, callouts combined with intricate business
+                rules) or when reusable, testable code is preferable to a large declarative automation.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">2.</span>What is the difference between SOQL and SOSL?</h3>
+            <p>SOQL queries one object (and its relationships) with precise field and filter control, similar to
+                SQL. SOSL performs a full-text search across multiple objects and fields at once, better suited to
+                a broad "find this term anywhere" search than a targeted query.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">3.</span>What is a governor limit, and why does Salesforce enforce them?</h3>
+            <p>Governor limits cap resource usage per transaction — SOQL queries, DML statements, CPU time, heap
+                size — to keep the multi-tenant platform fair and stable so one org's runaway code can't degrade
+                performance for others sharing the same infrastructure.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">4.</span>Why does bulkifying Apex code matter so much?</h3>
+            <p>Triggers and batch operations can process hundreds of records in a single transaction. Code written
+                assuming only one record (SOQL/DML inside a loop) will hit governor limits at scale, so Apex must be
+                written to handle collections, not single records, from the start.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">5.</span>What's the difference between "with sharing," "without sharing," and
+                "inherited sharing"?</h3>
+            <p>"With sharing" enforces the running user's record-level sharing rules; "without sharing" ignores
+                them and runs with full object access; "inherited sharing" uses whichever mode the calling context
+                already has, useful for utility classes that shouldn't dictate their own security model.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">6.</span>Why is enforcing object and field permissions separate from
+                enforcing sharing?</h3>
+            <p>Sharing controls which records a user can see; object/field-level security controls which objects
+                and fields they can access at all. Apex run in system context bypasses both by default, so code
+                that acts on behalf of a user should explicitly check or enforce these permissions.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">7.</span>What is SOQL injection, and how is it prevented?</h3>
+            <p>SOQL injection happens when untrusted input is concatenated directly into a query string, letting an
+                attacker alter the query's logic. Using bind variables or the `String.escapeSingleQuotes` method
+                (or dynamic SOQL built safely) prevents user input from being interpreted as query syntax.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">8.</span>Why do sObjects that don't support DML need special handling?</h3>
+            <p>Some sObjects (certain read-only, setup, or metadata-related objects) can't be inserted, updated, or
+                deleted via standard DML — code interacting with them must use other mechanisms (Metadata API,
+                Tooling API, or platform-specific methods) instead of assuming a uniform DML interface.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">9.</span>What is the practical difference between Limits.getLimit() plus
+                startTest()/stopTest() when testing Apex?</h3>
+            <p>startTest()/stopTest() resets governor limits for the code inside the block and forces any
+                asynchronous work (future methods, queueables, batch jobs) to run synchronously before stopTest()
+                returns, letting a test assert on results that would otherwise complete later.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">10.</span>Why is a class variable's visibility (private/public/global) a
+                design decision, not just a formality?</h3>
+            <p>A class's members define its contract with other code. Overly public members invite unintended
+                coupling, while overly private ones block legitimate reuse — matching visibility to intended
+                consumers (same class, same package, or global API) keeps the codebase's dependencies deliberate.</p>
+        </div>
+
+        <blockquote>
+            Sources: Salesforce Apex Developer Guide, Salesforce Developers Blog, InfallibleTechie, and related
+            Apex tutorials. These are original notes and summaries, not reproduced source material.
+        </blockquote>
+    </article>
+
+    <div class="article-footer">
+        <div class="author-card">
+            <div class="author-info">
+                <h4>Michael George</h4>
+                <p>13x Salesforce Certified · Principal Developer &amp; Architect</p>
+            </div>
+        </div>
+        <a href="../index.html#reading" class="back-btn">&larr; Back to Portfolio</a>
+    </div>
+
+    <footer>&copy; 2026 Michael George</footer>
+</body>
+
+</html>
