@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Service Cloud Consultant Study Notes Q&amp;A - Michael George</title>
+    <meta name="description" content="Original study notes on core Service Cloud Consultant certification concepts, not reproduced exam questions." />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="qa-style.css" />
+</head>
+<body>
+    <nav>
+        <a href="../index.html" class="nav-brand">Michael <span>George</span></a>
+        <a href="../index.html#reading" class="back-link">&larr; Back to Portfolio</a>
+    </nav>
+    <div class="article-hero">
+        <div class="article-tag">Career · Certification Study Notes</div>
+        <h1 class="article-title">Service Cloud Consultant Study Notes Q&amp;A</h1>
+        <div class="article-meta">August 2026 &nbsp;·&nbsp; Original study notes, not reproduced exam
+            questions</div>
+    </div>
+    <article class="article-body">
+        <p>Original, generically-written study notes on the concept areas covered by the Salesforce Service Cloud
+            Consultant certification. These are not reproductions of specific exam questions; they cover the
+            underlying knowledge needed to reason through scenario-based questions on the real exam.</p>
+
+        <h2>Case Management Design</h2>
+        <div class="qa-item">
+            <h3><span class="qa-num">1.</span>What factors should drive the choice between Case assignment rules
+                and Omni-Channel routing?</h3>
+            <p>Assignment rules are simpler, condition-based routing suited to straightforward criteria (product
+                type, region). Omni-Channel considers agent capacity, presence status, and skill in real time,
+                better suited to environments where load balancing and availability matter as much as matching
+                criteria.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">2.</span>When would a consultant recommend Entitlements and Milestones over
+                simple SLA tracking via a custom field?</h3>
+            <p>Entitlements and Milestones provide built-in time-tracking, escalation, and reporting tied to
+                support contracts, which scales better and integrates with case processes more natively than a
+                custom field-based SLA tracker that would need custom automation to replicate the same behavior.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">3.</span>What consideration matters most when designing a knowledge base
+                article approval and lifecycle process?</h3>
+            <p>Balancing speed of publishing against accuracy — a lightweight approval process gets useful content
+                to agents/customers faster, but insufficient review risks outdated or incorrect articles reaching
+                customers, so the process should match the risk level of the content being published.</p>
+        </div>
+
+        <h2>Omni-Channel and Digital Engagement</h2>
+        <div class="qa-item">
+            <h3><span class="qa-num">4.</span>What should a consultant evaluate before recommending Messaging over
+                traditional Chat for a customer's digital engagement strategy?</h3>
+            <p>Whether customers expect persistent, asynchronous conversations (returning to a conversation later)
+                versus a single synchronous session — Messaging's model fits the former much better, while
+                Chat's session-based approach may still suit simpler, single-session use cases.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">5.</span>How should presence and capacity be configured to avoid agent
+                burnout while maintaining service levels?</h3>
+            <p>Capacity models should reflect realistic concurrent-conversation limits per channel type (a chat
+                requires less full attention than a phone call), and presence statuses should let agents step away
+                for after-work tasks without appearing falsely available.</p>
+        </div>
+
+        <h2>Field Service and Advanced Scenarios</h2>
+        <div class="qa-item">
+            <h3><span class="qa-num">6.</span>What should a consultant weigh when recommending Field Service
+                scheduling optimization versus manual dispatcher assignment?</h3>
+            <p>Optimization scales well for high volumes of appointments and complex constraints (skills,
+                location, time windows) but requires proper configuration of those constraints; manual assignment
+                may remain appropriate for very small teams where a dispatcher's judgment outperforms a
+                misconfigured algorithm.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">7.</span>Why does case swarming get recommended for certain support models
+                but not others?</h3>
+            <p>Swarming works well for complex, cross-functional issues that benefit from real-time collaborative
+                problem-solving, but it can be inefficient overhead for high-volume, simple case types better
+                served by fast individual resolution and standard escalation paths.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">8.</span>What should be considered when designing reporting for a Service
+                Cloud implementation beyond basic case volume metrics?</h3>
+            <p>Metrics like first-contact resolution rate, customer satisfaction, and time-to-resolution by case
+                type give a more complete picture of service quality than raw case counts, which say nothing about
+                whether cases were actually resolved well or quickly.</p>
+        </div>
+
+        <blockquote>
+            These notes are original summaries of publicly documented Salesforce Service Cloud concepts
+            (Salesforce Help and Trailhead), written to support certification study without reproducing any
+            proprietary exam content.
+        </blockquote>
+    </article>
+    <div class="article-footer">
+        <div class="author-card">
+            <div class="author-info">
+                <h4>Michael George</h4>
+                <p>13x Salesforce Certified · Principal Developer &amp; Architect</p>
+            </div>
+        </div>
+        <a href="../index.html#reading" class="back-btn">&larr; Back to Portfolio</a>
+    </div>
+    <footer>&copy; 2026 Michael George</footer>
+</body>
+</html>

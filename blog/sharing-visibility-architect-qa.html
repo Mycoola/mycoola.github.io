@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sharing &amp; Visibility Architect/Designer Study Notes Q&amp;A - Michael George</title>
+    <meta name="description" content="Original study notes on core Sharing and Visibility Architect/Designer certification concepts, not reproduced exam questions." />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="qa-style.css" />
+</head>
+<body>
+    <nav>
+        <a href="../index.html" class="nav-brand">Michael <span>George</span></a>
+        <a href="../index.html#reading" class="back-link">&larr; Back to Portfolio</a>
+    </nav>
+    <div class="article-hero">
+        <div class="article-tag">Career · Certification Study Notes</div>
+        <h1 class="article-title">Sharing &amp; Visibility Architect/Designer Study Notes Q&amp;A</h1>
+        <div class="article-meta">August 2026 &nbsp;·&nbsp; Original study notes, not reproduced exam
+            questions</div>
+    </div>
+    <article class="article-body">
+        <p>These are original, generically-written study notes covering the core concept areas tested by the
+            Salesforce Sharing and Visibility Architect/Designer credentials. They are not reproductions of any
+            specific exam question — the certification exams themselves are proprietary content, and copying
+            their questions here would raise copyright concerns. Instead, this covers the underlying concepts a
+            candidate needs to understand deeply enough to answer novel scenario questions on the real exam.</p>
+
+        <h2>Sharing Model Fundamentals</h2>
+        <div class="qa-item">
+            <h3><span class="qa-num">1.</span>What is the correct order of evaluation when determining a user's
+                access to a record?</h3>
+            <p>Record access is the most permissive result across all applicable mechanisms: organization-wide
+                defaults set the baseline, then role hierarchy, sharing rules, manual sharing, team access, and
+                Apex-managed sharing can each grant additional access on top — none of these can revoke access
+                once another mechanism has granted it.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">2.</span>When is Apex Managed Sharing required instead of a declarative
+                sharing rule?</h3>
+            <p>Apex Managed Sharing is needed when the sharing logic depends on conditions declarative sharing
+                rules can't express — for example, a private sharing model where access must be granted based on
+                complex, dynamic criteria (like specific field value combinations) that criteria-based sharing
+                rules cannot evaluate.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">3.</span>What is the tradeoff of setting an object's OWD to Private versus a
+                more open default?</h3>
+            <p>Private OWDs give maximum control (nothing is visible unless explicitly granted) but require more
+                deliberate sharing configuration to give legitimate users access; a more open default reduces
+                configuration overhead at the cost of exposing more data by default.</p>
+        </div>
+
+        <h2>Teams and Territory-Based Access</h2>
+        <div class="qa-item">
+            <h3><span class="qa-num">4.</span>What is the purpose of Account Teams and Opportunity Teams, and how
+                do they differ from role-based sharing?</h3>
+            <p>Teams let specific users be added to a specific record (not a whole role) with a defined access
+                level, useful when collaboration on a record doesn't map cleanly to the org's role hierarchy —
+                for example, a specialist who needs access to one deal but isn't in the owning rep's management
+                chain.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">5.</span>What is the difference between original and Enterprise Territory
+                Management in terms of sharing implications?</h3>
+            <p>Enterprise Territory Management supports assigning a record to multiple territories with distinct
+                access rules per territory model, giving finer-grained control than original Territory Management's
+                simpler single-hierarchy structure — a meaningful difference for orgs restructuring sales
+                territories.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">6.</span>Why would large-scale role hierarchy realignment require special
+                tools rather than a simple bulk update?</h3>
+            <p>Changing roles for many users at once triggers a large sharing recalculation across every record
+                those users own or have access to. Deferred sharing calculation and other bulk-realignment tools
+                exist specifically to batch this recalculation efficiently instead of overwhelming the system with
+                immediate, per-change recalculation.</p>
+        </div>
+
+        <h2>External Users and Communities</h2>
+        <div class="qa-item">
+            <h3><span class="qa-num">7.</span>Why does sharing configuration for external (community/portal)
+                users require extra care compared to internal users?</h3>
+            <p>External users often have more restrictive default visibility (like "View" access only to their own
+                account's records), and enabling broader sharing to external users can unintentionally expose
+                internal data across account boundaries if roles and sharing rules aren't scoped carefully.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">8.</span>What is "implicit sharing," and why does it matter for architecture
+                decisions?</h3>
+            <p>Implicit sharing grants automatic access based on relationships — for example, a contact's owner
+                implicitly having access to related cases — without a separate manual sharing rule. Architects need
+                to account for these implicit grants, since they can expose data in ways that aren't visible in the
+                explicit sharing rule configuration.</p>
+        </div>
+
+        <h2>Performance and Data Skew</h2>
+        <div class="qa-item">
+            <h3><span class="qa-num">9.</span>Why is ownership skew (thousands of records owned by one user)
+                treated as an architectural risk?</h3>
+            <p>Every role hierarchy or ownership change involving that user triggers a massive sharing
+                recalculation across all their owned records, which can create severe performance issues and lock
+                contention — a known threshold (commonly cited around 10,000 records per owner) is used as a
+                design guideline to avoid this.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">10.</span>What options exist to mitigate risks during a large-volume bulk
+                data import regarding sharing?</h3>
+            <p>Deferring sharing calculations during the load and running a single recalculation afterward avoids
+                the system recalculating sharing after every individual record insert, which would be dramatically
+                slower and could hit governor limits at scale.</p>
+        </div>
+
+        <blockquote>
+            These notes are original summaries of publicly documented Salesforce sharing and security concepts
+            (Salesforce Architects and Salesforce Developers documentation), written to support certification
+            study without reproducing any proprietary exam content.
+        </blockquote>
+    </article>
+    <div class="article-footer">
+        <div class="author-card">
+            <div class="author-info">
+                <h4>Michael George</h4>
+                <p>13x Salesforce Certified · Principal Developer &amp; Architect</p>
+            </div>
+        </div>
+        <a href="../index.html#reading" class="back-btn">&larr; Back to Portfolio</a>
+    </div>
+    <footer>&copy; 2026 Michael George</footer>
+</body>
+</html>

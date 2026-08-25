@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Data Architect Study Notes Q&amp;A - Michael George</title>
+    <meta name="description" content="Original study notes on core Data Architect certification concepts, not reproduced exam questions." />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="qa-style.css" />
+</head>
+<body>
+    <nav>
+        <a href="../index.html" class="nav-brand">Michael <span>George</span></a>
+        <a href="../index.html#reading" class="back-link">&larr; Back to Portfolio</a>
+    </nav>
+    <div class="article-hero">
+        <div class="article-tag">Career · Certification Study Notes</div>
+        <h1 class="article-title">Data Architect Study Notes Q&amp;A</h1>
+        <div class="article-meta">August 2026 &nbsp;·&nbsp; Original study notes, not reproduced exam
+            questions</div>
+    </div>
+    <article class="article-body">
+        <p>Original, generically-written study notes on the concept areas covered by the Salesforce Certified
+            Data Architect credential. These are not reproductions of specific exam questions; they cover the
+            underlying knowledge needed to design and evaluate data models at scale.</p>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">1.</span>What should drive the decision between master-detail and lookup
+                relationships in a data model?</h3>
+            <p>Master-detail enforces ownership, cascading delete, and roll-up summaries but ties the child
+                record's security and sharing to the parent. Lookup gives more independence between objects.
+                The choice depends on whether the child record's lifecycle and access should be strictly bound to
+                its parent.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">2.</span>Why does large data volume (LDV) planning need to happen before
+                implementation rather than after?</h3>
+            <p>Index selection, sharing architecture, and object relationships all affect query and load
+                performance at scale. Retrofitting these decisions after millions of records already exist is
+                far more disruptive than designing for expected volume from the start.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">3.</span>What is the tradeoff between a single large custom object and
+                splitting data across multiple related objects?</h3>
+            <p>A single large object can simplify queries but risks hitting row-level and field-count limits and
+                can create maintenance complexity as unrelated concerns get bundled together. Splitting objects
+                clarifies data ownership but requires more relationships and joins to reassemble a full picture.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">4.</span>How should an architect approach a data migration strategy for
+                moving a legacy system into Salesforce?</h3>
+            <p>Key considerations include data cleansing before migration (garbage in, garbage out), mapping
+                legacy IDs to new Salesforce IDs for traceability, staged/batched loads to respect governor limits,
+                and a validation plan comparing record counts and key field values post-migration.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">5.</span>What role does master data management (MDM) play when Salesforce is
+                one of several systems holding customer data?</h3>
+            <p>MDM establishes a single source of truth and synchronization rules across systems, preventing
+                Salesforce and other systems from silently drifting into inconsistent views of the same customer
+                over time — a concern that grows as more systems integrate with the same underlying data.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">6.</span>Why does field-level data governance (naming conventions, required
+                fields, picklist management) matter architecturally, not just administratively?</h3>
+            <p>Inconsistent field usage undermines reporting accuracy and downstream integrations that assume
+                consistent data shapes. Architecture decisions about validation rules, required fields, and
+                picklist restrictions directly affect whether the data model can be trusted at scale.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">7.</span>What should an architect consider when recommending Big Objects for
+                a use case?</h3>
+            <p>Big Objects support massive-scale storage (billions of records) with reduced indexing and query
+                flexibility compared to standard/custom objects — appropriate for archival or audit-trail data that
+                needs to persist at scale but doesn't require complex ad hoc querying.</p>
+        </div>
+
+        <blockquote>
+            These notes are original summaries of publicly documented Salesforce data architecture concepts
+            (Salesforce Architects and Designing Record Access for Enterprise Scale documentation), written to
+            support certification study without reproducing any proprietary exam content.
+        </blockquote>
+    </article>
+    <div class="article-footer">
+        <div class="author-card">
+            <div class="author-info">
+                <h4>Michael George</h4>
+                <p>13x Salesforce Certified · Principal Developer &amp; Architect</p>
+            </div>
+        </div>
+        <a href="../index.html#reading" class="back-btn">&larr; Back to Portfolio</a>
+    </div>
+    <footer>&copy; 2026 Michael George</footer>
+</body>
+</html>
