@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Cursor AI Agent Q&amp;A — Models, Context, Tool Calling &amp; Plan Mode</title>
+    <meta name="description"
+        content="Q&A on Cursor's AI coding agent: how AI models work, context management, tool calling, hallucinations, tokens/pricing, and Plan Mode." />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet" />
+    <link rel="stylesheet" href="qa-style.css" />
+</head>
+
+<body>
+
+    <nav>
+        <a href="../index.html" class="nav-brand">Michael <span>George</span></a>
+        <a href="../index.html#reading" class="back-link">← Back to Portfolio</a>
+    </nav>
+
+    <div class="article-hero">
+        <div class="article-tag">AI · Coding Agents</div>
+        <h1 class="article-title">Cursor AI Agent Q&amp;A — Models, Context, Tool Calling &amp; Plan Mode</h1>
+        <div class="article-meta">August 2026 &nbsp;·&nbsp; Based on Cursor Docs, Cursor Learn, and the Cursor
+            blog</div>
+    </div>
+
+    <article class="article-body">
+
+        <p>
+            Notes from <a href="https://cursor.com/docs" target="_blank" rel="noopener">Cursor's documentation</a>
+            and its <a href="https://cursor.com/learn" target="_blank" rel="noopener">Cursor Learn</a> conceptual
+            guides — covering how the underlying AI models work, how Cursor's Agent uses tools and context, and
+            practical concepts like tokens, pricing, and hallucinations that apply to AI coding assistants in
+            general.
+        </p>
+
+        <h2>How AI Models Actually Work</h2>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">1.</span>Why does Cursor Learn describe AI models as "probabilistic" rather
+                than deterministic?</h3>
+            <p>Traditional software gives the same output for the same input every time. AI models predict the
+                next chunk of text based on patterns learned during training plus your prompt, so the same prompt
+                can produce different responses across runs — a key mental model shift for anyone used to
+                deterministic code.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">2.</span>How should you choose which AI model to use for a coding task?</h3>
+            <p>Trade off intelligence, speed, and cost against the task's complexity — fast, cheap models are fine
+                for simple tasks, while slower, more expensive models that can "think" longer are better suited to
+                deeper technical problems; new models are released frequently, so this trade-off keeps shifting.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">3.</span>What is a token, and why does it matter for both cost and
+                performance?</h3>
+            <p>A token is the unit AI models actually process text in — smaller than a word in many cases (e.g.
+                "understanding" might split into "under", "stand", "ing"). Tokens are what you're billed for (not
+                words or characters), and tokens-per-second is how model speed is measured.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">4.</span>Why do output tokens typically cost more than input tokens?</h3>
+            <p>Generating new content requires more computational work than just processing what was sent in, so
+                providers price output tokens at a premium (often 2-4x) relative to input tokens.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">5.</span>Why do AI chat responses appear to "type" word by word instead of
+                arriving all at once?</h3>
+            <p>Models generate tokens one at a time in sequence, each prediction feeding the next — streaming the
+                response back as it's generated lets you start reading immediately and interrupt if it goes off
+                track, rather than waiting for the full response to finish.</p>
+        </div>
+
+        <h2>Context, Tools &amp; Hallucinations</h2>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">6.</span>What is "context" in the context of working with an AI coding
+                agent?</h3>
+            <p>Context is everything the model has available when generating a response: the system prompt, your
+                messages, and prior conversation turns, plus (for a tool like Cursor) automatically included
+                information like open files, terminal output, and linter errors.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">7.</span>Why does context management matter for long AI coding sessions?</h3>
+            <p>Every model has a context window limit — as a conversation grows, older turns risk being pushed out
+                or summarized away, so tools provide feedback on how close you are to the limit and ways to
+                compress/summarize the conversation to stay productive.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">8.</span>What is tool calling, and why is it what separates an "agent" from a
+                plain chatbot?</h3>
+            <p>Tool calling lets a model request that the application run something on its behalf — read a file,
+                run a shell command, search the web — and feed the result back into context. This is what allows
+                an agent to actively explore and change a codebase instead of only working from what you paste in.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">9.</span>What are the three components that make up a tool definition?</h3>
+            <p>A name (like <code>read_file</code>), a description telling the model when/how to use it, and the
+                parameters the tool needs — the model emits a structured request naming the tool and its
+                parameters, and the application executes it and returns the result.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">10.</span>What is MCP, and how does it relate to tool calling?</h3>
+            <p>The Model Context Protocol is a standard way for AI models to discover and use tools across
+                different applications — similar to how USB standardized connecting hardware devices — so a tool
+                built once (e.g., a Figma or Linear connector) can work across multiple AI apps instead of being
+                reimplemented per tool.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">11.</span>Why do AI models hallucinate, and what does that look like in
+                practice for a coding assistant?</h3>
+            <p>Models predict what's statistically likely to come next rather than checking a fact database, so
+                they can confidently invent plausible-but-fake APIs, mix up library syntax, or produce almost-right
+                config files — real examples include suggesting a nonexistent import or a DataFrame method that
+                doesn't exist.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">12.</span>What's the recommended mindset for working with an AI coding agent
+                given that it can hallucinate?</h3>
+            <p>Treat every suggestion as a starting point to verify, not a final answer — tools that surface
+                immediate feedback (like a red squiggle on a bad import) help catch hallucinations quickly, and
+                developing this verification habit ultimately makes you a better developer, not just a faster one.</p>
+        </div>
+
+        <h2>Cursor's Agent, Plan Mode &amp; Delegation</h2>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">13.</span>What are the three components Cursor's docs say an "agent" is built
+                from?</h3>
+            <p>Instructions (the system prompt and rules that guide behavior), tools (file editing, codebase
+                search, terminal execution, etc.), and a model — Cursor tunes the instructions and tool set
+                specifically per model so you don't have to hand-optimize prompts for each one.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">14.</span>What problem does Plan Mode solve that jumping straight to code
+                doesn't?</h3>
+            <p>For complex or ambiguous tasks, Plan Mode has the agent research the codebase, ask clarifying
+                questions, and produce an editable Markdown plan (with file references and to-dos) before writing
+                any code — catching misunderstandings and letting you steer direction before time is spent on
+                the wrong implementation.</p>
+        </div>
+
+        <blockquote>
+            Sources: <a href="https://cursor.com/docs" target="_blank" rel="noopener">Cursor Docs</a>,
+            <a href="https://cursor.com/learn" target="_blank" rel="noopener">Cursor Learn</a>, and the
+            <a href="https://cursor.com/blog/plan-mode" target="_blank" rel="noopener">Cursor blog</a>.
+        </blockquote>
+
+    </article>
+
+    <div class="article-footer">
+        <div class="author-card">
+            <div class="author-info">
+                <h4>Michael George</h4>
+                <p>13× Salesforce Certified · Principal Developer &amp; Architect</p>
+            </div>
+        </div>
+        <a href="../index.html#reading" class="back-btn">← Back to Portfolio</a>
+    </div>
+
+    <footer>
+        &copy; 2026 Michael George
+    </footer>
+
+</body>
+
+</html>

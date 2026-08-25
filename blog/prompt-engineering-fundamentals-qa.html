@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Prompt Engineering Fundamentals Q&amp;A</title>
+    <meta name="description"
+        content="Q&A on core prompt engineering techniques: direct instructions, few-shot examples, personas, and output constraints." />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet" />
+    <link rel="stylesheet" href="qa-style.css" />
+</head>
+
+<body>
+
+    <nav>
+        <a href="../index.html" class="nav-brand">Michael <span>George</span></a>
+        <a href="../index.html#reading" class="back-link">← Back to Portfolio</a>
+    </nav>
+
+    <div class="article-hero">
+        <div class="article-tag">AI · Prompt Engineering</div>
+        <h1 class="article-title">Prompt Engineering Fundamentals Q&amp;A</h1>
+        <div class="article-meta">August 2026 &nbsp;·&nbsp; Based on Humanloop's Prompt Engineering 101 and the
+            DAIR.AI Prompt Engineering Guide</div>
+    </div>
+
+    <article class="article-body">
+
+        <p>
+            Notes from <a href="https://humanloop.com/blog/prompt-engineering-101" target="_blank"
+                rel="noopener">Humanloop's Prompt Engineering 101</a> and the
+            <a href="https://www.promptingguide.ai/" target="_blank" rel="noopener">DAIR.AI Prompt Engineering
+                Guide</a> — the core techniques for getting consistent, useful output from an LLM, plus a look at
+            how collaborative AI features (like ChatGPT group chats) are evolving prompting beyond a single-user
+            exchange.
+        </p>
+
+        <h2>Core Prompting Techniques</h2>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">1.</span>Why does a direct, explicit instruction usually outperform a vague
+                prompt?</h3>
+            <p>Without a clear instruction, an LLM has to guess what task you actually want — removing a single
+                word like "Translate." from a prompt can make the model misinterpret a translation request as a
+                generic customer-support reply instead. Being explicit about the task removes that ambiguity.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">2.</span>What is few-shot learning, and when is it more useful than a direct
+                instruction?</h3>
+            <p>Few-shot learning means giving the model one or more worked examples of the task instead of (or in
+                addition to) an instruction — it's especially useful for conveying tone, syntax, or a
+                domain-specific style that's hard to fully describe in words, like using "P1/P2/P3" instead of
+                "High/Medium/Low" priority labels.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">3.</span>Why is it important to align a prompt's wording with the actual end
+                goal?</h3>
+            <p>LLMs take instructions literally — a prompt like "This is a conversation between a customer and a
+                support agent" can cause the model to generate an entire fabricated dialogue rather than a single
+                reply, because it interprets "conversation" as asking for a transcript. Rewording to "Respond to a
+                customer as..." fixes the mismatch.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">4.</span>How do persona keywords change a model's output, and why should you
+                be careful with them?</h3>
+            <p>Words like "polite" or "rude" steer the model's tone and word choice to match that persona — this is
+                powerful for shaping voice, but it also means the model will follow a harmful persona instruction
+                just as readily as a helpful one, so persona prompts need the same review as any other output.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">5.</span>Why might you constrain an LLM's response to a fixed set of
+                answers?</h3>
+            <p>Listing the acceptable responses directly in the prompt (e.g., "respond only with positive or
+                negative") narrows the output to something a downstream system can reliably parse, instead of a
+                naturally-worded but harder-to-parse free-text response.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">6.</span>What's the practical takeaway for iterating on a prompt that isn't
+                working well?</h3>
+            <p>Try systematic variations: add or remove direct instructions, make the instruction more or less
+                concise, swap persona keywords, and adjust the number of few-shot examples — prompt engineering is
+                empirical, and testing variations against real examples is how you converge on a reliable prompt.</p>
+        </div>
+
+        <h2>Prompt Engineering Beyond a Single User</h2>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">7.</span>How does ChatGPT's group chat feature change the traditional
+                single-user prompting model?</h3>
+            <p>Instead of one person crafting prompts for their own private conversation, multiple people share a
+                conversation with ChatGPT together — the model has to decide when to respond and when to stay
+                quiet based on the group's conversational flow, rather than responding to every single message.</p>
+        </div>
+
+        <div class="qa-item">
+            <h3><span class="qa-num">8.</span>What privacy consideration is specific to a shared/group AI
+                conversation that doesn't apply to a private one?</h3>
+            <p>Personal memory isn't shared into or created from group conversations — this separation matters
+                because a group chat may include people who shouldn't have access to another participant's
+                personal context, so the product design has to isolate group-chat state from private-chat memory.</p>
+        </div>
+
+        <blockquote>
+            Sources: <a href="https://humanloop.com/blog/prompt-engineering-101" target="_blank"
+                rel="noopener">Prompt Engineering 101</a> (Humanloop),
+            <a href="https://www.promptingguide.ai/" target="_blank" rel="noopener">Prompt Engineering Guide</a>
+            (DAIR.AI), and OpenAI's
+            <a href="https://openai.com/index/group-chats-in-chatgpt/" target="_blank" rel="noopener">group chats
+                in ChatGPT</a> announcement.
+        </blockquote>
+
+    </article>
+
+    <div class="article-footer">
+        <div class="author-card">
+            <div class="author-info">
+                <h4>Michael George</h4>
+                <p>13× Salesforce Certified · Principal Developer &amp; Architect</p>
+            </div>
+        </div>
+        <a href="../index.html#reading" class="back-btn">← Back to Portfolio</a>
+    </div>
+
+    <footer>
+        &copy; 2026 Michael George
+    </footer>
+
+</body>
+
+</html>
