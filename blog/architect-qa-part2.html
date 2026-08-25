@@ -142,6 +142,56 @@
             <p>A Big Object stores data physically within Salesforce at massive scale. An External Object
                 (via Salesforce Connect) doesn't store data in Salesforce at all — it represents data that
                 remains in an external system and is fetched in real time when queried.</p>
+            <div style="overflow-x:auto;margin:16px 0;">
+                <table style="width:100%;border-collapse:collapse;font-size:0.85rem;">
+                    <thead>
+                        <tr style="background:#0f2044;color:#fff;">
+                            <th style="padding:9px 12px;text-align:left;border:1px solid #dde4f0;">Dimension</th>
+                            <th style="padding:9px 12px;text-align:left;border:1px solid #dde4f0;">Standard Object</th>
+                            <th style="padding:9px 12px;text-align:left;border:1px solid #dde4f0;">Big Object</th>
+                            <th style="padding:9px 12px;text-align:left;border:1px solid #dde4f0;">External Object</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr style="background:#f4f7fb;">
+                            <td style="padding:8px 12px;border:1px solid #dde4f0;font-weight:600;">Data location</td>
+                            <td style="padding:8px 12px;border:1px solid #dde4f0;">Salesforce DB</td>
+                            <td style="padding:8px 12px;border:1px solid #dde4f0;">Salesforce DB (separate tier)</td>
+                            <td style="padding:8px 12px;border:1px solid #dde4f0;">External system (live)</td>
+                        </tr>
+                        <tr>
+                            <td style="padding:8px 12px;border:1px solid #dde4f0;font-weight:600;">Max record scale</td>
+                            <td style="padding:8px 12px;border:1px solid #dde4f0;">Tens of millions</td>
+                            <td style="padding:8px 12px;border:1px solid #dde4f0;color:#2a5298;font-weight:600;">Billions</td>
+                            <td style="padding:8px 12px;border:1px solid #dde4f0;">Limited by external system</td>
+                        </tr>
+                        <tr style="background:#f4f7fb;">
+                            <td style="padding:8px 12px;border:1px solid #dde4f0;font-weight:600;">Query language</td>
+                            <td style="padding:8px 12px;border:1px solid #dde4f0;">SOQL</td>
+                            <td style="padding:8px 12px;border:1px solid #dde4f0;">Async SOQL</td>
+                            <td style="padding:8px 12px;border:1px solid #dde4f0;">SOQL (OData adapter)</td>
+                        </tr>
+                        <tr>
+                            <td style="padding:8px 12px;border:1px solid #dde4f0;font-weight:600;">Storage cost</td>
+                            <td style="padding:8px 12px;border:1px solid #dde4f0;">Standard allocation</td>
+                            <td style="padding:8px 12px;border:1px solid #dde4f0;">Lower cost per record</td>
+                            <td style="padding:8px 12px;border:1px solid #dde4f0;color:#2a5298;font-weight:600;">No Salesforce storage used</td>
+                        </tr>
+                        <tr style="background:#f4f7fb;">
+                            <td style="padding:8px 12px;border:1px solid #dde4f0;font-weight:600;">Automation support</td>
+                            <td style="padding:8px 12px;border:1px solid #dde4f0;">Full</td>
+                            <td style="padding:8px 12px;border:1px solid #dde4f0;">Limited</td>
+                            <td style="padding:8px 12px;border:1px solid #dde4f0;">Very limited</td>
+                        </tr>
+                        <tr>
+                            <td style="padding:8px 12px;border:1px solid #dde4f0;font-weight:600;">Best for</td>
+                            <td style="padding:8px 12px;border:1px solid #dde4f0;">Active operational data</td>
+                            <td style="padding:8px 12px;border:1px solid #dde4f0;">Long-term archive / audit trail</td>
+                            <td style="padding:8px 12px;border:1px solid #dde4f0;">Real-time view of external data without replication</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
         </div>
 
         <div class="qa-item">

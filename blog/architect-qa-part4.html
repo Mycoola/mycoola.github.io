@@ -97,6 +97,63 @@
                 large data volume load/extract. <strong>Streaming/Pub-Sub API</strong> — real-time event
                 consumption. <strong>GraphQL API</strong> — flexible, client-specified queries reducing
                 over-fetching for modern app integration.</p>
+            <div style="overflow-x:auto;margin:16px 0;">
+                <table style="width:100%;border-collapse:collapse;font-size:0.85rem;">
+                    <thead>
+                        <tr style="background:#0f2044;color:#fff;">
+                            <th style="padding:9px 12px;text-align:left;border:1px solid #dde4f0;">API</th>
+                            <th style="padding:9px 12px;text-align:left;border:1px solid #dde4f0;">Format</th>
+                            <th style="padding:9px 12px;text-align:left;border:1px solid #dde4f0;">Volume</th>
+                            <th style="padding:9px 12px;text-align:left;border:1px solid #dde4f0;">Pattern</th>
+                            <th style="padding:9px 12px;text-align:left;border:1px solid #dde4f0;">Best for</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr style="background:#f4f7fb;">
+                            <td style="padding:8px 12px;border:1px solid #dde4f0;"><strong>REST API</strong></td>
+                            <td style="padding:8px 12px;border:1px solid #dde4f0;">JSON</td>
+                            <td style="padding:8px 12px;border:1px solid #dde4f0;">Low–Med</td>
+                            <td style="padding:8px 12px;border:1px solid #dde4f0;">Sync</td>
+                            <td style="padding:8px 12px;border:1px solid #dde4f0;">Most integrations — CRUD operations</td>
+                        </tr>
+                        <tr>
+                            <td style="padding:8px 12px;border:1px solid #dde4f0;"><strong>SOAP API</strong></td>
+                            <td style="padding:8px 12px;border:1px solid #dde4f0;">XML</td>
+                            <td style="padding:8px 12px;border:1px solid #dde4f0;">Low–Med</td>
+                            <td style="padding:8px 12px;border:1px solid #dde4f0;">Sync</td>
+                            <td style="padding:8px 12px;border:1px solid #dde4f0;">Legacy system compatibility</td>
+                        </tr>
+                        <tr style="background:#f4f7fb;">
+                            <td style="padding:8px 12px;border:1px solid #dde4f0;"><strong>Bulk API 2.0</strong></td>
+                            <td style="padding:8px 12px;border:1px solid #dde4f0;">CSV/JSON</td>
+                            <td style="padding:8px 12px;border:1px solid #dde4f0;color:#2a5298;font-weight:600;">Very High</td>
+                            <td style="padding:8px 12px;border:1px solid #dde4f0;">Async</td>
+                            <td style="padding:8px 12px;border:1px solid #dde4f0;">Millions-of-record loads/exports</td>
+                        </tr>
+                        <tr>
+                            <td style="padding:8px 12px;border:1px solid #dde4f0;"><strong>Pub/Sub API</strong></td>
+                            <td style="padding:8px 12px;border:1px solid #dde4f0;">gRPC/Protobuf</td>
+                            <td style="padding:8px 12px;border:1px solid #dde4f0;">High</td>
+                            <td style="padding:8px 12px;border:1px solid #dde4f0;">Event-driven</td>
+                            <td style="padding:8px 12px;border:1px solid #dde4f0;">Real-time event streaming, CDC</td>
+                        </tr>
+                        <tr style="background:#f4f7fb;">
+                            <td style="padding:8px 12px;border:1px solid #dde4f0;"><strong>GraphQL API</strong></td>
+                            <td style="padding:8px 12px;border:1px solid #dde4f0;">JSON</td>
+                            <td style="padding:8px 12px;border:1px solid #dde4f0;">Low–Med</td>
+                            <td style="padding:8px 12px;border:1px solid #dde4f0;">Sync</td>
+                            <td style="padding:8px 12px;border:1px solid #dde4f0;">Modern apps needing flexible, minimal-fetch queries</td>
+                        </tr>
+                        <tr>
+                            <td style="padding:8px 12px;border:1px solid #dde4f0;"><strong>Composite API</strong></td>
+                            <td style="padding:8px 12px;border:1px solid #dde4f0;">JSON</td>
+                            <td style="padding:8px 12px;border:1px solid #dde4f0;">Med</td>
+                            <td style="padding:8px 12px;border:1px solid #dde4f0;">Sync</td>
+                            <td style="padding:8px 12px;border:1px solid #dde4f0;">Multiple related operations in one round-trip</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
         </div>
 
         <div class="qa-item">

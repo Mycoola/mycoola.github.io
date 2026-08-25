@@ -117,6 +117,42 @@
                 distinct Ids. <strong>Map</strong> — key-value pairs; ideal for fast lookups, commonly
                 <code>Map&lt;Id, SObject&gt;</code> to avoid repeated queries inside loops.
             </p>
+            <div style="overflow-x:auto;margin:16px 0;">
+                <table style="width:100%;border-collapse:collapse;font-size:0.85rem;">
+                    <thead>
+                        <tr style="background:#0f2044;color:#fff;">
+                            <th style="padding:9px 12px;text-align:left;border:1px solid #dde4f0;">Collection</th>
+                            <th style="padding:9px 12px;text-align:left;border:1px solid #dde4f0;">Ordered?</th>
+                            <th style="padding:9px 12px;text-align:left;border:1px solid #dde4f0;">Duplicates?</th>
+                            <th style="padding:9px 12px;text-align:left;border:1px solid #dde4f0;">Access</th>
+                            <th style="padding:9px 12px;text-align:left;border:1px solid #dde4f0;">Primary use case</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr style="background:#f4f7fb;">
+                            <td style="padding:8px 12px;border:1px solid #dde4f0;"><strong>List&lt;T&gt;</strong></td>
+                            <td style="padding:8px 12px;border:1px solid #dde4f0;">Yes</td>
+                            <td style="padding:8px 12px;border:1px solid #dde4f0;">Yes</td>
+                            <td style="padding:8px 12px;border:1px solid #dde4f0;">By index</td>
+                            <td style="padding:8px 12px;border:1px solid #dde4f0;">Trigger.new, SOQL results, ordered data</td>
+                        </tr>
+                        <tr>
+                            <td style="padding:8px 12px;border:1px solid #dde4f0;"><strong>Set&lt;T&gt;</strong></td>
+                            <td style="padding:8px 12px;border:1px solid #dde4f0;">No</td>
+                            <td style="padding:8px 12px;border:1px solid #dde4f0;">No</td>
+                            <td style="padding:8px 12px;border:1px solid #dde4f0;">contains()</td>
+                            <td style="padding:8px 12px;border:1px solid #dde4f0;">Collecting distinct Ids for a single SOQL query</td>
+                        </tr>
+                        <tr style="background:#f4f7fb;">
+                            <td style="padding:8px 12px;border:1px solid #dde4f0;"><strong>Map&lt;K,V&gt;</strong></td>
+                            <td style="padding:8px 12px;border:1px solid #dde4f0;">No</td>
+                            <td style="padding:8px 12px;border:1px solid #dde4f0;">Keys: No</td>
+                            <td style="padding:8px 12px;border:1px solid #dde4f0;">By key</td>
+                            <td style="padding:8px 12px;border:1px solid #dde4f0;"><code>Map&lt;Id, SObject&gt;</code> — O(1) lookup inside loops</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
         </div>
 
         <div class="qa-item">

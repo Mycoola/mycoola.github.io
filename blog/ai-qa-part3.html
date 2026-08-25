@@ -99,6 +99,49 @@
                 fine-tuning. It's preferred when the underlying knowledge changes frequently (fine-tuning would
                 require expensive retraining) or when you need the model to cite/ground its answer in specific,
                 verifiable source data.</p>
+            <div style="overflow-x:auto;margin:16px 0;">
+                <table style="width:100%;border-collapse:collapse;font-size:0.85rem;">
+                    <thead>
+                        <tr style="background:#0f2044;color:#fff;">
+                            <th style="padding:9px 12px;text-align:left;border:1px solid #dde4f0;">Dimension</th>
+                            <th style="padding:9px 12px;text-align:left;border:1px solid #dde4f0;">RAG</th>
+                            <th style="padding:9px 12px;text-align:left;border:1px solid #dde4f0;">Fine-tuning</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr style="background:#f4f7fb;">
+                            <td style="padding:8px 12px;border:1px solid #dde4f0;font-weight:600;">How knowledge is added</td>
+                            <td style="padding:8px 12px;border:1px solid #dde4f0;">Retrieved at query time (prompt context)</td>
+                            <td style="padding:8px 12px;border:1px solid #dde4f0;">Baked into model weights during training</td>
+                        </tr>
+                        <tr>
+                            <td style="padding:8px 12px;border:1px solid #dde4f0;font-weight:600;">Knowledge freshness</td>
+                            <td style="padding:8px 12px;border:1px solid #dde4f0;color:#2a5298;font-weight:600;">Real-time (update docs, instantly current)</td>
+                            <td style="padding:8px 12px;border:1px solid #dde4f0;">Stale until retrained</td>
+                        </tr>
+                        <tr style="background:#f4f7fb;">
+                            <td style="padding:8px 12px;border:1px solid #dde4f0;font-weight:600;">Cost to update</td>
+                            <td style="padding:8px 12px;border:1px solid #dde4f0;color:#2a5298;font-weight:600;">Low — update the knowledge base</td>
+                            <td style="padding:8px 12px;border:1px solid #dde4f0;">High — full retraining run</td>
+                        </tr>
+                        <tr>
+                            <td style="padding:8px 12px;border:1px solid #dde4f0;font-weight:600;">Citability / grounding</td>
+                            <td style="padding:8px 12px;border:1px solid #dde4f0;color:#2a5298;font-weight:600;">Yes — source chunks are explicit</td>
+                            <td style="padding:8px 12px;border:1px solid #dde4f0;">No — knowledge is opaque in weights</td>
+                        </tr>
+                        <tr style="background:#f4f7fb;">
+                            <td style="padding:8px 12px;border:1px solid #dde4f0;font-weight:600;">Best for</td>
+                            <td style="padding:8px 12px;border:1px solid #dde4f0;">Dynamic knowledge, enterprise docs, grounded Q&amp;A</td>
+                            <td style="padding:8px 12px;border:1px solid #dde4f0;">Style/tone adaptation, task format specialization</td>
+                        </tr>
+                        <tr>
+                            <td style="padding:8px 12px;border:1px solid #dde4f0;font-weight:600;">Hallucination risk</td>
+                            <td style="padding:8px 12px;border:1px solid #dde4f0;color:#2a5298;font-weight:600;">Lower (grounded in retrieved source)</td>
+                            <td style="padding:8px 12px;border:1px solid #dde4f0;">Potentially higher for facts not in training data</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
         </div>
 
         <div class="qa-item">

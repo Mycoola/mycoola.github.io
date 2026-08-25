@@ -122,6 +122,55 @@
             <p>100 SOQL queries per transaction (200 for async), 150 DML statements, 50,000 records retrieved
                 by SOQL, 10,000 DML rows, 6MB heap size (12MB for async), and 10 seconds of CPU time (60 for
                 async). Bulkified code respects these regardless of batch size.</p>
+            <div style="overflow-x:auto;margin:16px 0;">
+                <table style="width:100%;border-collapse:collapse;font-size:0.88rem;">
+                    <thead>
+                        <tr style="background:#0f2044;color:#fff;">
+                            <th style="padding:9px 12px;text-align:left;border:1px solid #dde4f0;">Limit</th>
+                            <th style="padding:9px 12px;text-align:center;border:1px solid #dde4f0;">Synchronous</th>
+                            <th style="padding:9px 12px;text-align:center;border:1px solid #dde4f0;">Async (Future / Queueable / Batch)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr style="background:#f4f7fb;">
+                            <td style="padding:8px 12px;border:1px solid #dde4f0;">SOQL queries</td>
+                            <td style="padding:8px 12px;border:1px solid #dde4f0;text-align:center;">100</td>
+                            <td style="padding:8px 12px;border:1px solid #dde4f0;text-align:center;color:#2a5298;font-weight:600;">200</td>
+                        </tr>
+                        <tr>
+                            <td style="padding:8px 12px;border:1px solid #dde4f0;">SOQL rows returned</td>
+                            <td style="padding:8px 12px;border:1px solid #dde4f0;text-align:center;">50,000</td>
+                            <td style="padding:8px 12px;border:1px solid #dde4f0;text-align:center;color:#2a5298;font-weight:600;">50,000</td>
+                        </tr>
+                        <tr style="background:#f4f7fb;">
+                            <td style="padding:8px 12px;border:1px solid #dde4f0;">DML statements</td>
+                            <td style="padding:8px 12px;border:1px solid #dde4f0;text-align:center;">150</td>
+                            <td style="padding:8px 12px;border:1px solid #dde4f0;text-align:center;color:#2a5298;font-weight:600;">150</td>
+                        </tr>
+                        <tr>
+                            <td style="padding:8px 12px;border:1px solid #dde4f0;">DML rows processed</td>
+                            <td style="padding:8px 12px;border:1px solid #dde4f0;text-align:center;">10,000</td>
+                            <td style="padding:8px 12px;border:1px solid #dde4f0;text-align:center;color:#2a5298;font-weight:600;">10,000</td>
+                        </tr>
+                        <tr style="background:#f4f7fb;">
+                            <td style="padding:8px 12px;border:1px solid #dde4f0;">Heap size</td>
+                            <td style="padding:8px 12px;border:1px solid #dde4f0;text-align:center;">6 MB</td>
+                            <td style="padding:8px 12px;border:1px solid #dde4f0;text-align:center;color:#2a5298;font-weight:600;">12 MB</td>
+                        </tr>
+                        <tr>
+                            <td style="padding:8px 12px;border:1px solid #dde4f0;">CPU time</td>
+                            <td style="padding:8px 12px;border:1px solid #dde4f0;text-align:center;">10 sec</td>
+                            <td style="padding:8px 12px;border:1px solid #dde4f0;text-align:center;color:#2a5298;font-weight:600;">60 sec</td>
+                        </tr>
+                        <tr style="background:#f4f7fb;">
+                            <td style="padding:8px 12px;border:1px solid #dde4f0;">Callouts</td>
+                            <td style="padding:8px 12px;border:1px solid #dde4f0;text-align:center;">100</td>
+                            <td style="padding:8px 12px;border:1px solid #dde4f0;text-align:center;color:#2a5298;font-weight:600;">100</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <p style="font-size:0.8rem;color:#5a6a8a;margin:6px 0 0;">Blue = higher limit in async context. Batch execute() gets its own fresh limits per chunk.</p>
+            </div>
         </div>
 
         <h2>Asynchronous Apex</h2>

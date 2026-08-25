@@ -114,6 +114,49 @@
                 traversal) and is ideal when you know which object/fields you're targeting. SOSL (Salesforce
                 Object Search Language) performs a full-text search across multiple objects and fields
                 simultaneously, ideal for a global "search everywhere" experience.</p>
+            <div style="overflow-x:auto;margin:16px 0;">
+                <table style="width:100%;border-collapse:collapse;font-size:0.85rem;">
+                    <thead>
+                        <tr style="background:#0f2044;color:#fff;">
+                            <th style="padding:9px 12px;text-align:left;border:1px solid #dde4f0;">Dimension</th>
+                            <th style="padding:9px 12px;text-align:left;border:1px solid #dde4f0;">SOQL</th>
+                            <th style="padding:9px 12px;text-align:left;border:1px solid #dde4f0;">SOSL</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr style="background:#f4f7fb;">
+                            <td style="padding:8px 12px;border:1px solid #dde4f0;font-weight:600;">Objects targeted</td>
+                            <td style="padding:8px 12px;border:1px solid #dde4f0;">One object (+ relationships)</td>
+                            <td style="padding:8px 12px;border:1px solid #dde4f0;color:#2a5298;font-weight:600;">Multiple objects simultaneously</td>
+                        </tr>
+                        <tr>
+                            <td style="padding:8px 12px;border:1px solid #dde4f0;font-weight:600;">Search type</td>
+                            <td style="padding:8px 12px;border:1px solid #dde4f0;">Exact field match / filter</td>
+                            <td style="padding:8px 12px;border:1px solid #dde4f0;">Full-text search (tokenized)</td>
+                        </tr>
+                        <tr style="background:#f4f7fb;">
+                            <td style="padding:8px 12px;border:1px solid #dde4f0;font-weight:600;">Governor limit (Apex)</td>
+                            <td style="padding:8px 12px;border:1px solid #dde4f0;">100 queries per tx</td>
+                            <td style="padding:8px 12px;border:1px solid #dde4f0;">20 queries per tx</td>
+                        </tr>
+                        <tr>
+                            <td style="padding:8px 12px;border:1px solid #dde4f0;font-weight:600;">DML possible after?</td>
+                            <td style="padding:8px 12px;border:1px solid #dde4f0;">Yes</td>
+                            <td style="padding:8px 12px;border:1px solid #dde4f0;">Yes</td>
+                        </tr>
+                        <tr style="background:#f4f7fb;">
+                            <td style="padding:8px 12px;border:1px solid #dde4f0;font-weight:600;">Typical use</td>
+                            <td style="padding:8px 12px;border:1px solid #dde4f0;">Known object queries, data processing</td>
+                            <td style="padding:8px 12px;border:1px solid #dde4f0;">Global search UIs, cross-object lookup</td>
+                        </tr>
+                        <tr>
+                            <td style="padding:8px 12px;border:1px solid #dde4f0;font-weight:600;">Syntax example</td>
+                            <td style="padding:8px 12px;border:1px solid #dde4f0;font-family:monospace;font-size:0.8rem;">SELECT Id FROM Contact WHERE Email = :email</td>
+                            <td style="padding:8px 12px;border:1px solid #dde4f0;font-family:monospace;font-size:0.8rem;">FIND {Acme} IN ALL FIELDS RETURNING Account, Contact</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
         </div>
 
         <div class="qa-item">

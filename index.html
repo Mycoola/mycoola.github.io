@@ -1022,6 +1022,99 @@
             border-radius: var(--radius);
         }
 
+        /* ─── READING LIST ─── */
+        #reading {
+            background: var(--white);
+        }
+
+        .reading-table-wrap {
+            overflow-x: auto;
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+        }
+
+        .reading-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: .88rem;
+            background: var(--white);
+        }
+
+        .reading-table th {
+            background: var(--light);
+            color: var(--navy);
+            text-align: left;
+            font-weight: 700;
+            padding: 12px 16px;
+            white-space: nowrap;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .reading-table td {
+            padding: 14px 16px;
+            border-bottom: 1px solid var(--border);
+            color: var(--text);
+            vertical-align: top;
+        }
+
+        .reading-table tr:last-child td {
+            border-bottom: none;
+        }
+
+        .reading-table tr[hidden] {
+            display: none;
+        }
+
+        .reading-table a {
+            color: var(--blue);
+            font-weight: 600;
+            text-decoration: none;
+        }
+
+        .reading-table a:hover {
+            color: var(--accent2);
+        }
+
+        .reading-tag {
+            display: inline-block;
+            font-size: .72rem;
+            font-weight: 600;
+            padding: 3px 10px;
+            border-radius: 20px;
+            background: rgba(42, 82, 152, .08);
+            color: var(--blue);
+            white-space: nowrap;
+        }
+
+        .reading-status {
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            font-size: .72rem;
+            font-weight: 700;
+            padding: 3px 10px;
+            border-radius: 20px;
+            white-space: nowrap;
+        }
+
+        .reading-status.read {
+            background: #f0fdf4;
+            color: #16a34a;
+            border: 1px solid #bbf7d0;
+        }
+
+        .reading-status.to-read {
+            background: #fff4e6;
+            color: #c2550b;
+            border: 1px solid #fed7aa;
+        }
+
+        .reading-summary {
+            color: var(--muted);
+            min-width: 240px;
+        }
+
         /* ─── CONTACT ─── */
         #contact {
             background: var(--white);
@@ -1198,6 +1291,115 @@
         .edu-card .edu-date {
             font-size: .78rem;
             color: var(--muted);
+        }
+
+        /* ─── SKILL GROWTH PLAN ─── */
+        #growth {
+            background: var(--navy);
+        }
+
+        #growth .section-title,
+        #growth .section-label {
+            color: var(--white);
+        }
+
+        #growth .section-desc {
+            color: rgba(255, 255, 255, .55);
+        }
+
+        .growth-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 18px;
+        }
+
+        .growth-card {
+            background: rgba(255, 255, 255, .06);
+            border: 1px solid rgba(255, 255, 255, .1);
+            border-radius: 14px;
+            padding: 20px 22px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            transition: background var(--transition), transform var(--transition);
+        }
+
+        .growth-card:hover {
+            background: rgba(255, 255, 255, .1);
+            transform: translateY(-3px);
+        }
+
+        .growth-card-top {
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-between;
+            gap: 10px;
+        }
+
+        .growth-name {
+            font-size: 1rem;
+            font-weight: 700;
+            color: var(--white);
+            line-height: 1.3;
+        }
+
+        .growth-levels {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            flex-shrink: 0;
+            white-space: nowrap;
+        }
+
+        .growth-pill {
+            font-size: .72rem;
+            font-weight: 700;
+            padding: 3px 9px;
+            border-radius: 20px;
+        }
+
+        .growth-pill.current {
+            background: rgba(255, 138, 101, .18);
+            color: #ffab91;
+            border: 1px solid rgba(255, 138, 101, .35);
+        }
+
+        .growth-pill.target {
+            background: rgba(126, 200, 227, .18);
+            color: var(--accent);
+            border: 1px solid rgba(126, 200, 227, .35);
+        }
+
+        .growth-why {
+            font-size: .85rem;
+            color: rgba(255, 255, 255, .65);
+            line-height: 1.55;
+            flex: 1;
+        }
+
+        .growth-trail-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            font-size: .8rem;
+            font-weight: 600;
+            color: var(--accent);
+            text-decoration: none;
+            border-top: 1px solid rgba(255, 255, 255, .1);
+            padding-top: 12px;
+            margin-top: auto;
+            transition: color var(--transition);
+        }
+
+        .growth-trail-link:hover {
+            color: #fff;
+        }
+
+        .growth-meta {
+            font-size: .72rem;
+            color: rgba(255, 255, 255, .4);
+            text-transform: uppercase;
+            letter-spacing: .6px;
         }
 
         /* ─── MAINTENANCE MODULES ─── */
@@ -1408,10 +1610,12 @@
             <li><a href="#experience">Experience</a></li>
             <li><a href="#projects">Projects</a></li>
             <li><a href="#trailblazer">Trailhead</a></li>
+            <li><a href="#growth">Growth Plan</a></li>
             <li><a href="#maintenance">Updates</a></li>
             <li><a href="#certifications">Certs</a></li>
             <li><a href="#education">Education</a></li>
             <li><a href="#blog">Blog</a></li>
+            <li><a href="#reading">Reading List</a></li>
             <li><a href="#contact" class="nav-cta">Contact</a></li>
         </ul>
         <button class="hamburger" id="hamburger" aria-label="Toggle menu">
@@ -1425,10 +1629,12 @@
         <a href="#experience" class="mobile-link">Experience</a>
         <a href="#projects" class="mobile-link">Projects</a>
         <a href="#trailblazer" class="mobile-link">Trailhead</a>
+        <a href="#growth" class="mobile-link">Growth Plan</a>
         <a href="#maintenance" class="mobile-link">Release Updates</a>
         <a href="#certifications" class="mobile-link">Certifications</a>
         <a href="#education" class="mobile-link">Education</a>
         <a href="#blog" class="mobile-link">Blog</a>
+        <a href="#reading" class="mobile-link">Reading List</a>
         <a href="#contact" class="mobile-link">Contact</a>
     </div>
 
@@ -2526,6 +2732,123 @@
         </div>
     </section>
 
+    <!-- ─── SKILL GROWTH PLAN ─── -->
+    <section id="growth">
+        <div class="container">
+            <p class="section-label fade-in">Self-Assessment → Action Plan</p>
+            <h2 class="section-title fade-in">Where I'm Investing Next</h2>
+            <p class="section-desc fade-in">
+                Mapping my own 1–5 capability self-rating (used for talent-matrix assessments) against my 580-badge
+                Trailhead history surfaced a clear pattern: I'm deepest in core clouds, Apex/LWC, integrations, and
+                OmniStudio — and lightest in a few adjacent product lines that recruiters increasingly screen for.
+                Below are the gaps, why they matter, and the exact Trailhead trail I'm running through next.
+            </p>
+
+            <div class="growth-grid fade-in">
+
+                <div class="growth-card">
+                    <div class="growth-card-top">
+                        <div class="growth-name">Data Cloud</div>
+                        <div class="growth-levels">
+                            <span class="growth-pill current">Now: 2</span>
+                            <span class="growth-pill target">Target: 4</span>
+                        </div>
+                    </div>
+                    <p class="growth-why">Every Salesforce talent matrix I've filled out this year scores Data Cloud
+                        separately from core clouds — it's becoming table stakes for Architect-track roles and pairs
+                        directly with the Agentforce/Einstein work already on my resume.</p>
+                    <div class="growth-meta">Trail · 89 hrs · Data Cloud Consultant prep</div>
+                    <a href="https://trailhead.salesforce.com/content/learn/trails/unlock-your-data-with-data-cloud"
+                        class="growth-trail-link" target="_blank" rel="noopener">Unlock Your Data with Data Cloud →</a>
+                </div>
+
+                <div class="growth-card">
+                    <div class="growth-card-top">
+                        <div class="growth-name">Revenue Cloud</div>
+                        <div class="growth-levels">
+                            <span class="growth-pill current">Now: 2</span>
+                            <span class="growth-pill target">Target: 4</span>
+                        </div>
+                    </div>
+                    <p class="growth-why">I already ship CPQ/B2B Commerce work (promo engines, quoting flows) — Revenue
+                        Cloud is the natural next step to cover the full product-to-cash lifecycle for enterprise
+                        clients moving off legacy CPQ.</p>
+                    <div class="growth-meta">Trail · ~20 hrs · Revenue Cloud Consultant prep</div>
+                    <a href="https://trailhead.salesforce.com/content/learn/trails/explore-revenue-cloud-fundamentals"
+                        class="growth-trail-link" target="_blank" rel="noopener">Explore Revenue Cloud Fundamentals
+                        →</a>
+                </div>
+
+                <div class="growth-card">
+                    <div class="growth-card-top">
+                        <div class="growth-name">MuleSoft Integration</div>
+                        <div class="growth-levels">
+                            <span class="growth-pill current">Now: 1</span>
+                            <span class="growth-pill target">Target: 3</span>
+                        </div>
+                    </div>
+                    <p class="growth-why">My integration experience is REST/SOAP/Platform Events-heavy but
+                        MuleSoft-free.
+                        Since Anypoint shows up in nearly every enterprise integration RFP, a working-level trail here
+                        closes the biggest single gap versus Integration Architect roles.</p>
+                    <div class="growth-meta">Trail · ~1 hr · APIs &amp; application networks</div>
+                    <a href="https://trailhead.salesforce.com/content/learn/trails/great-integrations-mulesoft"
+                        class="growth-trail-link" target="_blank" rel="noopener">Build Great APIs and Integrations with
+                        MuleSoft →</a>
+                </div>
+
+                <div class="growth-card">
+                    <div class="growth-card-top">
+                        <div class="growth-name">CRM Analytics / Tableau CRM</div>
+                        <div class="growth-levels">
+                            <span class="growth-pill current">Now: 1</span>
+                            <span class="growth-pill target">Target: 3</span>
+                        </div>
+                    </div>
+                    <p class="growth-why">I build the reports/dashboards clients ask for in native Lightning, but I
+                        haven't touched CRM Analytics' dataflows or dashboards — worth a foundational badge given how
+                        often BI comes up alongside Data Cloud conversations.</p>
+                    <div class="growth-meta">Module · ~50 mins · Foundational</div>
+                    <a href="https://trailhead.salesforce.com/content/learn/modules/wave_analytics_basics"
+                        class="growth-trail-link" target="_blank" rel="noopener">CRM Analytics Basics →</a>
+                </div>
+
+                <div class="growth-card">
+                    <div class="growth-card-top">
+                        <div class="growth-name">Marketing Cloud Engagement</div>
+                        <div class="growth-levels">
+                            <span class="growth-pill current">Now: 2</span>
+                            <span class="growth-pill target">Target: 3</span>
+                        </div>
+                    </div>
+                    <p class="growth-why">Journey Builder, Email Studio, and Pardot are still no-exposure for me. Not a
+                        priority for Architect roles, but a quick working-level pass would round out consultant-track
+                        applications that bundle Marketing Cloud with Sales/Service Cloud.</p>
+                    <div class="growth-meta">Badge · ~20 mins · Foundational</div>
+                    <a href="https://trailhead.salesforce.com/content/learn/modules/mrkt_cloud_basics"
+                        class="growth-trail-link" target="_blank" rel="noopener">Marketing Cloud Engagement Basics →</a>
+                </div>
+
+                <div class="growth-card">
+                    <div class="growth-card-top">
+                        <div class="growth-name">Agentforce (deepen)</div>
+                        <div class="growth-levels">
+                            <span class="growth-pill current">Now: 4</span>
+                            <span class="growth-pill target">Target: 5</span>
+                        </div>
+                    </div>
+                    <p class="growth-why">I've already shipped a hub-and-spoke Agentforce agent (CV Review Agent
+                        project), so this is about converting hands-on delivery into recognized Agentblazer status and
+                        eventually the Agentforce Specialist certification.</p>
+                    <div class="growth-meta">Program · Agentblazer Innovator → Legend</div>
+                    <a href="https://trailhead.salesforce.com/agentblazer" class="growth-trail-link" target="_blank"
+                        rel="noopener">Earn Agentblazer Status →</a>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
     <!-- ─── MAINTENANCE MODULES ─── -->
     <section id="maintenance">
         <div class="container">
@@ -3158,6 +3481,63 @@
                     <a href="blog/ai-qa-part5.html" class="blog-read-more">Read more →</a>
                 </div>
 
+                <div class="blog-card">
+                    <div class="blog-date">August 2026</div>
+                    <div class="blog-title">AI Fluency Framework Q&amp;A — Delegation, Description, Discernment,
+                        Diligence</div>
+                    <div class="blog-excerpt">
+                        10 questions on Anthropic's AI Fluency Framework and why the 4D competencies matter for
+                        effective human-AI collaboration.
+                    </div>
+                    <a href="blog/ai-fluency-framework-qa.html" class="blog-read-more">Read more →</a>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- ─── READING LIST ─── -->
+    <section id="reading">
+        <div class="container">
+            <p class="section-label fade-in">Continuous Learning</p>
+            <h2 class="section-title fade-in">Reading List</h2>
+            <p class="section-desc fade-in">Articles and courses I've read or worked through, tagged by topic. Items
+                marked Read often get turned into a Q&amp;A post in the <a href="#blog">Blog</a> section above.</p>
+
+            <div class="filter-bar fade-in" id="readingFilterBar">
+                <button class="filter-btn active" data-reading-filter="all">All</button>
+                <button class="filter-btn" data-reading-filter="ai">AI</button>
+                <button class="filter-btn" data-reading-filter="salesforce">Salesforce</button>
+                <button class="filter-btn" data-reading-filter="architecture">Architecture</button>
+                <button class="filter-btn" data-reading-filter="career">Career</button>
+            </div>
+
+            <div class="reading-table-wrap fade-in">
+                <table class="reading-table" id="readingTable">
+                    <thead>
+                        <tr>
+                            <th>Title</th>
+                            <th>Tag</th>
+                            <th>Summary</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+
+                        <tr data-reading-category="ai">
+                            <td><a href="https://anthropic-partners.skilljar.com/ai-fluency-framework-foundations/291870"
+                                    target="_blank" rel="noopener">AI Fluency: Framework &amp; Foundations
+                                    (Anthropic)</a></td>
+                            <td><span class="reading-tag">AI</span></td>
+                            <td class="reading-summary">Anthropic/Ringling/UCC course introducing the 4D
+                                Framework (Delegation, Description, Discernment, Diligence) for effective,
+                                ethical human-AI collaboration. <a href="blog/ai-fluency-framework-qa.html">Q&amp;A
+                                    post →</a></td>
+                            <td><span class="reading-status read">✓ Read</span></td>
+                        </tr>
+
+                    </tbody>
+                </table>
             </div>
         </div>
     </section>
@@ -3316,6 +3696,23 @@
                         card.removeAttribute('hidden');
                     } else {
                         card.setAttribute('hidden', '');
+                    }
+                });
+            });
+        });
+
+        // Reading list filter tabs
+        document.querySelectorAll('#readingFilterBar .filter-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                document.querySelectorAll('#readingFilterBar .filter-btn').forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                const filter = btn.dataset.readingFilter;
+                document.querySelectorAll('#readingTable tbody tr').forEach(row => {
+                    const cats = (row.dataset.readingCategory || '').split(' ');
+                    if (filter === 'all' || cats.includes(filter)) {
+                        row.removeAttribute('hidden');
+                    } else {
+                        row.setAttribute('hidden', '');
                     }
                 });
             });

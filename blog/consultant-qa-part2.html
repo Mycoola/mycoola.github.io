@@ -60,6 +60,49 @@
                 Items without an Order) and you need cascading delete or roll-up summaries. Use Lookup when
                 the child can exist independently or when the relationship might need to become optional or
                 change later — Master-Detail is much harder to convert after data exists.</p>
+            <div style="overflow-x:auto;margin:16px 0;">
+                <table style="width:100%;border-collapse:collapse;font-size:0.85rem;">
+                    <thead>
+                        <tr style="background:#0f2044;color:#fff;">
+                            <th style="padding:9px 12px;text-align:left;border:1px solid #dde4f0;">Dimension</th>
+                            <th style="padding:9px 12px;text-align:left;border:1px solid #dde4f0;">Lookup</th>
+                            <th style="padding:9px 12px;text-align:left;border:1px solid #dde4f0;">Master-Detail</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr style="background:#f4f7fb;">
+                            <td style="padding:8px 12px;border:1px solid #dde4f0;font-weight:600;">Child independence</td>
+                            <td style="padding:8px 12px;border:1px solid #dde4f0;">Exists without parent</td>
+                            <td style="padding:8px 12px;border:1px solid #dde4f0;">Requires parent (required field)</td>
+                        </tr>
+                        <tr>
+                            <td style="padding:8px 12px;border:1px solid #dde4f0;font-weight:600;">Parent deleted</td>
+                            <td style="padding:8px 12px;border:1px solid #dde4f0;">Child field set to null</td>
+                            <td style="padding:8px 12px;border:1px solid #dde4f0;color:#c0392b;font-weight:600;">Cascades — children deleted</td>
+                        </tr>
+                        <tr style="background:#f4f7fb;">
+                            <td style="padding:8px 12px;border:1px solid #dde4f0;font-weight:600;">Roll-Up Summary</td>
+                            <td style="padding:8px 12px;border:1px solid #dde4f0;">Not supported</td>
+                            <td style="padding:8px 12px;border:1px solid #dde4f0;color:#2a5298;font-weight:600;">Supported (SUM, COUNT, MIN, MAX)</td>
+                        </tr>
+                        <tr>
+                            <td style="padding:8px 12px;border:1px solid #dde4f0;font-weight:600;">Sharing inherited</td>
+                            <td style="padding:8px 12px;border:1px solid #dde4f0;">No — own OWD</td>
+                            <td style="padding:8px 12px;border:1px solid #dde4f0;">Yes — inherits from master</td>
+                        </tr>
+                        <tr style="background:#f4f7fb;">
+                            <td style="padding:8px 12px;border:1px solid #dde4f0;font-weight:600;">Max per object</td>
+                            <td style="padding:8px 12px;border:1px solid #dde4f0;">25 per object</td>
+                            <td style="padding:8px 12px;border:1px solid #dde4f0;">2 per object</td>
+                        </tr>
+                        <tr>
+                            <td style="padding:8px 12px;border:1px solid #dde4f0;font-weight:600;">Convert later</td>
+                            <td style="padding:8px 12px;border:1px solid #dde4f0;">Can convert to MD (with data)</td>
+                            <td style="padding:8px 12px;border:1px solid #dde4f0;color:#c0392b;">Hard to convert back after data exists</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
         </div>
 
         <div class="qa-item">
