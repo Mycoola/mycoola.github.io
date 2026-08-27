@@ -103,12 +103,14 @@
             display: flex;
             gap: 28px;
             list-style: none;
+            flex-shrink: 0;
         }
 
         .nav-links a {
             font-size: .88rem;
             font-weight: 500;
             color: var(--muted);
+            white-space: nowrap;
             transition: color var(--transition);
         }
 
@@ -437,7 +439,7 @@
 
         .skills-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(min(220px, 100%), 1fr));
             gap: 28px;
         }
 
@@ -606,7 +608,7 @@
 
         .projects-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(min(270px, 100%), 1fr));
             gap: 22px;
         }
 
@@ -693,7 +695,7 @@
 
         .cert-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+            grid-template-columns: repeat(auto-fill, minmax(min(240px, 100%), 1fr));
             gap: 14px;
         }
 
@@ -752,7 +754,7 @@
 
         .course-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            grid-template-columns: repeat(auto-fill, minmax(min(280px, 100%), 1fr));
             gap: 14px;
         }
 
@@ -817,6 +819,10 @@
             width: 110px;
             height: 110px;
             flex-shrink: 0;
+        }
+
+        .tb-hero-text {
+            min-width: 0;
         }
 
         .tb-hero-text h3 {
@@ -895,7 +901,7 @@
 
         .sb-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            grid-template-columns: repeat(auto-fill, minmax(min(280px, 100%), 1fr));
             gap: 12px;
         }
 
@@ -956,7 +962,7 @@
 
         .blog-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(min(280px, 100%), 1fr));
             gap: 22px;
         }
 
@@ -1239,6 +1245,7 @@
             background: var(--light);
             border: 1px solid var(--border);
             border-radius: var(--radius);
+            min-width: 0;
             transition: transform var(--transition), box-shadow var(--transition);
         }
 
@@ -1249,6 +1256,11 @@
 
         .contact-link-icon {
             font-size: 1.3rem;
+            flex-shrink: 0;
+        }
+
+        .contact-link-text {
+            min-width: 0;
         }
 
         .contact-link-label {
@@ -1260,6 +1272,7 @@
             font-size: .95rem;
             font-weight: 600;
             color: var(--navy);
+            overflow-wrap: anywhere;
         }
 
         .contact-resume {
@@ -1346,7 +1359,7 @@
 
         .edu-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(min(260px, 100%), 1fr));
             gap: 20px;
         }
 
@@ -1407,7 +1420,7 @@
 
         .growth-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            grid-template-columns: repeat(auto-fill, minmax(min(300px, 100%), 1fr));
             gap: 18px;
         }
 
@@ -1507,7 +1520,7 @@
 
         .maint-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+            grid-template-columns: repeat(auto-fill, minmax(min(340px, 100%), 1fr));
             gap: 24px;
         }
 
@@ -1645,7 +1658,7 @@
         }
 
         /* ─── RESPONSIVE ─── */
-        @media (max-width: 768px) {
+        @media (max-width: 1150px) {
             nav {
                 padding: 0 20px;
             }
@@ -1657,7 +1670,9 @@
             .hamburger {
                 display: flex;
             }
+        }
 
+        @media (max-width: 768px) {
             section {
                 padding: 60px 20px;
             }
@@ -3666,8 +3681,8 @@
                     <div class="blog-title">Cursor AI Agent Q&amp;A — Models, Context, Tool Calling &amp; Plan
                         Mode</div>
                     <div class="blog-excerpt">
-                        14 questions on how AI models work, tokens/pricing, context management, tool calling,
-                        hallucinations, and Cursor's Plan Mode.
+                        16 questions on how AI models work, tokens/pricing, context management, tool calling,
+                        hallucinations, Plan Mode, and the multi-workspace Agents Window.
                     </div>
                     <a href="blog/cursor-ai-agent-qa.html" class="blog-read-more">Read more →</a>
                 </div>
@@ -5563,6 +5578,17 @@
                                 commands, and search the web, plus the token cost of tool definitions and results, and
                                 MCP as a universal tool standard. <a href="blog/cursor-ai-agent-qa.html">Q&amp;A
                                     post →</a></td>
+                            <td><span class="reading-status read">&#10003; Read</span></td>
+                        </tr>
+
+                        <tr data-reading-category="ai">
+                            <td><a href="https://cursor.com/docs/agent/agents-window" target="_blank"
+                                    rel="noopener">Agents Window | Cursor Docs</a></td>
+                            <td><span class="reading-tag">AI</span></td>
+                            <td class="reading-summary">Cursor's agent-first interface for running many parallel local
+                                and cloud agents across repos, with worktrees, PR diffs, and easy local/cloud handoff.
+                                <a href="blog/cursor-ai-agent-qa.html">Q&amp;A post →</a>
+                            </td>
                             <td><span class="reading-status read">&#10003; Read</span></td>
                         </tr>
 
@@ -28791,21 +28817,21 @@
                 <div class="contact-info">
                     <a href="mailto:dev.michael.girgis@gmail.com" class="contact-link">
                         <div class="contact-link-icon">✉️</div>
-                        <div>
+                        <div class="contact-link-text">
                             <div class="contact-link-label">Email</div>
                             <div class="contact-link-value">dev.michael.girgis@gmail.com</div>
                         </div>
                     </a>
                     <a href="https://linkedin.com/in/mycoola" target="_blank" rel="noopener" class="contact-link">
                         <div class="contact-link-icon">🔗</div>
-                        <div>
+                        <div class="contact-link-text">
                             <div class="contact-link-label">LinkedIn</div>
                             <div class="contact-link-value">linkedin.com/in/mycoola</div>
                         </div>
                     </a>
                     <a href="tel:+201008630464" class="contact-link">
                         <div class="contact-link-icon">📞</div>
-                        <div>
+                        <div class="contact-link-text">
                             <div class="contact-link-label">Phone / WhatsApp</div>
                             <div class="contact-link-value">+20 100 863 0464</div>
                         </div>
@@ -28813,7 +28839,7 @@
                     <a href="https://www.salesforce.com/trailblazer/mycoola" target="_blank" rel="noopener"
                         class="contact-link">
                         <div class="contact-link-icon">⭐</div>
-                        <div>
+                        <div class="contact-link-text">
                             <div class="contact-link-label">Trailhead</div>
                             <div class="contact-link-value">Five-Star Ranger Profile</div>
                         </div>
